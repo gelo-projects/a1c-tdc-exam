@@ -1,11 +1,11 @@
 // ============================================================
-// A1C TDC ASSESSMENT — STARTER BUILD
-// This version is for UI/testing only.
-// OTP is intentionally DEMO-ONLY and is NOT secure yet.
-// The real OTP will be handled by a server/backend later.
+// A1C TDC ASSESSMENT — OTP + SECURITY TEST BUILD
+// Backend: Google Apps Script Web App
 // ============================================================
 
-const DEMO_OTP = "123456";
+const API_URL = "https://script.google.com/macros/s/AKfycbyoMQPvuxffrZMhTZ4Az4BOPojFRb_A9yBqnbUs_xZh2sl8XAbksObCDlsd-RbeM9qx/exec";
+const SECURITY_WARNING_LIMIT = 3;
+
 
 const demoQuestions = [
   {
@@ -46,6 +46,9 @@ const demoQuestions = [
 const state = {
   student: {},
   otpVerified: false,
+  attemptId: null,
+  sessionToken: null,
+  securityWarnings: 0,
   currentQuestion: 0,
   answers: Array(demoQuestions.length).fill(null),
   timeRemaining: 90 * 60,
@@ -81,7 +84,7 @@ function collectStudentInfo() {
   };
 }
 
-$("registrationForm").addEventListener("submit", event => {
+$("registrationForm").addEventListener("submit", async event => {
   event.preventDefault();
   clearMessage("registrationMessage");
 
@@ -99,19 +102,50 @@ $("registrationForm").addEventListener("submit", event => {
   }
 
   state.student = student;
+  const button = event.submitter;
+  button.disabled = true;
+  button.textContent = "REQUESTING OTP...";
 
-  // DEMO ONLY:
-  // Replace this with a secure backend request later.
-  showMessage(
-    "registrationMessage",
-    "Demo OTP requested. In this test build, use 123456. The production version will send the OTP to the office email.",
-    "success"
-  );
+  try {
+    const response = await apiRequest({
+      action: "requestOTP",
+      ...student
+    });
 
-  startOtpCountdown();
-  showScreen("otpScreen");
-  $("otp").focus();
+    if (!response.success) {
+      throw new Error(response.message || "Unable to request OTP.");
+    }
+
+    state.attemptId = response.attemptId;
+    showMessage(
+      "otpMessage",
+      `OTP sent to the authorized office. Attempt ID: ${state.attemptId}`,
+      "success"
+    );
+    startOtpCountdown();
+    showScreen("otpScreen");
+    $("otp").focus();
+  } catch (error) {
+    showMessage("registrationMessage", error.message || "Unable to connect to the examination server.");
+  } finally {
+    button.disabled = false;
+    button.textContent = "VERIFY & REQUEST OTP";
+  }
 });
+
+async function apiRequest(payload) {
+  const response = await fetch(API_URL, {
+    method: "POST",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify(payload)
+  });
+
+  if (!response.ok) {
+    throw new Error(`Server returned HTTP ${response.status}.`);
+  }
+
+  return response.json();
+}
 
 let otpRemaining = 300;
 let otpTimerId = null;
@@ -138,7 +172,7 @@ function updateOtpTimer() {
   $("otpTimer").textContent = `OTP expires in ${min}:${sec}`;
 }
 
-$("verifyOtp").addEventListener("click", () => {
+$("verifyOtp").addEventListener("click", async () => {
   clearMessage("otpMessage");
 
   const otp = $("otp").value.trim();
@@ -153,29 +187,157 @@ $("verifyOtp").addEventListener("click", () => {
     return;
   }
 
-  if (otp !== DEMO_OTP) {
-    showMessage("otpMessage", "Invalid OTP. Please check the code with the proctor.");
+  if (!state.attemptId) {
+    showMessage("otpMessage", "This examination attempt is missing. Please return and request a new OTP.");
     return;
   }
 
-  state.otpVerified = true;
-  clearInterval(otpTimerId);
-  showScreen("examIntroScreen");
+  const button = $("verifyOtp");
+  button.disabled = true;
+  button.textContent = "VERIFYING...";
+
+  try {
+    const response = await apiRequest({
+      action: "verifyOTP",
+      attemptId: state.attemptId,
+      otp
+    });
+
+    if (!response.success) {
+      showMessage("otpMessage", response.message || "Invalid OTP. Please check the code with the proctor.");
+      return;
+    }
+
+    state.otpVerified = true;
+    state.sessionToken = response.sessionToken;
+    clearInterval(otpTimerId);
+    showMessage("otpMessage", "OTP verified successfully.", "success");
+    showScreen("examIntroScreen");
+  } catch (error) {
+    showMessage("otpMessage", error.message || "Unable to verify OTP.");
+  } finally {
+    button.disabled = false;
+    button.textContent = "VERIFY OTP";
+  }
 });
 
 $("backToRegistration").addEventListener("click", () => {
   showScreen("registrationScreen");
 });
 
-$("resendOtp").addEventListener("click", () => {
-  // DEMO ONLY.
-  showMessage("otpMessage", "Demo OTP renewed. Use 123456. Production will generate a new server-side OTP.", "success");
-  startOtpCountdown();
+$("resendOtp").addEventListener("click", async () => {
+  clearMessage("otpMessage");
+
+  if (!state.student.fullName) {
+    showScreen("registrationScreen");
+    return;
+  }
+
+  const button = $("resendOtp");
+  button.disabled = true;
+  button.textContent = "REQUESTING...";
+
+  try {
+    const response = await apiRequest({
+      action: "requestOTP",
+      ...state.student
+    });
+
+    if (!response.success) throw new Error(response.message || "Unable to request a new OTP.");
+
+    state.attemptId = response.attemptId;
+    state.otpVerified = false;
+    state.sessionToken = null;
+    $("otp").value = "";
+    startOtpCountdown();
+    showMessage("otpMessage", `A new OTP was sent to the authorized office. Attempt ID: ${state.attemptId}`, "success");
+  } catch (error) {
+    showMessage("otpMessage", error.message || "Unable to request a new OTP.");
+  } finally {
+    button.disabled = false;
+    button.textContent = "Request New OTP";
+  }
 });
+
+// ============================================================
+// EXAM SECURITY MONITORING
+// Browser events are logged as audit signals. A webpage cannot
+// reliably detect a second device or every OS/app switch.
+// ============================================================
+
+let securityMonitoringStarted = false;
+
+function recordSecurityEvent(eventName) {
+  if (!state.attemptId || !state.otpVerified) return;
+
+  state.securityWarnings++;
+
+  // Fire-and-forget audit logging.
+  apiRequest({
+    action: "securityEvent",
+    attemptId: state.attemptId,
+    student: state.student,
+    event: eventName
+  }).catch(() => {});
+
+  if (state.securityWarnings < SECURITY_WARNING_LIMIT) {
+    alert(`WARNING: ${eventName.replaceAll("_", " ")}\n\nSecurity warning ${state.securityWarnings} of ${SECURITY_WARNING_LIMIT}.`);
+  } else {
+    alert("EXAMINATION TERMINATED\n\nRepeated security violations were detected. Your examination will be submitted.");
+    submitExam(true, "AUTOMATIC SUBMISSION — SECURITY VIOLATIONS");
+  }
+}
+
+function enterExamFullscreen() {
+  const element = document.documentElement;
+  if (element.requestFullscreen) {
+    element.requestFullscreen().catch(() => {});
+  }
+}
+
+function startSecurityMonitoring() {
+  if (securityMonitoringStarted) return;
+  securityMonitoringStarted = true;
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) recordSecurityEvent("PAGE_HIDDEN_OR_TAB_SWITCH");
+  });
+
+  document.addEventListener("fullscreenchange", () => {
+    if (!document.fullscreenElement && !$("examScreen").classList.contains("hidden")) {
+      recordSecurityEvent("FULLSCREEN_EXIT");
+    }
+  });
+
+  ["copy", "cut", "paste", "contextmenu"].forEach(eventName => {
+    document.addEventListener(eventName, event => {
+      if (!$("examScreen").classList.contains("hidden")) {
+        event.preventDefault();
+        recordSecurityEvent(`${eventName.toUpperCase()}_ATTEMPT`);
+      }
+    });
+  });
+
+  document.addEventListener("keydown", event => {
+    if ($("examScreen").classList.contains("hidden")) return;
+
+    if ((event.ctrlKey || event.metaKey) && ["c", "v", "x", "a", "u", "s", "p"].includes(event.key.toLowerCase())) {
+      event.preventDefault();
+      recordSecurityEvent(`KEYBOARD_SHORTCUT_${event.key.toUpperCase()}`);
+    }
+
+    if (event.key === "F12" || (event.ctrlKey && event.shiftKey && ["i", "j", "c"].includes(event.key.toLowerCase()))) {
+      event.preventDefault();
+      recordSecurityEvent("DEVELOPER_TOOLS_ATTEMPT");
+    }
+  });
+}
 
 $("startDemo").addEventListener("click", () => {
   if (!state.otpVerified) return;
+  startSecurityMonitoring();
   startExam();
+  enterExamFullscreen();
 });
 
 function startExam() {
@@ -315,7 +477,7 @@ $("backToExam").addEventListener("click", () => {
 
 $("submitExam").addEventListener("click", () => submitExam(false));
 
-function submitExam(autoSubmitted = false) {
+function submitExam(autoSubmitted = false, submissionReason = "USER_SUBMITTED") {
   clearInterval(state.timerId);
 
   if (!autoSubmitted) {
@@ -340,6 +502,13 @@ function submitExam(autoSubmitted = false) {
       return;
     }
   }
+
+  apiRequest({
+    action: "securityEvent",
+    attemptId: state.attemptId,
+    student: state.student,
+    event: submissionReason
+  }).catch(() => {});
 
   // Demo scoring only.
   const score = state.answers.reduce((total, answer, index) => {
