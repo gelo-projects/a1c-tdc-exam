@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A1C Driving Academy — TDC Assessment</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="brand">
+      <div class="brand-mark">A1C</div>
+      <div>
+        <h1>A1C Driving Academy</h1>
+        <p>Theoretical Driving Course • Assessment Portal</p>
+      </div>
+    </header>
+
+    <section id="registrationScreen" class="card">
+      <div class="eyebrow">STEP 1 OF 3</div>
+      <h2>Student Information</h2>
+      <p class="muted">Please complete all required information before requesting your verification code.</p>
+
+      <form id="registrationForm" novalidate>
+        <div class="grid">
+          <label>
+            Full Name *
+            <input id="fullName" name="fullName" type="text" autocomplete="name" required>
+          </label>
+
+          <label>
+            Package Enrolled *
+            <input id="packageEnrolled" name="packageEnrolled" type="text" placeholder="e.g. TDC / TDC + PDC" required>
+          </label>
+
+          <label class="full">
+            Address *
+            <textarea id="address" name="address" rows="2" autocomplete="street-address" required></textarea>
+          </label>
+
+          <label>
+            LTO Client ID No. *
+            <input id="clientId" name="clientId" type="text" required>
+          </label>
+
+          <label>
+            Contact Number *
+            <input id="contactNumber" name="contactNumber" type="tel" autocomplete="tel" required>
+          </label>
+
+          <label class="full">
+            Email Address *
+            <input id="email" name="email" type="email" autocomplete="email" required>
+          </label>
+        </div>
+
+        <div id="registrationMessage" class="message hidden"></div>
+        <button class="primary" type="submit">VERIFY &amp; REQUEST OTP</button>
+      </form>
+    </section>
+
+    <section id="otpScreen" class="card hidden">
+      <div class="eyebrow">STEP 2 OF 3</div>
+      <h2>OTP Verification</h2>
+      <p class="muted">
+        A 6-digit verification code has been requested from the office email.
+        Please obtain the code from the authorized proctor.
+      </p>
+
+      <div class="otp-box">
+        <label for="otp">Enter OTP</label>
+        <input id="otp" inputmode="numeric" maxlength="6" pattern="[0-9]{6}" placeholder="000000" autocomplete="one-time-code">
+        <p id="otpTimer" class="timer">OTP expires in 05:00</p>
+      </div>
+
+      <div id="otpMessage" class="message hidden"></div>
+
+      <div class="button-row">
+        <button id="backToRegistration" class="secondary" type="button">BACK</button>
+        <button id="verifyOtp" class="primary" type="button">VERIFY OTP</button>
+      </div>
+      <button id="resendOtp" class="link-button" type="button">Request New OTP</button>
+    </section>
+
+    <section id="examIntroScreen" class="card hidden">
+      <div class="eyebrow">STEP 3 OF 3</div>
+      <h2>Assessment Ready</h2>
+      <p class="muted">OTP verification successful. This is a test build using sample questions.</p>
+
+      <div class="exam-summary">
+        <div><strong>TDC 1st Session</strong><span>30 items • 80% passing</span></div>
+        <div><strong>TDC Final Exam</strong><span>120 items • 80% passing</span></div>
+        <div><strong>Total Time</strong><span>1 hour 30 minutes</span></div>
+      </div>
+
+      <div class="notice">
+        <strong>Important:</strong> The final version will start the continuous 1:30:00 examination timer only after OTP verification.
+      </div>
+
+      <button id="startDemo" class="primary" type="button">START TEST EXAM</button>
+    </section>
+
+    <section id="examScreen" class="card hidden">
+      <div class="exam-top">
+        <div>
+          <div class="eyebrow" id="sectionLabel">TDC 1ST SESSION</div>
+          <h2 id="questionNumber">Question 1 of 3</h2>
+        </div>
+        <div class="timer large" id="examTimer">01:30:00</div>
+      </div>
+
+      <div class="progress"><span id="progressBar"></span></div>
+
+      <div id="questionImageWrap" class="question-image hidden">
+        <img id="questionImage" alt="Question illustration">
+      </div>
+
+      <p id="questionText" class="question"></p>
+      <p id="tagalogText" class="tagalog"></p>
+      <div id="options" class="options"></div>
+
+      <div class="exam-nav">
+        <button id="prevQuestion" class="secondary" type="button">PREVIOUS</button>
+        <button id="nextQuestion" class="primary" type="button">NEXT</button>
+      </div>
+
+      <button id="reviewButton" class="review-button" type="button">REVIEW ANSWERS</button>
+    </section>
+
+    <section id="reviewScreen" class="card hidden">
+      <div class="eyebrow">REVIEW</div>
+      <h2>Review Your Answers</h2>
+      <p class="muted">You may return to any question before submitting.</p>
+      <div id="reviewGrid" class="review-grid"></div>
+      <div class="button-row">
+        <button id="backToExam" class="secondary" type="button">BACK TO EXAM</button>
+        <button id="submitExam" class="danger" type="button">SUBMIT EXAM</button>
+      </div>
+    </section>
+
+    <section id="resultScreen" class="card hidden">
+      <div class="eyebrow">RESULT</div>
+      <h2>Examination Result</h2>
+      <div id="resultContent"></div>
+    </section>
+
+    <footer>A1C Driving Academy • TDC Assessment System</footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
