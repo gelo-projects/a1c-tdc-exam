@@ -1,152 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>A1C Driving Academy — TDC Assessment</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A1C Driving Academy TDC Examination</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main class="app-shell">
-    <header class="brand">
-      <div class="brand-mark">A1C</div>
-      <div>
-        <h1>A1C Driving Academy</h1>
-        <p>Theoretical Driving Course • Assessment Portal</p>
-      </div>
-    </header>
+<div class="container"><div id="app"></div></div>
 
-    <section id="registrationScreen" class="card">
-      <div class="eyebrow">STEP 1 OF 3</div>
-      <h2>Student Information</h2>
-      <p class="muted">Please complete all required information before requesting your verification code.</p>
+<script>
+const API_URL = "https://script.google.com/macros/s/AKfycbyoMQPvuxffrZMhTZ4Az4BOPojFRb_A9yBqnbUs_xZh2sl8XAbksObCDlsd-RbeM9qx/exec";
+let authStudent = {};
+let authAttemptId = "";
 
-      <form id="registrationForm" novalidate>
-        <div class="grid">
-          <label>
-            Full Name *
-            <input id="fullName" name="fullName" type="text" autocomplete="name" required>
-          </label>
+function esc(value) {
+  return String(value ?? "").replace(/[&<>"']/g, c => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+  }[c]));
+}
 
-          <label>
-            Package Enrolled *
-            <input id="packageEnrolled" name="packageEnrolled" type="text" placeholder="e.g. TDC / TDC + PDC" required>
-          </label>
+function showStudentInformation() {
+  document.getElementById("app").innerHTML = `
+    <div class="auth-card">
+      <div class="brand">A1C DRIVING ACADEMY</div>
+      <h1>TDC EXAMINATION</h1>
+      <p class="subtitle">Student Information</p>
 
-          <label class="full">
-            Address *
-            <textarea id="address" name="address" rows="2" autocomplete="street-address" required></textarea>
-          </label>
+      <form onsubmit="requestOtp(event)">
+        <label>
+          Full Name
+          <input name="fullName" required>
+        </label>
 
-          <label>
-            LTO Client ID No. *
-            <input id="clientId" name="clientId" type="text" required>
-          </label>
+        <label>
+          Package Enrolled
+          <input name="packageEnrolled" placeholder="TDC / TDC + PDC" required>
+        </label>
 
-          <label>
-            Contact Number *
-            <input id="contactNumber" name="contactNumber" type="tel" autocomplete="tel" required>
-          </label>
+        <label>
+          Address
+          <textarea name="address" required></textarea>
+        </label>
 
-          <label class="full">
-            Email Address *
-            <input id="email" name="email" type="email" autocomplete="email" required>
-          </label>
-        </div>
+        <label>
+          LTO Client ID
+          <input name="clientId" required>
+        </label>
 
-        <div id="registrationMessage" class="message hidden"></div>
-        <button class="primary" type="submit">VERIFY &amp; REQUEST OTP</button>
+        <label>
+          Contact Number
+          <input name="contactNumber" required>
+        </label>
+
+        <label>
+          Email Address
+          <input type="email" name="email" required>
+        </label>
+
+        <button class="nav-btn primary" type="submit" id="otpBtn">
+          VERIFY & REQUEST OTP
+        </button>
       </form>
-    </section>
 
-    <section id="otpScreen" class="card hidden">
-      <div class="eyebrow">STEP 2 OF 3</div>
-      <h2>OTP Verification</h2>
-      <p class="muted">
-        A 6-digit verification code has been requested from the office email.
-        Please obtain the code from the authorized proctor.
+      <p id="authMsg" class="message"></p>
+    </div>
+  `;
+}
+
+async function requestOtp(event) {
+  event.preventDefault();
+
+  const button = document.getElementById("otpBtn");
+  const message = document.getElementById("authMsg");
+  const form = new FormData(event.target);
+
+  authStudent = Object.fromEntries(form.entries());
+
+  button.disabled = true;
+  button.textContent = "SENDING OTP...";
+
+  try {
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({
+        action: "requestOTP",
+        ...authStudent
+      })
+    });
+
+    const data = await response.json();
+
+    if (!data.success) {
+      throw new Error(data.message || "Unable to request OTP.");
+    }
+
+    authAttemptId = data.attemptId;
+    showOtp();
+  } catch (error) {
+    message.textContent = error.message;
+    button.disabled = false;
+    button.textContent = "VERIFY & REQUEST OTP";
+  }
+}
+
+function showOtp() {
+  document.getElementById("app").innerHTML = `
+    <div class="auth-card">
+      <div class="brand">A1C DRIVING ACADEMY</div>
+      <h1>OTP VERIFICATION</h1>
+
+      <p>
+        An OTP has been sent to the office email.
+        Ask the authorized proctor for the OTP.
       </p>
 
-      <div class="otp-box">
-        <label for="otp">Enter OTP</label>
-        <input id="otp" inputmode="numeric" maxlength="6" pattern="[0-9]{6}" placeholder="000000" autocomplete="one-time-code">
-        <p id="otpTimer" class="timer">OTP expires in 05:00</p>
-      </div>
+      <p class="attempt">
+        Attempt ID: <b>${esc(authAttemptId)}</b>
+      </p>
 
-      <div id="otpMessage" class="message hidden"></div>
+      <form onsubmit="verifyOtp(event)">
+        <label>
+          6-Digit OTP
+          <input id="otp"
+                 inputmode="numeric"
+                 maxlength="6"
+                 pattern="[0-9]{6}"
+                 required
+                 autofocus>
+        </label>
 
-      <div class="button-row">
-        <button id="backToRegistration" class="secondary" type="button">BACK</button>
-        <button id="verifyOtp" class="primary" type="button">VERIFY OTP</button>
-      </div>
-      <button id="resendOtp" class="link-button" type="button">Request New OTP</button>
-    </section>
+        <button class="nav-btn primary" type="submit" id="verifyBtn">
+          VERIFY OTP
+        </button>
+      </form>
 
-    <section id="examIntroScreen" class="card hidden">
-      <div class="eyebrow">STEP 3 OF 3</div>
-      <h2>Assessment Ready</h2>
-      <p class="muted">OTP verification successful. This is a test build using sample questions.</p>
+      <p id="otpMsg" class="message"></p>
+    </div>
+  `;
+}
 
-      <div class="exam-summary">
-        <div><strong>TDC 1st Session</strong><span>30 items • 80% passing</span></div>
-        <div><strong>TDC Final Exam</strong><span>120 items • 80% passing</span></div>
-        <div><strong>Total Time</strong><span>1 hour 30 minutes</span></div>
-      </div>
+async function verifyOtp(event) {
+  event.preventDefault();
 
-      <div class="notice">
-        <strong>Security notice:</strong> The examination uses proctor OTP verification, fullscreen mode, tab/page visibility monitoring, and copy/paste restrictions. Security events may be recorded.
-      </div>
+  const button = document.getElementById("verifyBtn");
+  const message = document.getElementById("otpMsg");
 
-      <button id="startDemo" class="primary" type="button">START TEST EXAM</button>
-    </section>
+  button.disabled = true;
+  button.textContent = "VERIFYING...";
 
-    <section id="examScreen" class="card hidden">
-      <div class="exam-top">
-        <div>
-          <div class="eyebrow" id="sectionLabel">TDC 1ST SESSION</div>
-          <h2 id="questionNumber">Question 1 of 3</h2>
-        </div>
-        <div class="timer large" id="examTimer">01:30:00</div>
-      </div>
+  try {
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({
+        action: "verifyOTP",
+        attemptId: authAttemptId,
+        otp: document.getElementById("otp").value
+      })
+    });
 
-      <div class="progress"><span id="progressBar"></span></div>
+    const data = await response.json();
 
-      <div id="questionImageWrap" class="question-image hidden">
-        <img id="questionImage" alt="Question illustration">
-      </div>
+    if (!data.success) {
+      throw new Error(data.message || "Invalid OTP.");
+    }
 
-      <p id="questionText" class="question"></p>
-      <p id="tagalogText" class="tagalog"></p>
-      <div id="options" class="options"></div>
+    window.startAuthenticatedExam({
+      student: authStudent,
+      attemptId: data.attemptId,
+      sessionToken: data.sessionToken
+    });
+  } catch (error) {
+    message.textContent = error.message;
+    button.disabled = false;
+    button.textContent = "VERIFY OTP";
+  }
+}
 
-      <div class="exam-nav">
-        <button id="prevQuestion" class="secondary" type="button">PREVIOUS</button>
-        <button id="nextQuestion" class="primary" type="button">NEXT</button>
-      </div>
-
-      <button id="reviewButton" class="review-button" type="button">REVIEW ANSWERS</button>
-    </section>
-
-    <section id="reviewScreen" class="card hidden">
-      <div class="eyebrow">REVIEW</div>
-      <h2>Review Your Answers</h2>
-      <p class="muted">You may return to any question before submitting.</p>
-      <div id="reviewGrid" class="review-grid"></div>
-      <div class="button-row">
-        <button id="backToExam" class="secondary" type="button">BACK TO EXAM</button>
-        <button id="submitExam" class="danger" type="button">SUBMIT EXAM</button>
-      </div>
-    </section>
-
-    <section id="resultScreen" class="card hidden">
-      <div class="eyebrow">RESULT</div>
-      <h2>Examination Result</h2>
-      <div id="resultContent"></div>
-    </section>
-
-    <footer>Created by: Gelo Aves @ team A1C Trece • TDC Assessment System</footer>
-  </main>
-
-  <script src="script.js"></script>
+showStudentInformation();
+</script>
+<script src="script.js"></script>
 </body>
 </html>
