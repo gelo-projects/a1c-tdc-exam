@@ -15,6 +15,8 @@ let currentIndex = 0;
 let answers = { session1: [], final: [] };
 let securityViolations = 0;
 let submitted = false;
+let securityTerminationInProgress = false;
+let suppressFullscreenViolation = false;
 
 const session1Questions = [
   {
@@ -517,6 +519,108 @@ const finalQuestions = [
   }
 ];
 
+// Security termination modal styles.
+
+// Mobile screenshot deterrence and exam watermark.
+// IMPORTANT: Normal mobile browsers do not expose a reliable "screenshot taken"
+// event. Hardware screenshot buttons (Power + Volume, iOS side-button + volume,
+// etc.) cannot be detected by a GitHub Pages website. The watermark makes
+// screenshots traceable and the browser-level screenshot shortcuts below are
+// still blocked/logged when the browser exposes the key event.
+const mobileSecurityStyle = document.createElement("style");
+mobileSecurityStyle.textContent = `
+  html, body, #app, .exam-shell, .question-card {
+    -webkit-user-select: none !important;
+    user-select: none !important;
+    -webkit-touch-callout: none !important;
+  }
+
+  input, textarea {
+    -webkit-user-select: text !important;
+    user-select: text !important;
+  }
+
+  .exam-watermark {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    pointer-events: none;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: .10;
+    font-weight: 800;
+    font-size: clamp(18px, 4vw, 34px);
+    line-height: 1.7;
+    letter-spacing: 2px;
+    text-align: center;
+    transform: rotate(-25deg);
+    white-space: pre-line;
+  }
+
+  .exam-watermark span {
+    padding: 30px;
+  }
+
+  @media print {
+    body {
+      display: none !important;
+    }
+  }
+`;
+document.head.appendChild(mobileSecurityStyle);
+
+function addExamWatermark() {
+  let wm = document.getElementById("examWatermark");
+  if (!wm) {
+    wm = document.createElement("div");
+    wm.id = "examWatermark";
+    wm.className = "exam-watermark";
+    document.body.appendChild(wm);
+  }
+
+  const name = esc(student.fullName || "AUTHORIZED STUDENT");
+  const clientId = esc(student.clientId || student.ltoClientId || "LTO CLIENT ID");
+  const attempt = esc(attemptId || "ATTEMPT");
+
+  wm.innerHTML = `<span>A1C DRIVING ACADEMY<br>${name}<br>${clientId}<br>${attempt}</span>`;
+}
+
+const securityModalStyle = document.createElement("style");
+securityModalStyle.textContent = `
+  .security-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,.72);
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  .security-modal-card {
+    width: min(520px, 100%);
+    background: #fff;
+    border-radius: 18px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,.35);
+  }
+  .security-modal-icon {
+    font-size: 48px;
+    margin-bottom: 10px;
+  }
+  .security-modal-card h2 {
+    margin: 0 0 12px;
+  }
+  .security-modal-card p {
+    line-height: 1.5;
+  }
+`;
+document.head.appendChild(securityModalStyle);
+
 function esc(value) {
   return String(value ?? "").replace(/[&<>"']/g, c => ({
     "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#039;"
@@ -537,12 +641,15 @@ window.startAuthenticatedExam = function(data) {
   timer = TOTAL_TIME_SECONDS;
   securityViolations = 0;
   submitted = false;
+  securityTerminationInProgress = false;
+  suppressFullscreenViolation = false;
 
   try {
     document.documentElement.requestFullscreen?.();
   } catch (_) {}
 
   renderExam();
+  addExamWatermark();
 };
 
 function renderExam() {
@@ -565,7 +672,7 @@ function renderExam() {
       </div>
 
       <div id="securityBanner" class="security-banner">
-        Examination monitoring is active.
+        Examination monitoring is active. Maximum security warnings: 3.
       </div>
 
       <main id="questionArea"></main>
@@ -879,8 +986,38 @@ function sendSecurityEvent(event) {
   }).catch(() => {});
 }
 
+function showSecurityTerminationModal() {
+  if (document.getElementById("securityTerminationModal")) return;
+
+  const modal = document.createElement("div");
+  modal.id = "securityTerminationModal";
+  modal.innerHTML = `
+    <div class="security-modal-backdrop">
+      <div class="security-modal-card" role="dialog" aria-modal="true">
+        <div class="security-modal-icon">⚠</div>
+        <h2>EXAMINATION TERMINATED</h2>
+        <p>Three security violations have been recorded.</p>
+        <p>Your examination has been submitted because the maximum number of security warnings has been reached.</p>
+        <button id="securityResultButton" class="nav-btn primary">View Result</button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+
+  document.getElementById("securityResultButton").addEventListener("click", () => {
+    modal.remove();
+
+    // Security termination ends the ENTIRE examination.
+    // Do not show the Session 1 continuation button after the limit is reached.
+    showFinalResult(
+      calculateScore(finalQuestions, answers.final)
+    );
+  });
+}
+
 function recordViolation(type) {
-  if (submitted) return;
+  if (submitted || securityTerminationInProgress) return;
 
   securityViolations++;
 
@@ -890,24 +1027,20 @@ function recordViolation(type) {
 
   if (banner) {
     banner.textContent =
-      `⚠ Security warning ${securityViolations}: ${type}`;
+      `⚠ Security warning ${securityViolations} of 3: ${type}`;
   }
 
   if (securityViolations >= 3) {
-    alert(
-      "Three security violations have been recorded. " +
-      "The examination will be submitted."
-    );
+    // Mark the exam as terminating BEFORE displaying anything.
+    // This prevents the fullscreenchange event caused by a dialog/modal
+    // from being counted as a fourth violation.
+    securityTerminationInProgress = true;
+    submitted = true;
+    suppressFullscreenViolation = true;
+    stopTimer();
 
-    if (currentSection === 1) {
-      showSession1Result(
-        calculateScore(session1Questions, answers.session1)
-      );
-    } else {
-      showFinalResult(
-        calculateScore(finalQuestions, answers.final)
-      );
-    }
+    sendSecurityEvent("EXAM_TERMINATED_SECURITY_LIMIT");
+    showSecurityTerminationModal();
   }
 }
 
@@ -944,7 +1077,60 @@ document.addEventListener("contextmenu", event => {
 });
 
 document.addEventListener("fullscreenchange", () => {
+  if (suppressFullscreenViolation) return;
+
   if (document.getElementById("questionArea") && !document.fullscreenElement) {
     recordViolation("FULLSCREEN_EXIT");
+  }
+});
+
+// Best-effort screenshot protection. Browsers cannot completely prevent
+// OS-level screenshots (Snipping Tool, phone camera, external capture, etc.),
+// but common screenshot shortcuts are blocked and logged as violations.
+document.addEventListener("keydown", event => {
+  if (!document.getElementById("questionArea") || submitted) return;
+
+  const key = String(event.key || "").toLowerCase();
+  const isPrintScreen = key === "printscreen" || event.code === "PrintScreen";
+  const isWindowsSnipShortcut = event.shiftKey && key === "s" && (event.metaKey || event.getModifierState?.("Meta"));
+  const isMacScreenshotShortcut = event.metaKey && event.shiftKey && ["3", "4", "5"].includes(key);
+  const isOtherScreenshotShortcut = event.ctrlKey && event.shiftKey && key === "s";
+
+  if (isPrintScreen || isWindowsSnipShortcut || isMacScreenshotShortcut || isOtherScreenshotShortcut) {
+    event.preventDefault();
+    event.stopPropagation();
+    recordViolation("SCREENSHOT_ATTEMPT");
+  }
+});
+
+document.addEventListener("keyup", event => {
+  if (!document.getElementById("questionArea") || submitted) return;
+
+  if (event.key === "PrintScreen" || event.code === "PrintScreen") {
+    event.preventDefault();
+    recordViolation("SCREENSHOT_ATTEMPT");
+  }
+});
+
+
+// Browser print is another way of extracting the exam. Block it and log it.
+window.addEventListener("beforeprint", () => {
+  if (document.getElementById("questionArea") && !submitted) {
+    recordViolation("PRINT_SCREEN_ATTEMPT");
+  }
+});
+
+// Keep the watermark present if the exam UI is rerendered.
+const originalRenderQuestion = renderQuestion;
+renderQuestion = function() {
+  originalRenderQuestion();
+  addExamWatermark();
+};
+
+// Disable dragging/copying question images. This does not stop OS-level
+// screenshot tools, but it prevents easy image extraction from the page.
+document.addEventListener("dragstart", event => {
+  if (document.getElementById("questionArea")) {
+    event.preventDefault();
   }
 });
