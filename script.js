@@ -1,7 +1,12 @@
+/* A1C TDC EXAM STAGE 2
+   30-item TDC 1st Session + 120-item TDC Final Exam
+   80% passing rate per section; 90-minute overall timer.
+   Dummy questions are marked clearly and can be replaced later.
+*/
 const API_URL = "https://script.google.com/macros/s/AKfycbyoMQPvuxffrZMhTZ4Az4BOPojFRb_A9yBqnbUs_xZh2sl8XAbksObCDlsd-RbeM9qx/exec";
 
-const SESSION_1_COUNT = 15;
-const FINAL_COUNT = 30;
+const SESSION_1_COUNT = 30;
+const FINAL_COUNT = 120;
 const PASS_PERCENT = 80;
 const TOTAL_TIME_SECONDS = 90 * 60;
 
@@ -182,6 +187,172 @@ const session1Questions = [
       "a. left arm pointing left (ang kaliwang braso nakaturo sa kaliwa)",
       "b. left arm held pointing upward (ang kaliwang braso ay nakaturo sa itaas)",
       "c. left arm held down, hand pointing at ground (ang kaliwang braso ay nakapababa, na ang kamay ay nakaturo sa ibaba)"
+    ]
+  }
+,
+  {
+    question: "16. DUMMY SESSION 1 QUESTION 16 — Replace with the actual question.",
+    tagalog: "DUMMY SESSION 1 QUESTION 16 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "17. DUMMY SESSION 1 QUESTION 17 — Replace with the actual question.",
+    tagalog: "DUMMY SESSION 1 QUESTION 17 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "18. DUMMY SESSION 1 QUESTION 18 — Replace with the actual question.",
+    tagalog: "DUMMY SESSION 1 QUESTION 18 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "19. DUMMY SESSION 1 QUESTION 19 — Replace with the actual question.",
+    tagalog: "DUMMY SESSION 1 QUESTION 19 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "20. DUMMY SESSION 1 QUESTION 20 — Replace with the actual question.",
+    tagalog: "DUMMY SESSION 1 QUESTION 20 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "21. DUMMY SESSION 1 QUESTION 21 — Replace with the actual question.",
+    tagalog: "DUMMY SESSION 1 QUESTION 21 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "22. DUMMY SESSION 1 QUESTION 22 — Replace with the actual question.",
+    tagalog: "DUMMY SESSION 1 QUESTION 22 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "23. DUMMY SESSION 1 QUESTION 23 — Replace with the actual question.",
+    tagalog: "DUMMY SESSION 1 QUESTION 23 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "24. DUMMY SESSION 1 QUESTION 24 — Replace with the actual question.",
+    tagalog: "DUMMY SESSION 1 QUESTION 24 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "25. DUMMY SESSION 1 QUESTION 25 — Replace with the actual question.",
+    tagalog: "DUMMY SESSION 1 QUESTION 25 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "26. DUMMY SESSION 1 QUESTION 26 — Replace with the actual question.",
+    tagalog: "DUMMY SESSION 1 QUESTION 26 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "27. DUMMY SESSION 1 QUESTION 27 — Replace with the actual question.",
+    tagalog: "DUMMY SESSION 1 QUESTION 27 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "28. DUMMY SESSION 1 QUESTION 28 — Replace with the actual question.",
+    tagalog: "DUMMY SESSION 1 QUESTION 28 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "29. DUMMY SESSION 1 QUESTION 29 — Replace with the actual question.",
+    tagalog: "DUMMY SESSION 1 QUESTION 29 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "30. DUMMY SESSION 1 QUESTION 30 — Replace with the actual question.",
+    tagalog: "DUMMY SESSION 1 QUESTION 30 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   }
 ];
@@ -517,6 +688,997 @@ const finalQuestions = [
       "c. No (Hindi)"
     ]
   }
+,
+  {
+    question: "31. DUMMY FINAL QUESTION 31 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 31 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "32. DUMMY FINAL QUESTION 32 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 32 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "33. DUMMY FINAL QUESTION 33 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 33 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "34. DUMMY FINAL QUESTION 34 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 34 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "35. DUMMY FINAL QUESTION 35 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 35 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "36. DUMMY FINAL QUESTION 36 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 36 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "37. DUMMY FINAL QUESTION 37 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 37 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "38. DUMMY FINAL QUESTION 38 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 38 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "39. DUMMY FINAL QUESTION 39 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 39 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "40. DUMMY FINAL QUESTION 40 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 40 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "41. DUMMY FINAL QUESTION 41 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 41 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "42. DUMMY FINAL QUESTION 42 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 42 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "43. DUMMY FINAL QUESTION 43 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 43 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "44. DUMMY FINAL QUESTION 44 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 44 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "45. DUMMY FINAL QUESTION 45 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 45 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "46. DUMMY FINAL QUESTION 46 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 46 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "47. DUMMY FINAL QUESTION 47 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 47 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "48. DUMMY FINAL QUESTION 48 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 48 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "49. DUMMY FINAL QUESTION 49 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 49 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "50. DUMMY FINAL QUESTION 50 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 50 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "51. DUMMY FINAL QUESTION 51 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 51 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "52. DUMMY FINAL QUESTION 52 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 52 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "53. DUMMY FINAL QUESTION 53 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 53 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "54. DUMMY FINAL QUESTION 54 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 54 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "55. DUMMY FINAL QUESTION 55 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 55 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "56. DUMMY FINAL QUESTION 56 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 56 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "57. DUMMY FINAL QUESTION 57 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 57 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "58. DUMMY FINAL QUESTION 58 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 58 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "59. DUMMY FINAL QUESTION 59 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 59 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "60. DUMMY FINAL QUESTION 60 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 60 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "61. DUMMY FINAL QUESTION 61 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 61 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "62. DUMMY FINAL QUESTION 62 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 62 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "63. DUMMY FINAL QUESTION 63 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 63 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "64. DUMMY FINAL QUESTION 64 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 64 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "65. DUMMY FINAL QUESTION 65 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 65 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "66. DUMMY FINAL QUESTION 66 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 66 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "67. DUMMY FINAL QUESTION 67 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 67 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "68. DUMMY FINAL QUESTION 68 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 68 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "69. DUMMY FINAL QUESTION 69 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 69 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "70. DUMMY FINAL QUESTION 70 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 70 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "71. DUMMY FINAL QUESTION 71 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 71 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "72. DUMMY FINAL QUESTION 72 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 72 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "73. DUMMY FINAL QUESTION 73 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 73 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "74. DUMMY FINAL QUESTION 74 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 74 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "75. DUMMY FINAL QUESTION 75 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 75 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "76. DUMMY FINAL QUESTION 76 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 76 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "77. DUMMY FINAL QUESTION 77 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 77 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "78. DUMMY FINAL QUESTION 78 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 78 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "79. DUMMY FINAL QUESTION 79 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 79 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "80. DUMMY FINAL QUESTION 80 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 80 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "81. DUMMY FINAL QUESTION 81 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 81 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "82. DUMMY FINAL QUESTION 82 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 82 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "83. DUMMY FINAL QUESTION 83 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 83 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "84. DUMMY FINAL QUESTION 84 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 84 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "85. DUMMY FINAL QUESTION 85 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 85 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "86. DUMMY FINAL QUESTION 86 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 86 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "87. DUMMY FINAL QUESTION 87 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 87 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "88. DUMMY FINAL QUESTION 88 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 88 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "89. DUMMY FINAL QUESTION 89 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 89 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "90. DUMMY FINAL QUESTION 90 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 90 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "91. DUMMY FINAL QUESTION 91 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 91 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "92. DUMMY FINAL QUESTION 92 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 92 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "93. DUMMY FINAL QUESTION 93 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 93 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "94. DUMMY FINAL QUESTION 94 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 94 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "95. DUMMY FINAL QUESTION 95 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 95 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "96. DUMMY FINAL QUESTION 96 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 96 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "97. DUMMY FINAL QUESTION 97 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 97 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "98. DUMMY FINAL QUESTION 98 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 98 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "99. DUMMY FINAL QUESTION 99 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 99 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "100. DUMMY FINAL QUESTION 100 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 100 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "101. DUMMY FINAL QUESTION 101 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 101 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "102. DUMMY FINAL QUESTION 102 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 102 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "103. DUMMY FINAL QUESTION 103 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 103 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "104. DUMMY FINAL QUESTION 104 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 104 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "105. DUMMY FINAL QUESTION 105 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 105 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "106. DUMMY FINAL QUESTION 106 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 106 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "107. DUMMY FINAL QUESTION 107 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 107 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "108. DUMMY FINAL QUESTION 108 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 108 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "109. DUMMY FINAL QUESTION 109 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 109 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "110. DUMMY FINAL QUESTION 110 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 110 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "111. DUMMY FINAL QUESTION 111 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 111 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "112. DUMMY FINAL QUESTION 112 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 112 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "113. DUMMY FINAL QUESTION 113 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 113 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "114. DUMMY FINAL QUESTION 114 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 114 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "115. DUMMY FINAL QUESTION 115 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 115 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "116. DUMMY FINAL QUESTION 116 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 116 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "117. DUMMY FINAL QUESTION 117 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 117 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "118. DUMMY FINAL QUESTION 118 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 118 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "119. DUMMY FINAL QUESTION 119 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 119 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  },
+  {
+    question: "120. DUMMY FINAL QUESTION 120 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 120 — Papalitan ng aktwal na tanong.",
+    image: "",
+    correct: 0,
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
+  }
 ];
 
 // Security termination modal styles.
@@ -700,8 +1862,8 @@ function renderQuestion() {
 
   document.getElementById("sectionTitle").textContent =
     currentSection === 1
-      ? "TDC 1st Session Exam — 15 Items"
-      : "TDC Final Exam — 30 Items";
+      ? "TDC 1st Session Exam — 30 Items"
+      : "TDC Final Exam — 120 Items";
 
   const imageHtml = q.image
     ? `<img class="question-image" src="${esc(q.image)}" alt="Question image">`
