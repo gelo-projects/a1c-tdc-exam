@@ -639,7 +639,7 @@ function renderQuestion() {
 }
 
 function selectAnswer(index) {
-  getAnswers()[currentIndex] = index;
+  getAnswers()[currentIndex] = parseInt(index, 10);
   renderQuestion();
 }
 
