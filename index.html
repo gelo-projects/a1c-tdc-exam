@@ -9,6 +9,9 @@
 <body>
 <div class="container"><div id="app"></div></div>
 
+<!-- Move script.js HERE so it loads first -->
+<script src="script.js"></script>
+
 <script>
 const AUTH_API_URL = "https://script.google.com/macros/s/AKfycbyoMQPvuxffrZMhTZ4Az4BOPojFRb_A9yBqnbUs_xZh2sl8XAbksObCDlsd-RbeM9qx/exec";
 let authStudent = {};
@@ -181,6 +184,5 @@ async function verifyOtp(event) {
 
 showStudentInformation();
 </script>
-<script src="script.js"></script>
 </body>
 </html>
