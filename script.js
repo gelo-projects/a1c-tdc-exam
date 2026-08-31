@@ -529,7 +529,11 @@ window.startAuthenticatedExam = function(data) {
   sessionToken = data.sessionToken || "";
   currentSection = 1;
   currentIndex = 0;
-  answers = { session1: [], final: [] };
+ // In startAuthenticatedExam:
+  answers = {
+  session1: new Array(SESSION_1_COUNT).fill(null),
+  final: new Array(FINAL_COUNT).fill(null)
+};
   timer = TOTAL_TIME_SECONDS;
   securityViolations = 0;
   submitted = false;
@@ -665,7 +669,14 @@ function goTo(index) {
 function reviewSection() {
   const questions = getQuestions();
   const selectedAnswers = getAnswers();
-  const unanswered = selectedAnswers.filter(x => x === undefined).length;
+  
+  // FIXED: Check all indices from 0 to questions.length - 1
+  let unanswered = 0;
+  for (let i = 0; i < questions.length; i++) {
+    if (selectedAnswers[i] === undefined || selectedAnswers[i] === null) {
+      unanswered++;
+    }
+  }
 
   document.getElementById("questionArea").innerHTML = `
     <section class="review-card">
@@ -683,7 +694,7 @@ function reviewSection() {
 
       <div class="review-grid">
         ${questions.map((_, i) => `
-          <button class="${selectedAnswers[i] !== undefined ? "answered" : "unanswered"}"
+          <button class="${selectedAnswers[i] !== undefined && selectedAnswers[i] !== null ? "answered" : "unanswered"}"
                   onclick="goTo(${i})">${i + 1}</button>
         `).join("")}
       </div>
@@ -699,7 +710,15 @@ function reviewSection() {
 }
 
 function confirmSubmitSection() {
-  const unanswered = getAnswers().filter(x => x === undefined).length;
+  const questions = getQuestions();
+  const selectedAnswers = getAnswers();
+  
+  let unanswered = 0;
+  for (let i = 0; i < questions.length; i++) {
+    if (selectedAnswers[i] === undefined || selectedAnswers[i] === null) {
+      unanswered++;
+    }
+  }
 
   const message = unanswered
     ? `You still have ${unanswered} unanswered item(s). Submit anyway?`
