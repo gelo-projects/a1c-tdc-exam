@@ -10,7 +10,7 @@
 <div class="container"><div id="app"></div></div>
 
 <script>
-const API_URL = "https://script.google.com/macros/s/AKfycbyoMQPvuxffrZMhTZ4Az4BOPojFRb_A9yBqnbUs_xZh2sl8XAbksObCDlsd-RbeM9qx/exec";
+const AUTH_API_URL = "https://script.google.com/macros/s/AKfycbyoMQPvuxffrZMhTZ4Az4BOPojFRb_A9yBqnbUs_xZh2sl8XAbksObCDlsd-RbeM9qx/exec";
 let authStudent = {};
 let authAttemptId = "";
 
@@ -81,7 +81,7 @@ async function requestOtp(event) {
   button.textContent = "SENDING OTP...";
 
   try {
-    const response = await fetch(API_URL, {
+    const response = await fetch(AUTH_API_URL, {
       method: "POST",
       headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify({
@@ -151,7 +151,7 @@ async function verifyOtp(event) {
   button.textContent = "VERIFYING...";
 
   try {
-    const response = await fetch(API_URL, {
+    const response = await fetch(AUTH_API_URL, {
       method: "POST",
       headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify({
