@@ -22,6 +22,7 @@ let securityViolations = 0;
 let submitted = false;
 let securityTerminationInProgress = false;
 let suppressFullscreenViolation = false;
+let resultSubmissionStarted = false;
 
 const session1Questions = [
   {
@@ -1782,6 +1783,10 @@ securityModalStyle.textContent = `
   }
 `;
 document.head.appendChild(securityModalStyle);
+const resultEmailStyle = document.createElement("style");
+resultEmailStyle.textContent = `.result-table small{display:block;margin-top:6px;font-weight:800;}`;
+document.head.appendChild(resultEmailStyle);
+
 
 function esc(value) {
   return String(value ?? "").replace(/[&<>"']/g, c => ({
@@ -1805,6 +1810,7 @@ window.startAuthenticatedExam = function(data) {
   submitted = false;
   securityTerminationInProgress = false;
   suppressFullscreenViolation = false;
+  resultSubmissionStarted = false;
 
   try {
     document.documentElement.requestFullscreen?.();
@@ -2046,46 +2052,127 @@ function startFinalExam() {
   renderQuestion();
 }
 
-function showFinalResult(finalScore) {
-  submitted = true;
+function showFinalResult(finalScore, completionStatus = "COMPLETED") {
   stopTimer();
 
   const session1Score = calculateScore(session1Questions, answers.session1);
   const session1Percent = (session1Score / SESSION_1_COUNT) * 100;
   const finalPercent = (finalScore / FINAL_COUNT) * 100;
-
   const session1Passed = session1Percent >= PASS_PERCENT;
   const finalPassed = finalPercent >= PASS_PERCENT;
   const overallPassed = session1Passed && finalPassed;
 
+  if (resultSubmissionStarted) return;
+  resultSubmissionStarted = true;
+  submitted = true;
+
+  document.getElementById("questionArea").innerHTML = `
+    <section class="result-card">
+      <h2>SUBMITTING EXAMINATION RESULT...</h2>
+      <div class="big-score">${session1Score} / ${SESSION_1_COUNT}</div>
+      <p>TDC 1st Session score</p>
+      <div class="big-score">${finalScore} / ${FINAL_COUNT}</div>
+      <p>TDC Final Exam score</p>
+      <p>Please wait while the official result is recorded and sent to the office.</p>
+      <div class="notice">Submitting...</div>
+    </section>`;
+  document.getElementById("navArea").innerHTML = "";
+
+  submitExamResult({
+    completionStatus, session1Score, session1Percent,
+    finalScore, finalPercent, overallPassed
+  }).then(result => {
+    renderFinalResultPage({
+      session1Score, session1Percent, finalScore, finalPercent,
+      overallPassed, completionStatus,
+      emailSent: result && result.emailSent !== false,
+      serverRecorded: result && result.recorded !== false
+    });
+  }).catch(error => {
+    renderFinalResultPage({
+      session1Score, session1Percent, finalScore, finalPercent,
+      overallPassed, completionStatus,
+      emailSent: false, serverRecorded: false,
+      errorMessage: error?.message || "Unable to contact the exam server."
+    });
+  });
+}
+
+function submitExamResult(resultData) {
+  const payload = {
+    action: "submitExamResult",
+    attemptId,
+    sessionToken,
+    student,
+    securityViolations,
+    completionStatus: resultData.completionStatus,
+    session1Answers: answers.session1,
+    finalAnswers: answers.final,
+    clientCalculated: {
+      session1Score: resultData.session1Score,
+      session1Percent: resultData.session1Percent,
+      finalScore: resultData.finalScore,
+      finalPercent: resultData.finalPercent,
+      overallPassed: resultData.overallPassed
+    },
+    submittedAt: new Date().toISOString()
+  };
+
+  return fetch(API_URL, {
+    method: "POST",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify(payload)
+  }).then(async response => {
+    const text = await response.text();
+    let data;
+    try { data = JSON.parse(text); }
+    catch (_) { throw new Error("The exam server returned an invalid response."); }
+    if (!response.ok || !data.success) {
+      throw new Error(data.message || "The exam result could not be recorded.");
+    }
+    return data;
+  });
+}
+
+function renderFinalResultPage({
+  session1Score, session1Percent, finalScore, finalPercent,
+  overallPassed, completionStatus, emailSent, serverRecorded, errorMessage
+}) {
+  const statusText =
+    completionStatus === "SECURITY_TERMINATED"
+      ? "TERMINATED — SECURITY LIMIT REACHED"
+      : completionStatus === "TIME_EXPIRED"
+        ? "TIME EXPIRED"
+        : (overallPassed ? "PASSED" : "FAILED");
+
   document.getElementById("questionArea").innerHTML = `
     <section class="result-card">
       <h2>EXAMINATION COMPLETE</h2>
-
       <div class="result-table">
         <div>
           <span>TDC 1st Session</span>
           <b>${session1Score} / ${SESSION_1_COUNT}</b>
           <strong>${session1Percent.toFixed(2)}%</strong>
+          <small>${session1Percent >= PASS_PERCENT ? "PASSED" : "FAILED"}</small>
         </div>
-
         <div>
           <span>TDC Final Exam</span>
           <b>${finalScore} / ${FINAL_COUNT}</b>
           <strong>${finalPercent.toFixed(2)}%</strong>
+          <small>${finalPercent >= PASS_PERCENT ? "PASSED" : "FAILED"}</small>
         </div>
       </div>
-
-      <div class="${overallPassed ? "pass" : "fail"}">
-        ${overallPassed ? "PASSED" : "FAILED"}
-      </div>
-
+      <div class="${overallPassed ? "pass" : "fail"}">${statusText}</div>
       <p>Passing rate for each section: ${PASS_PERCENT}%</p>
-    </section>
-  `;
-
+      <p>Security warnings recorded: <b>${securityViolations}</b> / 3</p>
+      <div class="notice">
+        ${serverRecorded ? "✓ Examination result recorded successfully." : "⚠ The examination result could not be confirmed by the server."}
+        <br>
+        ${emailSent ? "✓ Official result email sent to the office." : "⚠ Official result email could not be confirmed."}
+        ${errorMessage ? `<br><small>${esc(errorMessage)}</small>` : ""}
+      </div>
+    </section>`;
   document.getElementById("navArea").innerHTML = "";
-
   sendSecurityEvent("EXAM_COMPLETED");
 }
 
@@ -2108,7 +2195,8 @@ function startTimer() {
         );
       } else {
         showFinalResult(
-          calculateScore(finalQuestions, answers.final)
+          calculateScore(finalQuestions, answers.final),
+          "TIME_EXPIRED"
         );
       }
     }
@@ -2173,7 +2261,8 @@ function showSecurityTerminationModal() {
     // Security termination ends the ENTIRE examination.
     // Do not show the Session 1 continuation button after the limit is reached.
     showFinalResult(
-      calculateScore(finalQuestions, answers.final)
+      calculateScore(finalQuestions, answers.final),
+      "SECURITY_TERMINATED"
     );
   });
 }
