@@ -5,12 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>A1C Driving Academy TDC Examination</title>
 <link rel="stylesheet" href="style.css">
+<!-- Load script.js with defer or directly inside head -->
+<script src="script.js" defer></script>
 </head>
 <body>
 <div class="container"><div id="app"></div></div>
-
-<!-- Move script.js HERE so it loads first -->
-<script src="script.js"></script>
 
 <script>
 const AUTH_API_URL = "https://script.google.com/macros/s/AKfycbyoMQPvuxffrZMhTZ4Az4BOPojFRb_A9yBqnbUs_xZh2sl8XAbksObCDlsd-RbeM9qx/exec";
@@ -168,6 +167,11 @@ async function verifyOtp(event) {
 
     if (!data.success) {
       throw new Error(data.message || "Invalid OTP.");
+    }
+
+    // Guard check to ensure script.js finished loading
+    if (typeof window.startAuthenticatedExam !== "function") {
+      throw new Error("Exam engine is still loading. Please try again in a moment.");
     }
 
     window.startAuthenticatedExam({
