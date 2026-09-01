@@ -1893,7 +1893,16 @@ function renderQuestion() {
       </div>
     </section>
 
-      document.getElementById("navArea").innerHTML = `
+    <div class="question-grid">
+      ${questions.map((_, i) => `
+        <button
+          class="${selectedAnswers[i] !== undefined ? "answered" : ""} ${i === currentIndex ? "current" : ""}"
+          onclick="goTo(${i})">${i + 1}</button>
+      `).join("")}
+    </div>
+  `;
+
+  document.getElementById("navArea").innerHTML = `
     <div class="nav-row">
       <button class="nav-btn" onclick="previousQuestion()" ${currentIndex === 0 ? "disabled" : ""}>
         Previous
@@ -1906,16 +1915,6 @@ function renderQuestion() {
       }
     </div>
   `;
-
-    <div class="question-grid">
-      ${questions.map((_, i) => `
-        <button
-          class="${selectedAnswers[i] !== undefined ? "answered" : ""} ${i === currentIndex ? "current" : ""}"
-          onclick="goTo(${i})">${i + 1}</button>
-      `).join("")}
-    </div>
-  `;
-
 }
 
 function selectAnswer(index) {
