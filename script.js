@@ -1693,7 +1693,7 @@ securityModalStyle.textContent = `
     background: rgba(0,0,0,.72);
     padding: 20px;
     box-sizing: border-box;
-  }`;
+  }
   .security-modal-card {
     width: min(520px, 100%);
     background: #fff;
