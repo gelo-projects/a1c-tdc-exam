@@ -189,172 +189,111 @@ const session1Questions = [
       "b. left arm held pointing upward (ang kaliwang braso ay nakaturo sa itaas)",
       "c. left arm held down, hand pointing at ground (ang kaliwang braso ay nakapababa, na ang kamay ay nakaturo sa ibaba)"
     ]
-  }
-,
+  },
   {
     question: "16. DUMMY SESSION 1 QUESTION 16 — Replace with the actual question.",
     tagalog: "DUMMY SESSION 1 QUESTION 16 — Papalitan ng aktwal na tanong.",
     image: "images/banner.jpg",
     correct: 0,
-    options: [
-      "a. DUMMY CORRECT ANSWER",
-      "b. DUMMY OPTION",
-      "c. DUMMY OPTION"
-    ]
+    options: ["a. DUMMY CORRECT ANSWER", "b. DUMMY OPTION", "c. DUMMY OPTION"]
   },
   {
     question: "17. DUMMY SESSION 1 QUESTION 17 — Replace with the actual question.",
     tagalog: "DUMMY SESSION 1 QUESTION 17 — Papalitan ng aktwal na tanong.",
     image: "images/banner.jpg",
     correct: 0,
-    options: [
-      "a. DUMMY CORRECT ANSWER",
-      "b. DUMMY OPTION",
-      "c. DUMMY OPTION"
-    ]
+    options: ["a. DUMMY CORRECT ANSWER", "b. DUMMY OPTION", "c. DUMMY OPTION"]
   },
   {
     question: "18. DUMMY SESSION 1 QUESTION 18 — Replace with the actual question.",
     tagalog: "DUMMY SESSION 1 QUESTION 18 — Papalitan ng aktwal na tanong.",
     image: "images/banner.jpg",
     correct: 0,
-    options: [
-      "a. DUMMY CORRECT ANSWER",
-      "b. DUMMY OPTION",
-      "c. DUMMY OPTION"
-    ]
+    options: ["a. DUMMY CORRECT ANSWER", "b. DUMMY OPTION", "c. DUMMY OPTION"]
   },
   {
     question: "19. DUMMY SESSION 1 QUESTION 19 — Replace with the actual question.",
     tagalog: "DUMMY SESSION 1 QUESTION 19 — Papalitan ng aktwal na tanong.",
     image: "images/banner.jpg",
     correct: 0,
-    options: [
-      "a. DUMMY CORRECT ANSWER",
-      "b. DUMMY OPTION",
-      "c. DUMMY OPTION"
-    ]
+    options: ["a. DUMMY CORRECT ANSWER", "b. DUMMY OPTION", "c. DUMMY OPTION"]
   },
   {
     question: "20. DUMMY SESSION 1 QUESTION 20 — Replace with the actual question.",
     tagalog: "DUMMY SESSION 1 QUESTION 20 — Papalitan ng aktwal na tanong.",
     image: "images/banner.jpg",
     correct: 0,
-    options: [
-      "a. DUMMY CORRECT ANSWER",
-      "b. DUMMY OPTION",
-      "c. DUMMY OPTION"
-    ]
+    options: ["a. DUMMY CORRECT ANSWER", "b. DUMMY OPTION", "c. DUMMY OPTION"]
   },
   {
     question: "21. DUMMY SESSION 1 QUESTION 21 — Replace with the actual question.",
     tagalog: "DUMMY SESSION 1 QUESTION 21 — Papalitan ng aktwal na tanong.",
     image: "images/banner.jpg",
     correct: 0,
-    options: [
-      "a. DUMMY CORRECT ANSWER",
-      "b. DUMMY OPTION",
-      "c. DUMMY OPTION"
-    ]
+    options: ["a. DUMMY CORRECT ANSWER", "b. DUMMY OPTION", "c. DUMMY OPTION"]
   },
   {
     question: "22. DUMMY SESSION 1 QUESTION 22 — Replace with the actual question.",
     tagalog: "DUMMY SESSION 1 QUESTION 22 — Papalitan ng aktwal na tanong.",
     image: "images/banner.jpg",
     correct: 0,
-    options: [
-      "a. DUMMY CORRECT ANSWER",
-      "b. DUMMY OPTION",
-      "c. DUMMY OPTION"
-    ]
+    options: ["a. DUMMY CORRECT ANSWER", "b. DUMMY OPTION", "c. DUMMY OPTION"]
   },
   {
     question: "23. DUMMY SESSION 1 QUESTION 23 — Replace with the actual question.",
     tagalog: "DUMMY SESSION 1 QUESTION 23 — Papalitan ng aktwal na tanong.",
     image: "images/banner.jpg",
     correct: 0,
-    options: [
-      "a. DUMMY CORRECT ANSWER",
-      "b. DUMMY OPTION",
-      "c. DUMMY OPTION"
-    ]
+    options: ["a. DUMMY CORRECT ANSWER", "b. DUMMY OPTION", "c. DUMMY OPTION"]
   },
   {
     question: "24. DUMMY SESSION 1 QUESTION 24 — Replace with the actual question.",
     tagalog: "DUMMY SESSION 1 QUESTION 24 — Papalitan ng aktwal na tanong.",
     image: "images/banner.jpg",
     correct: 0,
-    options: [
-      "a. DUMMY CORRECT ANSWER",
-      "b. DUMMY OPTION",
-      "c. DUMMY OPTION"
-    ]
+    options: ["a. DUMMY CORRECT ANSWER", "b. DUMMY OPTION", "c. DUMMY OPTION"]
   },
   {
     question: "25. DUMMY SESSION 1 QUESTION 25 — Replace with the actual question.",
     tagalog: "DUMMY SESSION 1 QUESTION 25 — Papalitan ng aktwal na tanong.",
     image: "images/banner.jpg",
     correct: 0,
-    options: [
-      "a. DUMMY CORRECT ANSWER",
-      "b. DUMMY OPTION",
-      "c. DUMMY OPTION"
-    ]
+    options: ["a. DUMMY CORRECT ANSWER", "b. DUMMY OPTION", "c. DUMMY OPTION"]
   },
   {
     question: "26. DUMMY SESSION 1 QUESTION 26 — Replace with the actual question.",
     tagalog: "DUMMY SESSION 1 QUESTION 26 — Papalitan ng aktwal na tanong.",
     image: "images/banner.jpg",
     correct: 0,
-    options: [
-      "a. DUMMY CORRECT ANSWER",
-      "b. DUMMY OPTION",
-      "c. DUMMY OPTION"
-    ]
+    options: ["a. DUMMY CORRECT ANSWER", "b. DUMMY OPTION", "c. DUMMY OPTION"]
   },
   {
     question: "27. DUMMY SESSION 1 QUESTION 27 — Replace with the actual question.",
     tagalog: "DUMMY SESSION 1 QUESTION 27 — Papalitan ng aktwal na tanong.",
     image: "images/banner.jpg",
     correct: 0,
-    options: [
-      "a. DUMMY CORRECT ANSWER",
-      "b. DUMMY OPTION",
-      "c. DUMMY OPTION"
-    ]
+    options: ["a. DUMMY CORRECT ANSWER", "b. DUMMY OPTION", "c. DUMMY OPTION"]
   },
   {
     question: "28. DUMMY SESSION 1 QUESTION 28 — Replace with the actual question.",
     tagalog: "DUMMY SESSION 1 QUESTION 28 — Papalitan ng aktwal na tanong.",
     image: "images/banner.jpg",
     correct: 0,
-    options: [
-      "a. DUMMY CORRECT ANSWER",
-      "b. DUMMY OPTION",
-      "c. DUMMY OPTION"
-    ]
+    options: ["a. DUMMY CORRECT ANSWER", "b. DUMMY OPTION", "c. DUMMY OPTION"]
   },
   {
     question: "29. DUMMY SESSION 1 QUESTION 29 — Replace with the actual question.",
     tagalog: "DUMMY SESSION 1 QUESTION 29 — Papalitan ng aktwal na tanong.",
     image: "images/banner.jpg",
     correct: 0,
-    options: [
-      "a. DUMMY CORRECT ANSWER",
-      "b. DUMMY OPTION",
-      "c. DUMMY OPTION"
-    ]
+    options: ["a. DUMMY CORRECT ANSWER", "b. DUMMY OPTION", "c. DUMMY OPTION"]
   },
   {
     question: "30. DUMMY SESSION 1 QUESTION 30 — Replace with the actual question.",
     tagalog: "DUMMY SESSION 1 QUESTION 30 — Papalitan ng aktwal na tanong.",
     image: "images/banner.jpg",
     correct: 0,
-    options: [
-      "a. DUMMY CORRECT ANSWER",
-      "b. DUMMY OPTION",
-      "c. DUMMY OPTION"
-    ]
+    options: ["a. DUMMY CORRECT ANSWER", "b. DUMMY OPTION", "c. DUMMY OPTION"]
   }
 ];
 
@@ -688,9 +627,7 @@ const finalQuestions = [
       "b. No, unless authorized by a traffic enforcer (Hindi, maliban kung pinahintulutan ng traffic enforcer)",
       "c. No (Hindi)"
     ]
-  }
-,
-  [
+  },
   {
     question: "31. Identify this traffic sign:",
     tagalog: "Tukuyin kung anong senyas ito:",
@@ -1683,14 +1620,7 @@ const finalQuestions = [
   }
 ];
 
-// Security termination modal styles.
-
-// Mobile screenshot deterrence and exam watermark.
-// IMPORTANT: Normal mobile browsers do not expose a reliable "screenshot taken"
-// event. Hardware screenshot buttons (Power + Volume, iOS side-button + volume,
-// etc.) cannot be detected by a GitHub Pages website. The watermark makes
-// screenshots traceable and the browser-level screenshot shortcuts below are
-// still blocked/logged when the browser exposes the key event.
+// Security termination modal styles & deterrence
 const mobileSecurityStyle = document.createElement("style");
 mobileSecurityStyle.textContent = `
   html, body, #app, .exam-shell, .question-card {
@@ -1784,14 +1714,14 @@ securityModalStyle.textContent = `
   }
 `;
 document.head.appendChild(securityModalStyle);
+
 const resultEmailStyle = document.createElement("style");
 resultEmailStyle.textContent = `.result-table small{display:block;margin-top:6px;font-weight:800;}`;
 document.head.appendChild(resultEmailStyle);
 
-
 function esc(value) {
   return String(value ?? "").replace(/[&<>"']/g, c => ({
-    "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#039;"
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;"
   }[c]));
 }
 
@@ -1801,11 +1731,10 @@ window.startAuthenticatedExam = function(data) {
   sessionToken = data.sessionToken || "";
   currentSection = 1;
   currentIndex = 0;
- // In startAuthenticatedExam:
   answers = {
-  session1: new Array(SESSION_1_COUNT).fill(null),
-  final: new Array(FINAL_COUNT).fill(null)
-};
+    session1: new Array(SESSION_1_COUNT).fill(null),
+    final: new Array(FINAL_COUNT).fill(null)
+  };
   timer = TOTAL_TIME_SECONDS;
   securityViolations = 0;
   submitted = false;
@@ -1819,6 +1748,7 @@ window.startAuthenticatedExam = function(data) {
 
   renderExam();
   addExamWatermark();
+  attachSecurityListeners();
 };
 
 function renderExam() {
@@ -1867,10 +1797,12 @@ function renderQuestion() {
   const q = questions[currentIndex];
   const selected = selectedAnswers[currentIndex];
 
-  document.getElementById("sectionTitle").textContent =
-    currentSection === 1
+  const titleElem = document.getElementById("sectionTitle");
+  if (titleElem) {
+    titleElem.textContent = currentSection === 1
       ? "TDC 1st Session Exam — 30 Items"
       : "TDC Final Exam — 120 Items";
+  }
 
   const imageHtml = q.image
     ? `<img class="question-image" src="${esc(q.image)}" alt="Question image">`
@@ -1897,492 +1829,274 @@ function renderQuestion() {
     <div class="question-grid">
       ${questions.map((_, i) => `
         <button
-          class="${selectedAnswers[i] !== undefined ? "answered" : ""} ${i === currentIndex ? "current" : ""}"
-          onclick="goTo(${i})">${i + 1}</button>
+          class="grid-item ${selectedAnswers[i] !== null ? "answered" : ""} ${currentIndex === i ? "current" : ""}"
+          onclick="goToQuestion(${i})">
+          ${i + 1}
+        </button>
       `).join("")}
     </div>
   `;
 
-  document.getElementById("navArea").innerHTML = `
-    <div class="nav-row">
-      <button class="nav-btn" onclick="previousQuestion()" ${currentIndex === 0 ? "disabled" : ""}>
-        Previous
-      </button>
+  renderNavButtons();
+}
 
-      ${
-        currentIndex < questions.length - 1
-          ? `<button class="nav-btn primary" onclick="nextQuestion()">Next</button>`
-          : `<button class="nav-btn submit" onclick="reviewSection()">Review & Submit</button>`
-      }
+function selectAnswer(index) {
+  if (submitted) return;
+  const currentAnswers = getAnswers();
+  currentAnswers[currentIndex] = index;
+  renderQuestion();
+}
+
+function goToQuestion(index) {
+  if (submitted) return;
+  currentIndex = index;
+  renderQuestion();
+}
+
+function renderNavButtons() {
+  const questions = getQuestions();
+  const isFirst = currentIndex === 0;
+  const isLast = currentIndex === questions.length - 1;
+
+  let nextOrSubmitBtn = "";
+  if (isLast) {
+    if (currentSection === 1) {
+      nextOrSubmitBtn = `<button class="btn btn-primary" onclick="proceedToFinalSection()">Proceed to Final Exam &rarr;</button>`;
+    } else {
+      nextOrSubmitBtn = `<button class="btn btn-success" onclick="confirmFinalSubmission()">Submit Final Exam</button>`;
+    }
+  } else {
+    nextOrSubmitBtn = `<button class="btn btn-primary" onclick="nextQuestion()">Next &rarr;</button>`;
+  }
+
+  document.getElementById("navArea").innerHTML = `
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" onclick="prevQuestion()" ${isFirst ? "disabled" : ""}>&larr; Previous</button>
+      ${nextOrSubmitBtn}
     </div>
   `;
 }
 
-function selectAnswer(index) {
-  getAnswers()[currentIndex] = parseInt(index, 10);
-  renderQuestion();
-}
-
-function nextQuestion() {
-  if (currentIndex < getQuestions().length - 1) {
-    currentIndex++;
-    renderQuestion();
-  }
-}
-
-function previousQuestion() {
+function prevQuestion() {
   if (currentIndex > 0) {
     currentIndex--;
     renderQuestion();
   }
 }
 
-function goTo(index) {
-  currentIndex = index;
-  renderQuestion();
+function nextQuestion() {
+  const questions = getQuestions();
+  if (currentIndex < questions.length - 1) {
+    currentIndex++;
+    renderQuestion();
+  }
 }
 
-function reviewSection() {
-  const questions = getQuestions();
-  const selectedAnswers = getAnswers();
-  
-  // FIXED: Check all indices from 0 to questions.length - 1
-  let unanswered = 0;
-  for (let i = 0; i < questions.length; i++) {
-    if (selectedAnswers[i] === undefined || selectedAnswers[i] === null) {
-      unanswered++;
+function proceedToFinalSection() {
+  const unanswered = answers.session1.filter(a => a === null).length;
+  if (unanswered > 0) {
+    if (!confirm(`You have ${unanswered} unanswered question(s) in Session 1. Are you sure you want to proceed to the Final Exam?`)) {
+      return;
     }
   }
-
-  document.getElementById("questionArea").innerHTML = `
-    <section class="review-card">
-      <h2>Review Your Answers</h2>
-      <p>
-        ${currentSection === 1 ? "TDC 1st Session" : "TDC Final Exam"}
-        — ${questions.length} items
-      </p>
-
-      <div class="review-status">
-        <b>${questions.length - unanswered}</b> answered
-        &nbsp; | &nbsp;
-        <b>${unanswered}</b> unanswered
-      </div>
-
-      <div class="review-grid">
-        ${questions.map((_, i) => `
-          <button class="${selectedAnswers[i] !== undefined && selectedAnswers[i] !== null ? "answered" : "unanswered"}"
-                  onclick="goTo(${i})">${i + 1}</button>
-        `).join("")}
-      </div>
-
-      <div class="nav-row">
-        <button class="nav-btn" onclick="renderQuestion()">Return to Questions</button>
-        <button class="nav-btn submit" onclick="confirmSubmitSection()">Submit Section</button>
-      </div>
-    </section>
-  `;
-
-  document.getElementById("navArea").innerHTML = "";
-}
-
-function confirmSubmitSection() {
-  const questions = getQuestions();
-  const selectedAnswers = getAnswers();
-  
-  let unanswered = 0;
-  for (let i = 0; i < questions.length; i++) {
-    if (selectedAnswers[i] === undefined || selectedAnswers[i] === null) {
-      unanswered++;
-    }
-  }
-
-  const message = unanswered
-    ? `You still have ${unanswered} unanswered item(s). Submit anyway?`
-    : "Submit this section? Your answers cannot be changed afterward.";
-
-  if (confirm(message)) {
-    submitSection();
-  }
-}
-
-function calculateScore(questions, selectedAnswers) {
-  return questions.reduce(
-    (score, question, index) =>
-      score + (selectedAnswers[index] === question.correct ? 1 : 0),
-    0
-  );
-}
-
-function submitSection() {
-  const questions = getQuestions();
-  const score = calculateScore(questions, getAnswers());
-
-  if (currentSection === 1) {
-    showSession1Result(score);
-  } else {
-    showFinalResult(score);
-  }
-}
-
-function showSession1Result(score) {
-  const percent = (score / SESSION_1_COUNT) * 100;
-  const passed = percent >= PASS_PERCENT;
-
-  document.getElementById("questionArea").innerHTML = `
-    <section class="result-card">
-      <h2>TDC 1st Session Result</h2>
-      <div class="big-score">${score} / ${SESSION_1_COUNT}</div>
-      <div class="percent">${percent.toFixed(2)}%</div>
-      <div class="${passed ? "pass" : "fail"}">
-        ${passed ? "PASSED" : "FAILED"}
-      </div>
-      <p>Passing rate: ${PASS_PERCENT}%</p>
-
-      <button class="nav-btn primary" onclick="startFinalExam()">
-        Continue to TDC Final Exam
-      </button>
-    </section>
-  `;
-
-  document.getElementById("navArea").innerHTML = "";
-}
-
-function startFinalExam() {
   currentSection = 2;
   currentIndex = 0;
   renderQuestion();
 }
 
-function showFinalResult(finalScore, completionStatus = "COMPLETED") {
-  stopTimer();
-
-  const session1Score = calculateScore(session1Questions, answers.session1);
-  const session1Percent = (session1Score / SESSION_1_COUNT) * 100;
-  const finalPercent = (finalScore / FINAL_COUNT) * 100;
-  const session1Passed = session1Percent >= PASS_PERCENT;
-  const finalPassed = finalPercent >= PASS_PERCENT;
-  const overallPassed = session1Passed && finalPassed;
-
-  if (resultSubmissionStarted) return;
-  resultSubmissionStarted = true;
-  submitted = true;
-
-  document.getElementById("questionArea").innerHTML = `
-    <section class="result-card">
-      <h2>SUBMITTING EXAMINATION RESULT...</h2>
-      <div class="big-score">${session1Score} / ${SESSION_1_COUNT}</div>
-      <p>TDC 1st Session score</p>
-      <div class="big-score">${finalScore} / ${FINAL_COUNT}</div>
-      <p>TDC Final Exam score</p>
-      <p>Please wait while the official result is recorded and sent to the office.</p>
-      <div class="notice">Submitting...</div>
-    </section>`;
-  document.getElementById("navArea").innerHTML = "";
-
-  submitExamResult({
-    completionStatus, session1Score, session1Percent,
-    finalScore, finalPercent, overallPassed
-  }).then(result => {
-    renderFinalResultPage({
-      session1Score, session1Percent, finalScore, finalPercent,
-      overallPassed, completionStatus,
-      emailSent: result && result.emailSent !== false,
-      serverRecorded: result && result.recorded !== false
-    });
-  }).catch(error => {
-    renderFinalResultPage({
-      session1Score, session1Percent, finalScore, finalPercent,
-      overallPassed, completionStatus,
-      emailSent: false, serverRecorded: false,
-      errorMessage: error?.message || "Unable to contact the exam server."
-    });
-  });
-}
-
-function submitExamResult(resultData) {
-  const payload = {
-    action: "submitExamResult",
-    attemptId,
-    sessionToken,
-    student,
-    securityViolations,
-    completionStatus: resultData.completionStatus,
-    session1Answers: answers.session1,
-    finalAnswers: answers.final,
-    clientCalculated: {
-      session1Score: resultData.session1Score,
-      session1Percent: resultData.session1Percent,
-      finalScore: resultData.finalScore,
-      finalPercent: resultData.finalPercent,
-      overallPassed: resultData.overallPassed
-    },
-    submittedAt: new Date().toISOString()
-  };
-
-  return fetch(API_URL, {
-    method: "POST",
-    headers: { "Content-Type": "text/plain;charset=utf-8" },
-    body: JSON.stringify(payload)
-  }).then(async response => {
-    const text = await response.text();
-    let data;
-    try { data = JSON.parse(text); }
-    catch (_) { throw new Error("The exam server returned an invalid response."); }
-    if (!response.ok || !data.success) {
-      throw new Error(data.message || "The exam result could not be recorded.");
+function confirmFinalSubmission() {
+  const unanswered = answers.final.filter(a => a === null).length;
+  if (unanswered > 0) {
+    if (!confirm(`You have ${unanswered} unanswered question(s) in the Final Exam. Do you want to submit anyway?`)) {
+      return;
     }
-    return data;
-  });
-}
-
-function renderFinalResultPage({
-  session1Score, session1Percent, finalScore, finalPercent,
-  overallPassed, completionStatus, emailSent, serverRecorded, errorMessage
-}) {
-  const statusText =
-    completionStatus === "SECURITY_TERMINATED"
-      ? "TERMINATED — SECURITY LIMIT REACHED"
-      : completionStatus === "TIME_EXPIRED"
-        ? "TIME EXPIRED"
-        : (overallPassed ? "PASSED" : "FAILED");
-
-  document.getElementById("questionArea").innerHTML = `
-    <section class="result-card">
-      <h2>EXAMINATION COMPLETE</h2>
-      <div class="result-table">
-        <div>
-          <span>TDC 1st Session</span>
-          <b>${session1Score} / ${SESSION_1_COUNT}</b>
-          <strong>${session1Percent.toFixed(2)}%</strong>
-          <small>${session1Percent >= PASS_PERCENT ? "PASSED" : "FAILED"}</small>
-        </div>
-        <div>
-          <span>TDC Final Exam</span>
-          <b>${finalScore} / ${FINAL_COUNT}</b>
-          <strong>${finalPercent.toFixed(2)}%</strong>
-          <small>${finalPercent >= PASS_PERCENT ? "PASSED" : "FAILED"}</small>
-        </div>
-      </div>
-      <div class="${overallPassed ? "pass" : "fail"}">${statusText}</div>
-      <p>Passing rate for each section: ${PASS_PERCENT}%</p>
-      <p>Security warnings recorded: <b>${securityViolations}</b> / 3</p>
-      <div class="notice">
-        ${serverRecorded ? "✓ Examination result recorded successfully." : "⚠ The examination result could not be confirmed by the server."}
-        <br>
-        ${emailSent ? "✓ Official result email sent to the office." : "⚠ Official result email could not be confirmed."}
-        ${errorMessage ? `<br><small>${esc(errorMessage)}</small>` : ""}
-      </div>
-    </section>`;
-  document.getElementById("navArea").innerHTML = "";
-  sendSecurityEvent("EXAM_COMPLETED");
+  }
+  submitExam(false);
 }
 
 function startTimer() {
-  stopTimer();
-  updateTimer();
-
+  clearInterval(timerInterval);
   timerInterval = setInterval(() => {
-    timer--;
-    updateTimer();
-
     if (timer <= 0) {
-      stopTimer();
-
-      alert("The 90-minute examination time has ended. The exam will be submitted.");
-
-      if (currentSection === 1) {
-        showSession1Result(
-          calculateScore(session1Questions, answers.session1)
-        );
-      } else {
-        showFinalResult(
-          calculateScore(finalQuestions, answers.final),
-          "TIME_EXPIRED"
-        );
-      }
+      clearInterval(timerInterval);
+      alert("Time has expired! Submitting your exam automatically.");
+      submitExam(true);
+      return;
     }
+    timer--;
+    updateTimerDisplay();
   }, 1000);
 }
 
-function stopTimer() {
-  if (timerInterval) {
-    clearInterval(timerInterval);
-    timerInterval = null;
-  }
+function updateTimerDisplay() {
+  const elem = document.getElementById("timer");
+  if (!elem) return;
+  const m = Math.floor(timer / 60).toString().padStart(2, "0");
+  const s = (timer % 60).toString().padStart(2, "0");
+  elem.textContent = `${m}:${s}`;
 }
 
-function updateTimer() {
-  const minutes = Math.floor(timer / 60);
-  const seconds = timer % 60;
-  const element = document.getElementById("timer");
+function attachSecurityListeners() {
+  document.addEventListener("visibilitychange", handleSecurityViolation);
+  window.addEventListener("blur", handleSecurityViolation);
 
-  if (element) {
-    element.textContent =
-      `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
-  }
-}
+  document.addEventListener("fullscreenchange", () => {
+    if (!document.fullscreenElement && !suppressFullscreenViolation && !submitted) {
+      handleSecurityViolation();
+    }
+  });
 
-function sendSecurityEvent(event) {
-  if (!attemptId) return;
-
-  fetch(API_URL, {
-    method: "POST",
-    headers: { "Content-Type": "text/plain;charset=utf-8" },
-    body: JSON.stringify({
-      action: "securityEvent",
-      attemptId,
-      student,
-      event
-    })
-  }).catch(() => {});
-}
-
-function showSecurityTerminationModal() {
-  if (document.getElementById("securityTerminationModal")) return;
-
-  const modal = document.createElement("div");
-  modal.id = "securityTerminationModal";
-  modal.innerHTML = `
-    <div class="security-modal-backdrop">
-      <div class="security-modal-card" role="dialog" aria-modal="true">
-        <div class="security-modal-icon">⚠</div>
-        <h2>EXAMINATION TERMINATED</h2>
-        <p>Three security violations have been recorded.</p>
-        <p>Your examination has been submitted because the maximum number of security warnings has been reached.</p>
-        <button id="securityResultButton" class="nav-btn primary">View Result</button>
-      </div>
-    </div>
-  `;
-
-  document.body.appendChild(modal);
-
-  document.getElementById("securityResultButton").addEventListener("click", () => {
-    modal.remove();
-
-    // Security termination ends the ENTIRE examination.
-    // Do not show the Session 1 continuation button after the limit is reached.
-    showFinalResult(
-      calculateScore(finalQuestions, answers.final),
-      "SECURITY_TERMINATED"
-    );
+  document.addEventListener("contextmenu", e => e.preventDefault());
+  document.addEventListener("keydown", e => {
+    if (
+      e.key === "F12" ||
+      (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "J" || e.key === "C")) ||
+      (e.ctrlKey && e.key === "U") ||
+      e.key === "PrintScreen"
+    ) {
+      e.preventDefault();
+      handleSecurityViolation();
+    }
   });
 }
 
-function recordViolation(type) {
+function handleSecurityViolation() {
   if (submitted || securityTerminationInProgress) return;
 
   securityViolations++;
-
-  sendSecurityEvent(`${type} #${securityViolations}`);
-
   const banner = document.getElementById("securityBanner");
 
-  if (banner) {
-    banner.textContent =
-      `⚠ Security warning ${securityViolations} of 3: ${type}`;
-  }
-
   if (securityViolations >= 3) {
-    // Mark the exam as terminating BEFORE displaying anything.
-    // This prevents the fullscreenchange event caused by a dialog/modal
-    // from being counted as a fourth violation.
     securityTerminationInProgress = true;
-    submitted = true;
-    suppressFullscreenViolation = true;
-    stopTimer();
-
-    sendSecurityEvent("EXAM_TERMINATED_SECURITY_LIMIT");
+    clearInterval(timerInterval);
     showSecurityTerminationModal();
+  } else {
+    if (banner) {
+      banner.style.background = "#fff3cd";
+      banner.style.color = "#856404";
+      banner.textContent = `SECURITY WARNING (${securityViolations}/3): Leaving the exam view or changing window focus is prohibited.`;
+    }
   }
 }
 
-document.addEventListener("visibilitychange", () => {
-  if (document.hidden) recordViolation("TAB_OR_WINDOW_LEFT");
-});
+function showSecurityTerminationModal() {
+  const backdrop = document.createElement("div");
+  backdrop.className = "security-modal-backdrop";
+  backdrop.innerHTML = `
+    <div class="security-modal-card">
+      <div class="security-modal-icon">&boxbox;</div>
+      <h2>Exam Terminated</h2>
+      <p>You have exceeded the maximum allowable security violations (3/3). Your exam session has been invalidated.</p>
+    </div>
+  `;
+  document.body.appendChild(backdrop);
+  submitExam(true, true);
+}
 
-document.addEventListener("copy", event => {
-  if (document.getElementById("questionArea")) {
-    event.preventDefault();
-    recordViolation("COPY_ATTEMPT");
+function calculateScores() {
+  let s1Score = 0;
+  session1Questions.forEach((q, i) => {
+    if (answers.session1[i] === q.correct) s1Score++;
+  });
+
+  let finalScore = 0;
+  finalQuestions.forEach((q, i) => {
+    if (answers.final[i] === q.correct) finalScore++;
+  });
+
+  const s1Percent = (s1Score / SESSION_1_COUNT) * 100;
+  const finalPercent = (finalScore / FINAL_COUNT) * 100;
+
+  const s1Passed = s1Percent >= PASS_PERCENT;
+  const finalPassed = finalPercent >= PASS_PERCENT;
+  const overallPassed = s1Passed && finalPassed;
+
+  return {
+    s1Score,
+    s1Total: SESSION_1_COUNT,
+    s1Percent: s1Percent.toFixed(1),
+    s1Passed,
+    finalScore,
+    finalTotal: FINAL_COUNT,
+    finalPercent: finalPercent.toFixed(1),
+    finalPassed,
+    overallPassed
+  };
+}
+
+function submitExam(force = false, terminated = false) {
+  if (submitted || resultSubmissionStarted) return;
+  submitted = true;
+  resultSubmissionStarted = true;
+  clearInterval(timerInterval);
+
+  const scores = calculateScores();
+  const payload = {
+    action: "submitExam",
+    attemptId,
+    sessionToken,
+    student,
+    scores,
+    securityViolations,
+    terminated,
+    answers
+  };
+
+  fetch(API_URL, {
+    method: "POST",
+    mode: "no-cors",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  }).catch(() => {});
+
+  if (!terminated) {
+    renderResults(scores);
   }
-});
+}
 
-document.addEventListener("cut", event => {
-  if (document.getElementById("questionArea")) {
-    event.preventDefault();
-    recordViolation("CUT_ATTEMPT");
-  }
-});
+function renderResults(scores) {
+  const app = document.getElementById("app");
+  if (!app) return;
 
-document.addEventListener("paste", event => {
-  if (document.getElementById("questionArea")) {
-    event.preventDefault();
-    recordViolation("PASTE_ATTEMPT");
-  }
-});
+  const statusClass = scores.overallPassed ? "pass" : "fail";
+  const statusText = scores.overallPassed ? "PASSED" : "FAILED";
 
-document.addEventListener("contextmenu", event => {
-  if (document.getElementById("questionArea")) {
-    event.preventDefault();
-    recordViolation("RIGHT_CLICK");
-  }
-});
+  app.innerHTML = `
+    <div class="exam-shell">
+      <header class="exam-header">
+        <div class="brand">A1C DRIVING ACADEMY</div>
+        <h1>TDC Examination Results</h1>
+      </header>
 
-document.addEventListener("fullscreenchange", () => {
-  if (suppressFullscreenViolation) return;
+      <main class="question-card" style="text-align: center; padding: 40px 20px;">
+        <h2 class="${statusClass}" style="font-size: 32px; margin-bottom: 10px;">${statusText}</h2>
+        <p style="font-size: 18px; color: #666; margin-bottom: 30px;">
+          Candidate: <b>${esc(student.fullName)}</b> | Attempt: ${esc(attemptId)}
+        </p>
 
-  if (document.getElementById("questionArea") && !document.fullscreenElement) {
-    recordViolation("FULLSCREEN_EXIT");
-  }
-});
+        <table class="result-table" style="width: 100%; max-width: 500px; margin: 0 auto 30px; text-align: left; border-collapse: collapse;">
+          <tr style="border-bottom: 1px solid #ddd;">
+            <th style="padding: 12px;">Section</th>
+            <th style="padding: 12px;">Score</th>
+            <th style="padding: 12px;">Percentage</th>
+            <th style="padding: 12px;">Status</th>
+          </tr>
+          <tr style="border-bottom: 1px solid #eee;">
+            <td style="padding: 12px;">Session 1 (30 Items)</td>
+            <td style="padding: 12px;">${scores.s1Score} / ${scores.s1Total}</td>
+            <td style="padding: 12px;">${scores.s1Percent}%</td>
+            <td style="padding: 12px;"><b>${scores.s1Passed ? "PASSED" : "FAILED"}</b></td>
+          </tr>
+          <tr>
+            <td style="padding: 12px;">Final Exam (120 Items)</td>
+            <td style="padding: 12px;">${scores.finalScore} / ${scores.finalTotal}</td>
+            <td style="padding: 12px;">${scores.finalPercent}%</td>
+            <td style="padding: 12px;"><b>${scores.finalPassed ? "PASSED" : "FAILED"}</b></td>
+          </tr>
+        </table>
 
-// Best-effort screenshot protection. Browsers cannot completely prevent
-// OS-level screenshots (Snipping Tool, phone camera, external capture, etc.),
-// but common screenshot shortcuts are blocked and logged as violations.
-document.addEventListener("keydown", event => {
-  if (!document.getElementById("questionArea") || submitted) return;
-
-  const key = String(event.key || "").toLowerCase();
-  const isPrintScreen = key === "printscreen" || event.code === "PrintScreen";
-  const isWindowsSnipShortcut = event.shiftKey && key === "s" && (event.metaKey || event.getModifierState?.("Meta"));
-  const isMacScreenshotShortcut = event.metaKey && event.shiftKey && ["3", "4", "5"].includes(key);
-  const isOtherScreenshotShortcut = event.ctrlKey && event.shiftKey && key === "s";
-
-  if (isPrintScreen || isWindowsSnipShortcut || isMacScreenshotShortcut || isOtherScreenshotShortcut) {
-    event.preventDefault();
-    event.stopPropagation();
-    recordViolation("SCREENSHOT_ATTEMPT");
-  }
-});
-
-document.addEventListener("keyup", event => {
-  if (!document.getElementById("questionArea") || submitted) return;
-
-  if (event.key === "PrintScreen" || event.code === "PrintScreen") {
-    event.preventDefault();
-    recordViolation("SCREENSHOT_ATTEMPT");
-  }
-});
-
-
-// Browser print is another way of extracting the exam. Block it and log it.
-window.addEventListener("beforeprint", () => {
-  if (document.getElementById("questionArea") && !submitted) {
-    recordViolation("PRINT_SCREEN_ATTEMPT");
-  }
-});
-
-// Keep the watermark present if the exam UI is rerendered.
-const originalRenderQuestion = renderQuestion;
-renderQuestion = function() {
-  originalRenderQuestion();
-  addExamWatermark();
-};
-
-// Disable dragging/copying question images. This does not stop OS-level
-// screenshot tools, but it prevents easy image extraction from the page.
-document.addEventListener("dragstart", event => {
-  if (document.getElementById("questionArea")) {
-    event.preventDefault();
-  }
-});
+        <p><small>An official copy of your result has been sent to your registered email and LTO portal history.</small></p>
+      </main>
+    </div>
+  `;
+}
