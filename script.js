@@ -4,6 +4,13 @@
 */
 const API_URL = "https://script.google.com/macros/s/AKfycbyoMQPvuxffrZMhTZ4Az4BOPojFRb_A9yBqnbUs_xZh2sl8XAbksObCDlsd-RbeM9qx/exec";
 
+// Automatically include html2pdf library if not present
+if (!window.html2pdf) {
+  const script = document.createElement("script");
+  script.src = "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js";
+  document.head.appendChild(script);
+}
+
 const SESSION_1_COUNT = 30;
 const FINAL_COUNT = 120;
 const PASS_PERCENT = 80;
@@ -915,7 +922,7 @@ const finalQuestions = [
   },
   {
     question: "57. A good driver must meet one's social responsibilities of caring for others by:",
-    tagalog: "Angmaayos na drayber ay matutugunan ang responsabilidad sa lipunan sa pamamagitan nang:",
+    tagalog: "Angmaayos na drayber ay matutugunan ang responsabilidad sa lipunan sa pamamanan ng:",
     image: "images/banner.jpg",
     correct: 0,
     options: [
@@ -1857,23 +1864,32 @@ function renderNavButtons() {
   const isFirst = currentIndex === 0;
   const isLast = currentIndex === questions.length - 1;
 
-  let nextOrSubmitBtn = "";
+  let nextBtnText = "Next";
+  let nextAction = "nextQuestion()";
+
   if (isLast) {
     if (currentSection === 1) {
-      nextOrSubmitBtn = `<button class="btn btn-primary" onclick="submitSection(1)">Submit 1st Session</button>`;
+      nextBtnText = "Proceed to Final Exam";
+      nextAction = "proceedToFinalExam()";
     } else {
-      nextOrSubmitBtn = `<button class="btn btn-primary" onclick="submitSection(2)">Submit Final Exam</button>`;
+      nextBtnText = "Submit Examination";
+      nextAction = "confirmSubmitExam()";
     }
-  } else {
-    nextOrSubmitBtn = `<button class="btn btn-secondary" onclick="nextQuestion()">Next</button>`;
   }
 
   document.getElementById("navArea").innerHTML = `
-    <div class="nav-bar">
-      <button class="btn btn-secondary" onclick="prevQuestion()" ${isFirst ? "disabled" : ""}>Previous</button>
-      ${nextOrSubmitBtn}
+    <div style="display:flex; justify-content:space-between; margin-top:15px;">
+      <button ${isFirst ? "disabled" : ""} onclick="prevQuestion()" class="btn-nav">Previous</button>
+      <button onclick="${nextAction}" class="btn-nav primary">${nextBtnText}</button>
     </div>
   `;
+}
+
+function prevQuestion() {
+  if (currentIndex > 0) {
+    currentIndex--;
+    renderQuestion();
+  }
 }
 
 function nextQuestion() {
@@ -1884,170 +1900,324 @@ function nextQuestion() {
   }
 }
 
-function prevQuestion() {
-  if (currentIndex > 0) {
-    currentIndex--;
-    renderQuestion();
+function proceedToFinalExam() {
+  const unanswered = answers.session1.filter(a => a === null).length;
+  if (unanswered > 0) {
+    if (!confirm(`You have ${unanswered} unanswered question(s) in Section 1. Are you sure you want to proceed to the Final Exam?`)) {
+      return;
+    }
+  }
+  currentSection = 2;
+  currentIndex = 0;
+  renderQuestion();
+}
+
+function confirmSubmitExam() {
+  const unanswered1 = answers.session1.filter(a => a === null).length;
+  const unanswered2 = answers.final.filter(a => a === null).length;
+  const totalUnanswered = unanswered1 + unanswered2;
+
+  let msg = "Are you sure you want to submit your examination now?";
+  if (totalUnanswered > 0) {
+    msg = `You have ${totalUnanswered} total unanswered question(s). Are you sure you want to submit?`;
+  }
+
+  if (confirm(msg)) {
+    submitExam("COMPLETE");
   }
 }
 
 function startTimer() {
-  if (timerInterval) clearInterval(timerInterval);
+  clearInterval(timerInterval);
   timerInterval = setInterval(() => {
     if (submitted) return;
     timer--;
-    
-    const minutes = Math.floor(timer / 60);
-    const seconds = timer % 60;
     const timerElem = document.getElementById("timer");
     if (timerElem) {
-      timerElem.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+      const m = Math.floor(timer / 60);
+      const s = timer % 60;
+      timerElem.textContent = `${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
     }
 
     if (timer <= 0) {
       clearInterval(timerInterval);
-      alert("Time is up! Your answers will be submitted automatically.");
-      finishExam();
+      alert("Time is up! Your examination will now be submitted automatically.");
+      submitExam("TIMEOUT");
     }
   }, 1000);
 }
 
-function submitSection(section) {
-  const currentAnswers = section === 1 ? answers.session1 : answers.final;
-  const total = section === 1 ? SESSION_1_COUNT : FINAL_COUNT;
-  const unanswered = currentAnswers.filter(a => a === null).length;
-
-  if (unanswered > 0) {
-    if (!confirm(`You still have ${unanswered} unanswered question(s). Are you sure you want to submit?`)) {
-      return;
-    }
-  }
-
-  if (section === 1) {
-    currentSection = 2;
-    currentIndex = 0;
-    alert("Session 1 completed. Moving to the Final Exam.");
-    renderQuestion();
-  } else {
-    finishExam();
-  }
-}
-
-function finishExam() {
-  if (submitted) return;
-  submitted = true;
-  clearInterval(timerInterval);
-
-  // Compute Scores
-  let score1 = 0;
-  session1Questions.forEach((q, i) => {
-    if (answers.session1[i] === q.correct) score1++;
-  });
-
-  let scoreFinal = 0;
-  finalQuestions.forEach((q, i) => {
-    if (answers.final[i] === q.correct) scoreFinal++;
-  });
-
-  const pct1 = Math.round((score1 / SESSION_1_COUNT) * 100);
-  const pctFinal = Math.round((scoreFinal / FINAL_COUNT) * 100);
-
-  const passed1 = pct1 >= PASS_PERCENT;
-  const passedFinal = pctFinal >= PASS_PERCENT;
-  const overallPassed = passed1 && passedFinal;
-
-  renderResults(score1, pct1, passed1, scoreFinal, pctFinal, passedFinal, overallPassed);
-  submitFinalResults(score1, scoreFinal, overallPassed);
-}
-
-function renderResults(s1, p1, pass1, sFinal, pFinal, passFinal, overallPass) {
-  document.getElementById("app").innerHTML = `
-    <div class="exam-shell">
-      <header class="exam-header">
-        <div class="brand">A1C DRIVING ACADEMY</div>
-        <h1>Exam Results</h1>
-      </header>
-      <main style="padding: 20px; text-align: center;">
-        <h2 style="color: ${overallPass ? 'green' : 'red'}; font-size: 28px;">
-          ${overallPass ? "CONGRATULATIONS! YOU PASSED" : "FAILED"}
-        </h2>
-        
-        <table class="result-table" style="width:100%; max-width:500px; margin: 20px auto; border-collapse: collapse;">
-          <tr style="border-bottom: 1px solid #ccc;">
-            <th style="padding: 8px; text-align:left;">Section</th>
-            <th style="padding: 8px;">Score</th>
-            <th style="padding: 8px;">Status</th>
-          </tr>
-          <tr>
-            <td style="padding: 8px; text-align:left;">1st Session Exam</td>
-            <td style="padding: 8px;">${s1}/${SESSION_1_COUNT} (${p1}%)</td>
-            <td style="padding: 8px; color: ${pass1 ? 'green' : 'red'}; font-weight:bold;">${pass1 ? 'PASS' : 'FAIL'}</td>
-          </tr>
-          <tr>
-            <td style="padding: 8px; text-align:left;">Final Exam</td>
-            <td style="padding: 8px;">${sFinal}/${FINAL_COUNT} (${pFinal}%)</td>
-            <td style="padding: 8px; color: ${passFinal ? 'green' : 'red'}; font-weight:bold;">${passFinal ? 'PASS' : 'FAIL'}</td>
-          </tr>
-        </table>
-        
-        <p><small>Passing score per section is 80%.</small></p>
-      </main>
-    </div>
-  `;
-}
-
-function submitFinalResults(s1, sFinal, overallPass) {
-  if (resultSubmissionStarted) return;
-  resultSubmissionStarted = true;
-
-  const payload = {
-    attemptId: attemptId,
-    sessionToken: sessionToken,
-    student: student,
-    scores: {
-      session1: s1,
-      final: sFinal,
-      overallPassed: overallPass
-    }
-  };
-
-  fetch(API_URL, {
-    method: "POST",
-    mode: "no-cors",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload)
-  }).catch(err => console.error("Error submitting exam results:", err));
-}
-
 function attachSecurityListeners() {
-  document.addEventListener("contextmenu", e => e.preventDefault());
-  
   document.addEventListener("visibilitychange", () => {
     if (document.hidden && !submitted) {
-      securityViolations++;
-      checkSecurityViolations("Tab switching or leaving the screen is forbidden.");
+      handleSecurityViolation("Switched tab or minimized window");
     }
   });
 
   window.addEventListener("blur", () => {
     if (!submitted) {
-      securityViolations++;
-      checkSecurityViolations("Focus lost from exam screen.");
+      handleSecurityViolation("Focus lost from window");
+    }
+  });
+
+  document.addEventListener("fullscreenchange", () => {
+    if (!document.fullscreenElement && !submitted && !suppressFullscreenViolation) {
+      handleSecurityViolation("Exited fullscreen mode");
+    }
+  });
+
+  document.addEventListener("contextmenu", e => e.preventDefault());
+  document.addEventListener("keydown", e => {
+    if (e.key === "F12" || (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "J")) || (e.ctrlKey && e.key === "U")) {
+      e.preventDefault();
+      handleSecurityViolation("Attempted developer tools access");
     }
   });
 }
 
-function checkSecurityViolations(reason) {
+function handleSecurityViolation(reason) {
+  if (submitted || securityTerminationInProgress) return;
+  securityViolations++;
+
   const banner = document.getElementById("securityBanner");
   if (banner) {
-    banner.textContent = `WARNING (${securityViolations}/3): ${reason}`;
-    banner.style.backgroundColor = "#ffdddd";
-    banner.style.color = "#a00000";
+    banner.textContent = `SECURITY WARNING (${securityViolations}/3): ${reason}`;
+    banner.style.background = "#d9534f";
+    banner.style.color = "#fff";
   }
 
-  if (securityViolations >= 3 && !securityTerminationInProgress) {
+  if (securityViolations >= 3) {
     securityTerminationInProgress = true;
-    alert("Maximum security violations reached. Your exam is being automatically terminated.");
-    finishExam();
+    showSecurityModalAndTerminate();
   }
+}
+
+function showSecurityModalAndTerminate() {
+  const modal = document.createElement("div");
+  modal.className = "security-modal-backdrop";
+  modal.innerHTML = `
+    <div class="security-modal-card">
+      <div class="security-modal-icon">⚠️</div>
+      <h2>EXAM TERMINATED</h2>
+      <p>Multiple security violations detected (3/3). Your exam session has been invalidated and auto-submitted.</p>
+    </div>
+  `;
+  document.body.appendChild(modal);
+
+  setTimeout(() => {
+    submitExam("SECURITY_TERMINATED");
+  }, 3000);
+}
+
+function calculateResults() {
+  let score1 = 0;
+  session1Questions.forEach((q, idx) => {
+    if (answers.session1[idx] === q.correct) score1++;
+  });
+
+  let score2 = 0;
+  finalQuestions.forEach((q, idx) => {
+    if (answers.final[idx] === q.correct) score2++;
+  });
+
+  const pct1 = Math.round((score1 / SESSION_1_COUNT) * 100);
+  const pct2 = Math.round((score2 / FINAL_COUNT) * 100);
+
+  const pass1 = pct1 >= PASS_PERCENT;
+  const pass2 = pct2 >= PASS_PERCENT;
+  const passed = pass1 && pass2;
+
+  return { score1, score2, pct1, pct2, pass1, pass2, passed };
+}
+
+function generatePDFBase64(results) {
+  return new Promise((resolve) => {
+    const timeSpentSeconds = TOTAL_TIME_SECONDS - timer;
+    const mins = Math.floor(timeSpentSeconds / 60);
+    const secs = timeSpentSeconds % 60;
+
+    const printableContainer = document.createElement("div");
+    printableContainer.style.padding = "30px";
+    printableContainer.style.fontFamily = "Arial, sans-serif";
+    printableContainer.style.color = "#333";
+    printableContainer.innerHTML = `
+      <div style="text-align: center; border-bottom: 3px solid #1a365d; padding-bottom: 15px; margin-bottom: 25px;">
+        <h1 style="margin: 0; color: #1a365d; font-size: 26px;">A1C DRIVING ACADEMY</h1>
+        <h3 style="margin: 5px 0 0; color: #4a5568; font-weight: normal;">OFFICIAL TDC EXAMINATION RESULT</h3>
+      </div>
+
+      <div style="margin-bottom: 25px; background: #f7fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+          <tr>
+            <td style="padding: 6px; font-weight: bold;">Student Name:</td>
+            <td style="padding: 6px;">${esc(student.fullName || "N/A")}</td>
+            <td style="padding: 6px; font-weight: bold;">Attempt ID:</td>
+            <td style="padding: 6px;">${esc(attemptId)}</td>
+          </tr>
+          <tr>
+            <td style="padding: 6px; font-weight: bold;">LTO Client ID:</td>
+            <td style="padding: 6px;">${esc(student.clientId || student.ltoClientId || "N/A")}</td>
+            <td style="padding: 6px; font-weight: bold;">Time Spent:</td>
+            <td style="padding: 6px;">${mins}m ${secs}s</td>
+          </tr>
+          <tr>
+            <td style="padding: 6px; font-weight: bold;">Violations:</td>
+            <td style="padding: 6px;">${securityViolations} / 3</td>
+            <td style="padding: 6px; font-weight: bold;">Date:</td>
+            <td style="padding: 6px;">${new Date().toLocaleString()}</td>
+          </tr>
+        </table>
+      </div>
+
+      <table style="width: 100%; border-collapse: collapse; margin-bottom: 25px; font-size: 14px;">
+        <thead>
+          <tr style="background: #1a365d; color: #fff;">
+            <th style="padding: 10px; text-align: left;">Exam Section</th>
+            <th style="padding: 10px; text-align: center;">Score</th>
+            <th style="padding: 10px; text-align: center;">Percentage</th>
+            <th style="padding: 10px; text-align: center;">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom: 1px solid #e2e8f0;">
+            <td style="padding: 10px;">Section 1: 1st Session (30 Items)</td>
+            <td style="padding: 10px; text-align: center;">${results.score1} / ${SESSION_1_COUNT}</td>
+            <td style="padding: 10px; text-align: center;">${results.pct1}%</td>
+            <td style="padding: 10px; text-align: center; font-weight: bold; color: ${results.pass1 ? '#2e7d32' : '#c62828'};">
+              ${results.pass1 ? 'PASSED' : 'FAILED'}
+            </td>
+          </tr>
+          <tr style="border-bottom: 1px solid #e2e8f0;">
+            <td style="padding: 10px;">Section 2: Final Exam (120 Items)</td>
+            <td style="padding: 10px; text-align: center;">${results.score2} / ${FINAL_COUNT}</td>
+            <td style="padding: 10px; text-align: center;">${results.pct2}%</td>
+            <td style="padding: 10px; text-align: center; font-weight: bold; color: ${results.pass2 ? '#2e7d32' : '#c62828'};">
+              ${results.pass2 ? 'PASSED' : 'FAILED'}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="text-align: center; margin-top: 30px; padding: 20px; border-radius: 8px; background: ${results.passed ? '#e8f5e9' : '#ffebee'}; border: 2px solid ${results.passed ? '#2e7d32' : '#c62828'};">
+        <h2 style="margin: 0; color: ${results.passed ? '#2e7d32' : '#c62828'};">
+          OVERALL VERDICT: ${results.passed ? 'PASSED' : 'FAILED'}
+        </h2>
+      </div>
+    `;
+
+    const opt = {
+      margin: 10,
+      filename: `Exam_Result_${student.fullName || 'Student'}.pdf`,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+
+    if (window.html2pdf) {
+      window.html2pdf().from(printableContainer).set(opt).outputPdf('datauristring').then(pdfDataUri => {
+        const base64 = pdfDataUri.split(',')[1] || "";
+        resolve(base64);
+      }).catch(() => resolve(""));
+    } else {
+      resolve("");
+    }
+  });
+}
+
+async function sendResultWithPdf(payload, results) {
+  try {
+    const pdfBase64 = await generatePDFBase64(results);
+    payload.pdfBase64 = pdfBase64;
+    payload.sendEmail = true;
+
+    await fetch(API_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+  } catch (err) {
+    console.error("Failed to transmit result email with PDF payload:", err);
+  }
+}
+
+async function submitExam(submissionType = "COMPLETE") {
+  if (submitted || resultSubmissionStarted) return;
+  resultSubmissionStarted = true;
+  submitted = true;
+  clearInterval(timerInterval);
+
+  const results = calculateResults();
+  const timeSpent = TOTAL_TIME_SECONDS - timer;
+
+  const payload = {
+    action: "submitResult",
+    attemptId,
+    sessionToken,
+    student,
+    submissionType,
+    timeSpentSeconds: timeSpent,
+    securityViolations,
+    results,
+    answers
+  };
+
+  const app = document.getElementById("app");
+  if (app) {
+    app.innerHTML = `
+      <div style="text-align:center; padding: 50px 20px;">
+        <h2>Submitting Exam Results...</h2>
+        <p>Please wait while your official record and result certificate are being generated and sent to the office email.</p>
+      </div>
+    `;
+  }
+
+  // Send payload with PDF attached to backend Google Apps Script / Office Email
+  await sendResultWithPdf(payload, results);
+
+  renderResultScreen(results, submissionType);
+}
+
+function renderResultScreen(results, submissionType) {
+  const app = document.getElementById("app");
+  if (!app) return;
+
+  const statusText = results.passed ? "PASSED" : "FAILED";
+  const statusColor = results.passed ? "#2e7d32" : "#c62828";
+
+  app.innerHTML = `
+    <div class="exam-shell" style="max-width: 650px; margin: 40px auto; text-align: center;">
+      <header class="exam-header" style="justify-content: center;">
+        <h1>EXAMINATION RESULT</h1>
+      </header>
+
+      <div style="padding: 30px; background: #fff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-top: 20px;">
+        <p>Student Name: <strong>${esc(student.fullName)}</strong></p>
+        <p>Attempt ID: <strong>${esc(attemptId)}</strong></p>
+
+        ${submissionType === "SECURITY_TERMINATED" ? `
+          <div style="color: #c62828; font-weight: bold; margin: 15px 0; padding: 10px; background: #ffebee; border-radius: 6px;">
+            ⚠️ Session was terminated due to security violations.
+          </div>
+        ` : ""}
+
+        <div style="font-size: 28px; font-weight: bold; color: ${statusColor}; margin: 20px 0;">
+          ${statusText}
+        </div>
+
+        <div style="text-align: left; background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+          <p><strong>Section 1 (30 items):</strong> ${results.score1} / ${SESSION_1_COUNT} (${results.pct1}%) - 
+            <span style="color:${results.pass1 ? '#2e7d32' : '#c62828'}">${results.pass1 ? 'PASS' : 'FAIL'}</span>
+          </p>
+          <p><strong>Section 2 (120 items):</strong> ${results.score2} / ${FINAL_COUNT} (${results.pct2}%)- 
+            <span style="color:${results.pass2 ? '#2e7d32' : '#c62828'}">${results.pass2 ? 'PASS' : 'FAIL'}</span>
+          </p>
+        </div>
+
+        <p style="color: #666; font-size: 14px;">
+          A copy of your PDF exam certificate has been generated and transmitted to the office email.
+        </p>
+      </div>
+    </div>
+  `;
 }
