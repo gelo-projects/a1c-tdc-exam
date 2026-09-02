@@ -28,7 +28,7 @@ const session1Questions = [
   {
     question: "1. Who is a Professional Driver?",
     tagalog: "Sino ang propesyonal na drayber?",
-    image: "images/banner.jpg",
+    image: "",
     correct: 2,
     options: [
       "a. An expert and experienced driver (isang eksperto at ekspiryensado sa pagmamaneho)",
@@ -39,7 +39,7 @@ const session1Questions = [
   {
     question: "2. How many days do you need to settle a traffic violation with LTO?",
     tagalog: "Ilang araw dapat asikasuhin sa LTO ang paglabag sa batas trapiko?",
-    image: "images/banner.jpg",
+    image: "",
     correct: 0,
     options: [
       "a. Within 15 days (Sa loob ng 15 araw)",
@@ -50,7 +50,7 @@ const session1Questions = [
   {
     question: "3. What is the maximum validity of license that a driver may have if he/she has no traffic violation at the time of renewal?",
     tagalog: "Ilang taon ang maaaring ibigay na lisenysa sa isang drayber na walang traffic violation?",
-    image: "images/banner.jpg",
+    image: "",
     correct: 1,
     options: [
       "a. 5 years validity",
@@ -61,7 +61,7 @@ const session1Questions = [
   {
     question: "4. Can a driver be given a 10-year validity license if he/she has traffic violation/s?",
     tagalog: "Maaari bang bigyan ng 10 taon na lisensya ang isang drayber kung ito ay mayroong huli o traffic violation?",
-    image: "images/banner.jpg",
+    image: "",
     correct: 0,
     options: [
       "a. No (hindi)",
@@ -72,7 +72,7 @@ const session1Questions = [
   {
     question: "5. What is the allowed age to apply for a Non Professional driver's license?",
     tagalog: "Ano ang tamang edad upang magkaroon ng lisensya?",
-    image: "images/banner.jpg",
+    image: "",
     correct: 1,
     options: [
       "a. 16 years old",
@@ -83,7 +83,7 @@ const session1Questions = [
   {
     question: "6. Registration of motor vehicle may be suspended if:",
     tagalog: "Maaaring isuspinde ang rehistro ng sasakayan kung ito ay:",
-    image: "images/banner.jpg",
+    image: "",
     correct: 1,
     options: [
       "a. motor vehicle is found to be in conformity with regulations (kung ang sasakyan ay maayos na nakapasa sa inspeksyon)",
@@ -94,7 +94,7 @@ const session1Questions = [
   {
     question: "7. Where do you need to display your plate number?",
     tagalog: "Saan dapat ilagay ang plaka ng isang sasakyan?",
-    image: "images/banner.jpg",
+    image: "",
     correct: 0,
     options: [
       "a. one in front and one in the rear of the vehicle (isa sa harap at isa sa likod ng sasakyan)",
@@ -105,7 +105,7 @@ const session1Questions = [
   {
     question: "8. This traffic sign means \"Yield the right of way\"",
     tagalog: "Ang senyas trapiko na ito ay nangangahulugang “magbigay daan”:",
-    image: "images/banner.jpg",
+    image: "",
     correct: 0,
     options: [
       "a. inverted triangle (baligtad na tatsulok)",
@@ -116,7 +116,7 @@ const session1Questions = [
   {
     question: "9. What is the main purpose of traffic laws, rules and regulations?",
     tagalog: "Ano ang pangunahing layunin ng mga batas, alituntunin at regulasyong pantrapiko?",
-    image: "images/banner.jpg",
+    image: "",
     correct: 2,
     options: [
       "a. To generate revenues for the government (Upang kumita ng pera ang pamahalaan)",
@@ -127,7 +127,7 @@ const session1Questions = [
   {
     question: "10. Green light at an intersection means:",
     tagalog: "Ang kulay berdeng ilaw sa isang interseksiyon ay nangangahulugan na:",
-    image: "images/banner.jpg",
+    image: "",
     correct: 2,
     options: [
       "a. pedestrians are allowed to cross all pedestrian lanes (pinahihintulutang tumawid sa lahat ng tawiran ang mga tao)",
@@ -138,7 +138,7 @@ const session1Questions = [
   {
     question: "11. Flashing yellow light means:",
     tagalog: "Ang kumikisap-kisap na dilaw na ilaw pantrapiko ay nangangahulugan na:",
-    image: "images/banner.jpg",
+    image: "",
     correct: 0,
     options: [
       "a. slowdown and proceed with caution (bagalan ang takbo at dumiretso nang may pag-iingat)",
@@ -149,7 +149,7 @@ const session1Questions = [
   {
     question: "12. Parking is allowed if the vehicle is",
     tagalog: "Pinahihintulutan ang pagparada kung ang sasakyan ay",
-    image: "images/banner.jpg",
+    image: "",
     correct: 0,
     options: [
       "a. beyond 4 meters of a fire hydrant (lampas 4 na metro sa boka-insendiyo)",
@@ -160,7 +160,7 @@ const session1Questions = [
   {
     question: "13. Normally, on a two-lane road, overtaking is allowed at the:",
     tagalog: "Sa kalsadang pandalawahang sasakyan, ang pag-overtake ay pinahihintulutan sa:",
-    image: "images/banner.jpg",
+    image: "",
     correct: 2,
     options: [
       "a. shoulder or pavement of the road (kanang bahagi ng kalsada o bangketa)",
@@ -171,7 +171,7 @@ const session1Questions = [
   {
     question: "14. When do you have to make a complete full stop?",
     tagalog: "Kailan ka dapat ganap na huminto?",
-    image: "images/banner.jpg",
+    image: "",
     correct: 1,
     options: [
       "a. At a flashing yellow light (Kapag may dilaw na ilaw na kumikisap-kisap)",
@@ -182,118 +182,179 @@ const session1Questions = [
   {
     question: "15. The proper hand signal for a right turn is:",
     tagalog: "Ang tamang senyas ng kamay kapag kumakanan ay:",
-    image: "images/banner.jpg",
+    image: "",
     correct: 1,
     options: [
       "a. left arm pointing left (ang kaliwang braso nakaturo sa kaliwa)",
       "b. left arm held pointing upward (ang kaliwang braso ay nakaturo sa itaas)",
       "c. left arm held down, hand pointing at ground (ang kaliwang braso ay nakapababa, na ang kamay ay nakaturo sa ibaba)"
     ]
-  },
+  }
+,
   {
     question: "16. DUMMY SESSION 1 QUESTION 16 — Replace with the actual question.",
     tagalog: "DUMMY SESSION 1 QUESTION 16 — Papalitan ng aktwal na tanong.",
-    image: "images/banner.jpg",
+    image: "",
     correct: 0,
-    options: ["a. DUMMY CORRECT ANSWER", "b. DUMMY OPTION", "c. DUMMY OPTION"]
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
   },
   {
     question: "17. DUMMY SESSION 1 QUESTION 17 — Replace with the actual question.",
     tagalog: "DUMMY SESSION 1 QUESTION 17 — Papalitan ng aktwal na tanong.",
-    image: "images/banner.jpg",
+    image: "",
     correct: 0,
-    options: ["a. DUMMY CORRECT ANSWER", "b. DUMMY OPTION", "c. DUMMY OPTION"]
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
   },
   {
     question: "18. DUMMY SESSION 1 QUESTION 18 — Replace with the actual question.",
     tagalog: "DUMMY SESSION 1 QUESTION 18 — Papalitan ng aktwal na tanong.",
-    image: "images/banner.jpg",
+    image: "",
     correct: 0,
-    options: ["a. DUMMY CORRECT ANSWER", "b. DUMMY OPTION", "c. DUMMY OPTION"]
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
   },
   {
     question: "19. DUMMY SESSION 1 QUESTION 19 — Replace with the actual question.",
     tagalog: "DUMMY SESSION 1 QUESTION 19 — Papalitan ng aktwal na tanong.",
-    image: "images/banner.jpg",
+    image: "",
     correct: 0,
-    options: ["a. DUMMY CORRECT ANSWER", "b. DUMMY OPTION", "c. DUMMY OPTION"]
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
   },
   {
     question: "20. DUMMY SESSION 1 QUESTION 20 — Replace with the actual question.",
     tagalog: "DUMMY SESSION 1 QUESTION 20 — Papalitan ng aktwal na tanong.",
-    image: "images/banner.jpg",
+    image: "",
     correct: 0,
-    options: ["a. DUMMY CORRECT ANSWER", "b. DUMMY OPTION", "c. DUMMY OPTION"]
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
   },
   {
     question: "21. DUMMY SESSION 1 QUESTION 21 — Replace with the actual question.",
     tagalog: "DUMMY SESSION 1 QUESTION 21 — Papalitan ng aktwal na tanong.",
-    image: "images/banner.jpg",
+    image: "",
     correct: 0,
-    options: ["a. DUMMY CORRECT ANSWER", "b. DUMMY OPTION", "c. DUMMY OPTION"]
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
   },
   {
     question: "22. DUMMY SESSION 1 QUESTION 22 — Replace with the actual question.",
     tagalog: "DUMMY SESSION 1 QUESTION 22 — Papalitan ng aktwal na tanong.",
-    image: "images/banner.jpg",
+    image: "",
     correct: 0,
-    options: ["a. DUMMY CORRECT ANSWER", "b. DUMMY OPTION", "c. DUMMY OPTION"]
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
   },
   {
     question: "23. DUMMY SESSION 1 QUESTION 23 — Replace with the actual question.",
     tagalog: "DUMMY SESSION 1 QUESTION 23 — Papalitan ng aktwal na tanong.",
-    image: "images/banner.jpg",
+    image: "",
     correct: 0,
-    options: ["a. DUMMY CORRECT ANSWER", "b. DUMMY OPTION", "c. DUMMY OPTION"]
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
   },
   {
     question: "24. DUMMY SESSION 1 QUESTION 24 — Replace with the actual question.",
     tagalog: "DUMMY SESSION 1 QUESTION 24 — Papalitan ng aktwal na tanong.",
-    image: "images/banner.jpg",
+    image: "",
     correct: 0,
-    options: ["a. DUMMY CORRECT ANSWER", "b. DUMMY OPTION", "c. DUMMY OPTION"]
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
   },
   {
     question: "25. DUMMY SESSION 1 QUESTION 25 — Replace with the actual question.",
     tagalog: "DUMMY SESSION 1 QUESTION 25 — Papalitan ng aktwal na tanong.",
-    image: "images/banner.jpg",
+    image: "",
     correct: 0,
-    options: ["a. DUMMY CORRECT ANSWER", "b. DUMMY OPTION", "c. DUMMY OPTION"]
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
   },
   {
     question: "26. DUMMY SESSION 1 QUESTION 26 — Replace with the actual question.",
     tagalog: "DUMMY SESSION 1 QUESTION 26 — Papalitan ng aktwal na tanong.",
-    image: "images/banner.jpg",
+    image: "",
     correct: 0,
-    options: ["a. DUMMY CORRECT ANSWER", "b. DUMMY OPTION", "c. DUMMY OPTION"]
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
   },
   {
     question: "27. DUMMY SESSION 1 QUESTION 27 — Replace with the actual question.",
     tagalog: "DUMMY SESSION 1 QUESTION 27 — Papalitan ng aktwal na tanong.",
-    image: "images/banner.jpg",
+    image: "",
     correct: 0,
-    options: ["a. DUMMY CORRECT ANSWER", "b. DUMMY OPTION", "c. DUMMY OPTION"]
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
   },
   {
     question: "28. DUMMY SESSION 1 QUESTION 28 — Replace with the actual question.",
     tagalog: "DUMMY SESSION 1 QUESTION 28 — Papalitan ng aktwal na tanong.",
-    image: "images/banner.jpg",
+    image: "",
     correct: 0,
-    options: ["a. DUMMY CORRECT ANSWER", "b. DUMMY OPTION", "c. DUMMY OPTION"]
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
   },
   {
     question: "29. DUMMY SESSION 1 QUESTION 29 — Replace with the actual question.",
     tagalog: "DUMMY SESSION 1 QUESTION 29 — Papalitan ng aktwal na tanong.",
-    image: "images/banner.jpg",
+    image: "",
     correct: 0,
-    options: ["a. DUMMY CORRECT ANSWER", "b. DUMMY OPTION", "c. DUMMY OPTION"]
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
   },
   {
     question: "30. DUMMY SESSION 1 QUESTION 30 — Replace with the actual question.",
     tagalog: "DUMMY SESSION 1 QUESTION 30 — Papalitan ng aktwal na tanong.",
-    image: "images/banner.jpg",
+    image: "",
     correct: 0,
-    options: ["a. DUMMY CORRECT ANSWER", "b. DUMMY OPTION", "c. DUMMY OPTION"]
+    options: [
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
+    ]
   }
 ];
 
@@ -301,7 +362,7 @@ const finalQuestions = [
   {
     question: "1. When can a child be exempted to be sitted in a child restraint system?",
     tagalog: "Kailan maaaring hindi gumamit ng child restraint system ang isang bata?",
-    image: "images/banner.jpg",
+    image: "",
     correct: 2,
     options: [
       "a. If the child will be late for a medical appointment (Kung ang bata ay mahuhuli sa kanyang iskedyul sa ospital)",
@@ -312,7 +373,7 @@ const finalQuestions = [
   {
     question: "2. What are the three field sobriety tests?",
     tagalog: "Ano ang mga pagsusuri na ginagawa upang malaman kung positibo sa alak ang isang drayber?",
-    image: "images/banner.jpg",
+    image: "",
     correct: 0,
     options: [
       "a. Eye test, walk and turn, one leg stand (Pag tsek sa mata, pag lakad at pagtayo sa isang paa)",
@@ -323,7 +384,7 @@ const finalQuestions = [
   {
     question: "3. How do you respond to a situation where you are approaching your garage to your right and you need to pass on a bike lane which is open, but a speeding SUV unexpectedly uses the bike lane to overtake you?",
     tagalog: "Paano ka tutugon sa isang sitwasyon kung saan papalapit ka sa garahe sa kanan at kailangan mong tumawid sa bike lane, nang isang mabilis na SUV ay hindi inaasahan na ginagamit ang bike lane upang mag overtake sayo?",
-    image: "images/banner.jpg",
+    image: "",
     correct: 0,
     options: [
       "a. give way to the speeding SUV (magbigay daan sa mabilis na SUV)",
@@ -334,7 +395,7 @@ const finalQuestions = [
   {
     question: "4. What is the penalty if a driver is found to have a fake or counterfeit license?",
     tagalog: "Ano ang kaakibat na kaparusahan kung ang isang drayber ay mapatunayang huwad ang kanyang lisensiya?",
-    image: "images/banner.jpg",
+    image: "",
     correct: 0,
     options: [
       "a. His/her driver’s license shall be confiscated and he/she shall be disqualified from being granted a driver’s license and driving a motor vehicle for a period of one (1) year from the payment of monetary fine (Ang kaniyang lisensiya ay kukumpiskahin at hindi siya makakukuha ng lisensiya at makakapagmaneho ng sasakyang de-motor sa loob ng isang (1) taon matapos bayaran ang multa)",
@@ -345,7 +406,7 @@ const finalQuestions = [
   {
     question: "5. What is the penalty if a driver is convicted of a crime while using a motor vehicle?",
     tagalog: "Ano ang magiging kaparusahan kung ang isang drayber ay nahatulan ng korte na gumawa ng krimen habang nagmamaneho?",
-    image: "images/banner.jpg",
+    image: "",
     correct: 0,
     options: [
       "a. The DL will be revoked and the driver will be perpetually disqualified from applying for a license plus monetary fine (Multa at habambuhay na diskwalipikasyon sa pagkuha ng lisensya)",
@@ -356,7 +417,7 @@ const finalQuestions = [
   {
     question: "6. LTO rules and regulations prohibit drivers of public utility vehicles from:",
     tagalog: "Ang mga tuntunin at regulasyon ng LTO ay nagbabawal sa mga drayber ng mga public utility vehicle na:",
-    image: "images/banner.jpg",
+    image: "",
     correct: 2,
     options: [
       "a. overcharging fares and fast taximeters (sumingil ng labis na pamasahe at magkaroon ng mabilis na metro ng taxi)",
@@ -367,7 +428,7 @@ const finalQuestions = [
   {
     question: "7. Who is a Professional Driver?",
     tagalog: "Sino ang propesyonal na drayber?",
-    image: "images/banner.jpg",
+    image: "",
     correct: 2,
     options: [
       "a. An expert and experienced driver (isang eksperto at ekspiryensado sa pagmamaneho)",
@@ -378,7 +439,7 @@ const finalQuestions = [
   {
     question: "8. How many days do you need to settle a traffic violation with LTO?",
     tagalog: "Ilang araw dapat asikasuhin sa LTO ang paglabag sa batas trapiko?",
-    image: "images/banner.jpg",
+    image: "",
     correct: 0,
     options: [
       "a. Within 15 days (Sa loob ng 15 araw)",
@@ -389,7 +450,7 @@ const finalQuestions = [
   {
     question: "9. What is the maximum validity of license that a driver may have if he/she has no traffic violation at the time of renewal?",
     tagalog: "Ilang taon ang maaaring ibigay na lisenysa sa isang drayber na walang traffic violation?",
-    image: "images/banner.jpg",
+    image: "",
     correct: 1,
     options: [
       "a. 5 years validity",
@@ -400,7 +461,7 @@ const finalQuestions = [
   {
     question: "10. Can a driver be given a 10-year validity license if he/she has traffic violation/s?",
     tagalog: "Maaari bang bigyan ng 10 taon na lisensya ang isang drayber kung ito ay mayroong huli o traffic violation?",
-    image: "images/banner.jpg",
+    image: "",
     correct: 0,
     options: [
       "a. No (hindi)",
@@ -411,7 +472,7 @@ const finalQuestions = [
   {
     question: "11. What is the allowed age to apply for a Non Professional driver's license?",
     tagalog: "Ano ang tamang edad upang magkaroon ng lisensya?",
-    image: "images/banner.jpg",
+    image: "",
     correct: 1,
     options: [
       "a. 16 years old",
@@ -422,7 +483,7 @@ const finalQuestions = [
   {
     question: "12. Registration of motor vehicle may be suspended if:",
     tagalog: "Maaaring isuspinde ang rehistro ng sasakayan kung ito ay:",
-    image: "images/banner.jpg",
+    image: "",
     correct: 1,
     options: [
       "a. motor vehicle is found to be in conformity with regulations (kung ang sasakyan ay maayos na nakapasa sa inspeksyon)",
@@ -433,7 +494,7 @@ const finalQuestions = [
   {
     question: "13. Where do you need to display your plate number?",
     tagalog: "Saan dapat ilagay ang plaka ng isang sasakyan?",
-    image: "images/banner.jpg",
+    image: "",
     correct: 0,
     options: [
       "a. one in front and one in the rear of the vehicle (isa sa harap at isa sa likod ng sasakyan)",
@@ -444,7 +505,7 @@ const finalQuestions = [
   {
     question: "14. This traffic sign means \"Yield the right of way\"",
     tagalog: "Ang senyas trapiko na ito ay nangangahulugang “magbigay daan”:",
-    image: "images/banner.jpg",
+    image: "",
     correct: 0,
     options: [
       "a. inverted triangle (baligtad na tatsulok)",
@@ -455,7 +516,7 @@ const finalQuestions = [
   {
     question: "15. What is the main purpose of traffic laws, rules and regulations?",
     tagalog: "Ano ang pangunahing layunin ng mga batas, alituntunin at regulasyong pantrapiko?",
-    image: "images/banner.jpg",
+    image: "",
     correct: 2,
     options: [
       "a. To generate revenues for the government (Upang kumita ng pera ang pamahalaan)",
@@ -466,7 +527,7 @@ const finalQuestions = [
   {
     question: "16. Green light at an intersection means:",
     tagalog: "Ang kulay berdeng ilaw sa isang interseksiyon ay nangangahulugan na:",
-    image: "images/banner.jpg",
+    image: "",
     correct: 2,
     options: [
       "a. pedestrians are allowed to cross all pedestrian lanes (pinahihintulutang tumawid sa lahat ng tawiran ang mga tao)",
@@ -477,7 +538,7 @@ const finalQuestions = [
   {
     question: "17. Flashing yellow light means:",
     tagalog: "Ang kumikisap-kisap na dilaw na ilaw pantrapiko ay nangangahulugan na:",
-    image: "images/banner.jpg",
+    image: "",
     correct: 0,
     options: [
       "a. slowdown and proceed with caution (bagalan ang takbo at dumiretso nang may pag-iingat)",
@@ -488,7 +549,7 @@ const finalQuestions = [
   {
     question: "18. Parking is allowed if the vehicle is",
     tagalog: "Pinahihintulutan ang pagparada kung ang sasakyan ay",
-    image: "images/banner.jpg",
+    image: "",
     correct: 0,
     options: [
       "a. beyond 4 meters of a fire hydrant (lampas 4 na metro sa boka-insendiyo)",
@@ -499,7 +560,7 @@ const finalQuestions = [
   {
     question: "19. Normally, on a two-lane road, overtaking is allowed at the:",
     tagalog: "Sa kalsadang pandalawahang sasakyan, ang pag-overtake ay pinahihintulutan sa:",
-    image: "images/banner.jpg",
+    image: "",
     correct: 2,
     options: [
       "a. shoulder or pavement of the road (kanang bahagi ng kalsada o bangketa)",
@@ -510,7 +571,7 @@ const finalQuestions = [
   {
     question: "20. When do you have to make a complete full stop?",
     tagalog: "Kailan ka dapat ganap na huminto?",
-    image: "images/banner.jpg",
+    image: "",
     correct: 1,
     options: [
       "a. At a flashing yellow light (Kapag may dilaw na ilaw na kumikisap-kisap)",
@@ -521,7 +582,7 @@ const finalQuestions = [
   {
     question: "21. The proper hand signal for a right turn is:",
     tagalog: "Ang tamang senyas ng kamay kapag kumakanan ay:",
-    image: "images/banner.jpg",
+    image: "",
     correct: 1,
     options: [
       "a. left arm pointing left (ang kaliwang braso nakaturo sa kaliwa)",
@@ -532,7 +593,7 @@ const finalQuestions = [
   {
     question: "22. Single white broken line on a 2-way road means:",
     tagalog: "Ang putting putol-putol na linya sa kalsadang salubungan ay nangangahulugan na:",
-    image: "images/banner.jpg",
+    image: "",
     correct: 1,
     options: [
       "a. passing or overtaking can be made anytime (ang paglampas o ang pag-overtake ay maaaring gawin anumang oras)",
@@ -543,7 +604,7 @@ const finalQuestions = [
   {
     question: "23. What is the meaning of double solid yellow line?",
     tagalog: "Ano ang kahulugan ng dobleng linyang dilaw?",
-    image: "images/banner.jpg",
+    image: "",
     correct: 2,
     options: [
       "a. Cross with due care (Tumawid nang maingat)",
@@ -554,7 +615,7 @@ const finalQuestions = [
   {
     question: "24. Upon approaching an intersection marked with a yield sign, you are required to",
     tagalog: "Kapag papalapit sa interseksiyong may karatulang nagsasabing magbigay daan (yield), kailangang",
-    image: "images/banner.jpg",
+    image: "",
     correct: 1,
     options: [
       "a. stop before entering the intersection (huminto bago pumasok sa interseksiyon)",
@@ -565,7 +626,7 @@ const finalQuestions = [
   {
     question: "25. The holder of a driver's license shall entitle him/her to operate:",
     tagalog: "Ang lisensiya ay nagpapahintulot sa drayber na magmaneho ng:",
-    image: "images/banner.jpg",
+    image: "",
     correct: 1,
     options: [
       "a. any kind of motor vehicle (anumang uri ng sasakyang de-motor)",
@@ -576,7 +637,7 @@ const finalQuestions = [
   {
     question: "26. When may you lend your driver's license?",
     tagalog: "Kailan mo maaaring ipahiram ang iyong lisensiya?",
-    image: "images/banner.jpg",
+    image: "",
     correct: 0,
     options: [
       "a. Under no circumstances (Hindi maaari kahit kailan)",
@@ -587,7 +648,7 @@ const finalQuestions = [
   {
     question: "27. At an intersection without stop or yield signs, two cars approach at right angles to each other at almost the same time. Which driver must yield?",
     tagalog: "Sa interseksiyon na walang mga karatulang nagsasabing huminto o magbigay ng daan, dalawang sasakyan ang sabay na dumating sa anggulong 90 digri sa isa’tisa. Sinong drayber ang dapat magbigay daan?",
-    image: "images/banner.jpg",
+    image: "",
     correct: 1,
     options: [
       "a. The motorist on the right (Ang drayber ng sasakyan sa kanan)",
@@ -598,7 +659,7 @@ const finalQuestions = [
   {
     question: "28. Is it allowed to drive a motorcycle in a public road pending release of the Certificate of Registration?",
     tagalog: "Maaari bang gamitin sa pampublikong daan ang motorsiklo kung ito ay wala pang rehistro?",
-    image: "images/banner.jpg",
+    image: "",
     correct: 0,
     options: [
       "a. No (Hindi)",
@@ -609,7 +670,7 @@ const finalQuestions = [
   {
     question: "29. Which of the following statement is true?",
     tagalog: "Alin sa mga sumusunod na pahayag ang totoo?",
-    image: "images/banner.jpg",
+    image: "",
     correct: 2,
     options: [
       "a. A DL holder with authority to drive vehicles with manual transmission (MT) is not allowed to drive vehicles with automatic transmission (AT) (Ang isang may hawak ng DL na may awtoridad na magmaneho ng manual transmission (MT) ay hindi pinapayagan na magmaneho ng mga sasakyan na automatic transmission (AT))",
@@ -620,1007 +681,1015 @@ const finalQuestions = [
   {
     question: "30. Can you drive a motorcycle if your license bears DL Code B ?",
     tagalog: "Maaari ka bang magmaneho ng motorsiklo kung ang iyong lisensya ay may DL Code B ?",
-    image: "images/banner.jpg",
+    image: "",
     correct: 2,
     options: [
       "a. Yes (Oo)",
       "b. No, unless authorized by a traffic enforcer (Hindi, maliban kung pinahintulutan ng traffic enforcer)",
       "c. No (Hindi)"
     ]
-  },
+  }
+,
   {
-    question: "31. Identify this traffic sign:",
-    tagalog: "Tukuyin kung anong senyas ito:",
-    image: "images/banner.jpg",
+    question: "31. DUMMY FINAL QUESTION 31 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 31 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. no u-turn (bawal mag u-turn)",
-      "b. dangerous left bend (mapanganib na kaliwang likuan)",
-      "c. dangerous right bend (mapanganib na kanang likuan)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "32. Identify this traffic sign:",
-    tagalog: "Tukuyin kung anong senyas ito:",
-    image: "images/banner.jpg",
+    question: "32. DUMMY FINAL QUESTION 32 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 32 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. road widens ahead (lalapad ang kalsada sa unahan)",
-      "b. slippery road ahead (madulas ang kalsada sa unahan)",
-      "c. road narrows ahead (papaliit na kalsada sa unahan)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "33. Identify this traffic sign:",
-    tagalog: "Tukuyin kung anong senyas ito:",
-    image: "images/banner.jpg",
+    question: "33. DUMMY FINAL QUESTION 33 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 33 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. no blowing of horn (bawal bumusina)",
-      "b. animals crossing (may mga hayop na tumatawid)",
-      "c. dangerous bend (mapanganib na likuan)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "34. Identify this traffic sign:",
-    tagalog: "Tukuyin kung anong senyas ito:",
-    image: "images/banner.jpg",
+    question: "34. DUMMY FINAL QUESTION 34 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 34 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. Road narrows (papaliit ang daan)",
-      "b. Roundabout (rotunda)",
-      "c. no entry for all types of vehicle (bawal pumasok ang lahat nguri ng sasakyan)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "35. Identify this traffic sign:",
-    tagalog: "Tukuyin kung anong senyas ito:",
-    image: "images/banner.jpg",
+    question: "35. DUMMY FINAL QUESTION 35 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 35 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. slippery road (madulas na kalsada)",
-      "b. winding road (paikot na daan)",
-      "c. curve ahead (may kurbada sa unahan)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "36. What is the meaning of this traffic sign?",
-    tagalog: "Ano ang ibig sabihin ng senyas na ito?",
-    image: "images/banner.jpg",
+    question: "36. DUMMY FINAL QUESTION 36 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 36 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. Pedestrian crossing (Tawiran)",
-      "b. Pedestrian crossing ahead (Papalapit na tawiran)",
-      "c. Caution - School Zone (Paalala-paaralan)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "37. Drinking alcohol before driving is one of the major causes of vehicular road crash because when a driver is drunk, he/she is:",
-    tagalog: "Ang pag-inom ng mga inuming nakalalasing bago magmaneho ay isa sa mga pangunahing sanhi ng aksidente ng mga sasakyan sapagkat kapag lasing ang isang drayber, siya ay:",
-    image: "images/banner.jpg",
+    question: "37. DUMMY FINAL QUESTION 37 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 37 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. arrogant, talkative and doesn't have the judgement and the reflexes to perform things safely (mayabang, madaldal, wala sa tamang desisyon at hindi makakikilos nang tama at ligtas)",
-      "b. calm, relaxed and able to perform things accordingly (kalmado at nakagagawa ng nararapat)",
-      "c. able to talk intelligently and coherently, and give every appearance of sobriety (matalino, kalmado at nakakakilos nang nararapat o naaayon)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "38. The Temporary Operator's Permit (TOP) authorizes the apprehended driver to operate motor vehicle for a period not exceeding:",
-    tagalog: "Pinahihintulutan ng Temporary Operator's Permit (TOP) ang nahuling drayber na magmaneho ng sasakyan sa loob ng:",
-    image: "images/banner.jpg",
+    question: "38. DUMMY FINAL QUESTION 38 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 38 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. 72 hours (72 oras)",
-      "b. 1 week (1 linggo)",
-      "c. 15 days (15 araw)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "39. What is the maximum penalty for driving under the influence of liquor or prohibited drugs?",
-    tagalog: "Ano ang pinakamabigat na kaparusahan sa pagmamaneho nang nakainom o naka-droga?",
-    image: "images/banner.jpg",
+    question: "39. DUMMY FINAL QUESTION 39 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 39 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. 6 months suspension (6 na buwan na suspensiyon)",
-      "b. 1-year suspension (1 taóng suspensiyon)",
-      "c. Perpetual revocation of license (Pang habambuhay na pagkakabawi ng lisensiya)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "40. What is the meaning of a blue traffic light?",
-    tagalog: "Ano ang kahulugan ng asul na ilaw trapiko?",
-    image: "images/banner.jpg",
+    question: "40. DUMMY FINAL QUESTION 40 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 40 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. None, no blue traffic light (Walang kulay asul na ilaw trapiko)",
-      "b. Informative sign (Nagbibigay impormasyon)",
-      "c. Proceed (Tumuloy)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "41. Motorcycle riders must consider safety and exercise due care. To do so, they are required to wear",
-    tagalog: "Ang mga nagmamaneho ng motorsiklo ay dapat na laging isinasaalangalang ang lubos na pag-iingat at kaligtasan. Kaya kailangan nilang magsuot ng",
-    image: "images/banner.jpg",
+    question: "41. DUMMY FINAL QUESTION 41 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 41 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. a policeman cap or gloves (sombrero o guwantes ng pulis)",
-      "b. helmets intended for construction works (helmet na pang-construction)",
-      "c. standard protective helmet (naaangkop at aprubadong pang-motorsiklong helmet)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "42. What should you do when another vehicle is following you too close?",
-    tagalog: "Ano ang gagawin mo kung ang sumusunod na sasakyan sa iyo ay masyadong nakatutok?",
-    image: "images/banner.jpg",
+    question: "42. DUMMY FINAL QUESTION 42 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 42 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. Speed up to start a road race (Bilisan pa ang takbo at makipagkarerahan)",
-      "b. Slow down gradually and give him the signal to overtake you ((Unti-unti mong bagalan ang takbo at senyasan siyang mag-overtake)",
-      "c. Slam on your brakes (Biglang magpreno)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "43. Before changing lanes in traffic, aside from giving signal and checking your side and rearview mirrors, what else do you need to do?",
-    tagalog: "Bago lumipat ng lane, bukod sa dapat munang sumenyas, tumingin sa mga gilid at rear view mirror, ano pa ang dapat mong gawin?",
-    image: "images/banner.jpg",
+    question: "43. DUMMY FINAL QUESTION 43 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 43 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. Turn your head to check other vehicles beside your car (Tingnan ang mga katabing sasakyan)",
-      "b. Sound your horn (Bumusina)",
-      "c. Blink your headlights (Pailawin ang mga headlights)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "44. When approaching a sharp curve of the highway, you should:",
-    tagalog: "Kapag papalapit sa isang biglaang pagliko/kurbada, dapat:",
-    image: "images/banner.jpg",
+    question: "44. DUMMY FINAL QUESTION 44 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 44 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. reduce speed before entering the curve (bagalan ang takbo bago lumiko)",
-      "b. increase speed while negotiating the curve (bilisan ang takbo habang lumiliko)",
-      "c. apply your brakes abruptly while taking the curve (biglang magpreno habang lumiliko)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "45. Night driving is difficult. We should do the following when a vehicle comes towards us at night:",
-    tagalog: "Mahirap magmaneho kung gabi kaya dapat gawin ang sumusunod kapag may kasalubong na sasakyan:",
-    image: "images/banner.jpg",
+    question: "45. DUMMY FINAL QUESTION 45 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 45 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. dim your lights by switching to low beam (hinaan ang ilaw sa pamamagitan ng pagsindi sa low beam)",
-      "b. brighten your light by switching to high beam (lakasan ang ilaw sa pamamagitan ng pagsindi sa high beam)",
-      "c. switch on your headlights intermittently (sindihan ang mga headlight, on and off)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "46. At night, when approaching a curve or intersection with poor visibility, be sure to:",
-    tagalog: "Sa gabi, kapag papalapit sa isang kurbada o interseksiyon na mahirap makita ang kasalubong, siguraduhing:",
-    image: "images/banner.jpg",
+    question: "46. DUMMY FINAL QUESTION 46 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 46 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. switch off your headlights to enable oncoming motorists to see you (patayin ang headlight upang makita ng mga motorista ang iyong sasakyan)",
-      "b. flash your headlights to let pedestrians and oncoming motorists know that you are heading into the curve or intersection (sumenyas sa pamamagitan ng pagpatay-sindi ng headlight upang malaman ng mga tao at mga kasalubong na motorista na papalapit ka sa kurbada o interseksiyon)",
-      "c. switch on your interior lights to enable oncoming vehicles to see your vehicle (i-switch ng mg ilaw sa loob ng sasakyan upang makita ng mga makakasalubong ang iyong sasakyan)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "47. What is the best safety rule when driving a motor vehicle?",
-    tagalog: "Ano ang pinakaligtas na alituntunin habang ikaw ay nagmamaneho?",
-    image: "images/banner.jpg",
+    question: "47. DUMMY FINAL QUESTION 47 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 47 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. Never insist on your right-of-way (Huwag ipilit ang karapatan sa daan)",
-      "b. Blow your horn to assert your right-of-way (Bumusina upang maigiit ang iyong karapatan sa daan)",
-      "c. Always demand for the right-of-way (laging igiit ang karapatan sa daan)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "48. A blind spot is either at your right or left that you do not see on your side mirror. What should you do before backing-up?",
-    tagalog: "Ang blind spot ay nasa awing kanan o kaliwa na hindi mo nakikita sa iyong side mirror. Ano ang dapat mong gawin bago umatras?",
-    image: "images/banner.jpg",
+    question: "48. DUMMY FINAL QUESTION 48 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 48 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. Turn your head to see that the way is clear (Lumingon upang matiyak na walang nakaharang sa daan)",
-      "b. Turn your wheel all the way to the right and pull up (Ipaling nang sagad ang gulong sa kanan bago huminto)",
-      "c. Turn your wheel all the way to the left and pull up (Ipaling nang sagad ang gulong sa kaliwa bago huminto)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "49. Road crash can be avoided if the drivers:",
-    tagalog: "Maiiwasan ang mga road crash kung:",
-    image: "images/banner.jpg",
+    question: "49. DUMMY FINAL QUESTION 49 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 49 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. follow traffic signs and pertinent traffic rules and regulations (susundin ang mga senyas pantrapiko at mga alintuntunin at regulasyon ng batas trapiko)",
-      "b. totally disobey traffic laws (ganap na hindi susundin ang mga batas trapiko)",
-      "c. are ignorant of traffic laws (ang mga drayber ay walang alam sa batas trapiko)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "50. What should you do whenever you are driving on a highway with a lot of potholes?",
-    tagalog: "Ano ang dapat mong gawin kapag nagmamaneho sa highway na maraming lubak?",
-    image: "images/banner.jpg",
+    question: "50. DUMMY FINAL QUESTION 50 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 50 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. Increase speed (Bilisan ang takbo)",
-      "b. Reduce speed (Bagalan ang takbo)",
-      "c. Always change lane (Palaging lumipat ng lane)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "51. Sometimes, a driver passes through a busy street with so many pedestrians. Which of the following should a driver do?",
-    tagalog: "Kung minsan, dumaraan ang drayber sa isang kalye na maraming sasakyan at maraming tao. Alin sa mga sumusunod ang dapat niyang gawin?",
-    image: "images/banner.jpg",
+    question: "51. DUMMY FINAL QUESTION 51 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 51 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. Slowdown and check for safety when passing through (Bagalan ang takbo at tingnan kung ligtas ang pagdaan)",
-      "b. Proceed with usual speed (Magpatuloy sa normal na takbo)",
-      "c. Stop at all cost (Huminto anuman ang mangyari)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "52. Driving in heavy rains can be extremely dangerous due to limited visibility. What should you do?",
-    tagalog: "Ang pagmamaneho kapag malakas ang ulan ay lubhang mapanganib dahil hindi makakakita ng maigi. Ano ang dapat mong gawin?",
-    image: "images/banner.jpg",
+    question: "52. DUMMY FINAL QUESTION 52 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 52 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. When you cannot see more than 20 meters in front of you, turn on your hazard lights / headlights and look for a safe place to park (Kapag hindi makakita nang mahigit sa 20 metro sa harapan mo, i- switch ang hazard lights / headlight at maghanap ng ligtas na mapaparadahan)",
-      "b. Turn on your headlights and slow down or park at a safe place if situation is risky (I-switch ang headlights at bagalan ang takbo o di kaya naman ay huminto sa isang ligtas na lugar kung ang sitwasyon ay mapanganib)",
-      "c. Turn on your hazard lights, blow your horn and continue driving (I-switch ang hazard lights, bumusina at magpatuloy sa pagmamaneho)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "53. If you see a ball coming from behind a parked vehicle, it is more likely that a kid is following it. What will you do?",
-    tagalog: "Kung may nakita kang bola na mula sa likuran ng isang nakaparadang sasakyan sa isang kalye, malamang na may batang sumusunod ditto. Ano ang gagawin mo?",
-    image: "images/banner.jpg",
+    question: "53. DUMMY FINAL QUESTION 53 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 53 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. Increase your speed (Bilisan ang takbo)",
-      "b. Slow down (Bagalan ang takbo)",
-      "c. Blow your horn and maintain your speed (Bumusina at panatilihin ang bilis ng takbo)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "54. What should do when you see a traffic sign \"ACCIDENT PRONE AREA\"?",
-    tagalog: "Ano ang dapat mong gawin kung nakakita ka ng senyas trapiko na nagsasabing “ACCIDENT PRONE AREA”?",
-    image: "images/banner.jpg",
+    question: "54. DUMMY FINAL QUESTION 54 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 54 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. Slow down and be more alert than usual (Bagalan ang takbo at higit na maging alisto)",
-      "b. Increase your speed (Bilisan ang takbo)",
-      "c. Blow your horn and resume your normal speed (Bumusina at panatilihin ang normal mong bilis)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "55. Which of the following is not a safe place to overtake?",
-    tagalog: "Alin sa mga sumusunod ang hindi ligtas na lugar sa pagovertake/paglusot?",
-    image: "images/banner.jpg",
+    question: "55. DUMMY FINAL QUESTION 55 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 55 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. When approaching a crest or upon a curve (Kapag papalapit sa paahon na lugar o kurbada)",
-      "b. At an intersection (Sa interseksyon)",
-      "c. All of the answers (Lahat ng sagot)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "56. Disregarding traffic lights during late hours of the night could:",
-    tagalog: "Ang pagwawalang-bahala sa mga ilaw trapiko kapag gabi na ay:",
-    image: "images/banner.jpg",
+    question: "56. DUMMY FINAL QUESTION 56 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 56 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. make you a good driver (makatutulong upang higit kang maging magaling na drayber)",
-      "b. involve you in a fatal road crash (maaari kang maaksidente at mamatay)",
-      "c. decrease your fuel consumption (makatitipid sa konsumo ng gasolina o krudo)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "57. A good driver must meet one's social responsibilities of caring for others by:",
-    tagalog: "Angmaayos na drayber ay matutugunan ang responsabilidad sa lipunan sa pamamagitan nang:",
-    image: "images/banner.jpg",
+    question: "57. DUMMY FINAL QUESTION 57 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 57 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. driving noisily to attract the attention of residents along the road (pagmaneho nang maingay upang mapansin ng mga nadadaanang residente)",
-      "b. exercising care for other pedestrians and vehicles around (laging pagsasaalang-alang sa mga tumatawid sa kalsada at sa mga sasakyang nakapaligid)",
-      "c. blowing one's horn every now and then to scare passers-by (maya’t mayang pagbusina upang takutin ang mga naglalakad)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "58. When the vehicle you are driving runs off the road or hits an electric post or a parked car, the most probable reason is:",
-    tagalog: "Kapag ang minamaneho mong sasakyan ay lumihis sa kalsada otumama sa poste ng kuryente o nakaparadang sasakyan, malamang na ang dahilan nito ay:",
-    image: "images/banner.jpg",
+    question: "58. DUMMY FINAL QUESTION 58 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 58 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. you are driving too fast and you lost control of your vehicle (mabilis ang iyong pagpapatakbo at nawalan ka ng kontrol sa iyong sasakyan)",
-      "b. you lost brake (nawalan ka ng preno)",
-      "c. you are trying to overtake (mag-o-overtake ka sana)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "59. If your vehicle broke down on the road, what should you do?",
-    tagalog: "Kapag nasiraan ka ng sasakyan sa daan, ano ang gagawin mo?",
-    image: "images/banner.jpg",
+    question: "59. DUMMY FINAL QUESTION 59 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 59 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. Leave the vehicle and call for a mechanic (Iwan ang sasakyan at tumawag ka ng mekaniko)",
-      "b. Switch on the hazard warning lights and display an Early Warning Device (EWD) at least four (4) meters behind the stalled vehicle (Pailawin ang hazard warning light at maglagay ng EWD apat (4) na metro man lamang sa likuran ng nakahintong sasakyan)",
-      "c. Turn off the engine and call for a mechanic (Patayin ang makina at tumawag ng mekaniko)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "60. What is the primary responsibility of a driver in times of a road crash?",
-    tagalog: "Ano ang pangunahing responsibilidad ng isang drayber sa isang aksidente?",
-    image: "images/banner.jpg",
+    question: "60. DUMMY FINAL QUESTION 60 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 60 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. Aid the victim (Tulungan ang naaksidente)",
-      "b. Run and hide (Tumakbo at magtago)",
-      "c. Ask for victim's identification card (Tanungin ang mga biktima nang pagkakakilanlan)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "61. Which of the following is a quality of a defensive driver?",
-    tagalog: "Alin sa mga sumusunod ang kwalipikasyon ng isang maayos na drayber?",
-    image: "images/banner.jpg",
+    question: "61. DUMMY FINAL QUESTION 61 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 61 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. drivers who knows how to properly use clutch and brake pedals while driving (mga drayber na marunong gumamit ng clutch at preno habang nagmamaneho)",
-      "b. drivers that are using the basic knowledge of vehicle maintenance (Mga drayber na may kaalaman sa pagmintina ng sasakyan)",
-      "c. driver who continues to drive even with flat tires to avoid an impounding ticket (Mga drayber na nagpapatuloy sa pagbiyahe kahit na flat ang gulong para maiwasang ma impound)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "62. Which one is correct road discipline?",
-    tagalog: "Alin ang tamang disiplina sa kalsada?",
-    image: "images/banner.jpg",
+    question: "62. DUMMY FINAL QUESTION 62 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 62 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. hiding from traffic enforcers during oplan sita (magtago sa mga enforcers sa panahon ng oplan sita)",
-      "b. following the advise of the elderly (Sundin ang mga payo ng mga matatanda)",
-      "c. knowing and abiding by the traffic rules and regulations (Alamin at sundin ang mga batas trapiko)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "63. How can you overcome stress?",
-    tagalog: "Paano mo malalampasan ang stress o tensyon?",
-    image: "images/banner.jpg",
+    question: "63. DUMMY FINAL QUESTION 63 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 63 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. stopping, getting out of the vehicle, shouting at anybody who inquires and then engaging in a fight (paghinto, pagbaba sa sasakyan, pagsigaw kahit kanino at maghamon ng away sa mga nagtatanong)",
-      "b. taking a deep breath, sitting comfortably, listening to soothing music, allowing enough space in front and providing extra travel time (Huminga ng malalim, maupo ng maayos, makinig sa mga nakakaaliw na tugtog, pagbigay nang tamang distansiya sa harap at pagbigay ng karagdagang oras sa biyahe)",
-      "c. driving faster than allowed, listen to loud music, shouting at passengers and provoke other motorists to a fight (Pagmaneho nang mas mabilis, pagkinig sa maiingay na tugtog, pagsigaw sa mga iba pang motorista at paghamon ng away)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "64. What may happen if a driver failed to overcome stress?",
-    tagalog: "Ano ang maaaring mangyari kung ang isang drayber ay hindi malampasan ang stress o tensyon?",
-    image: "images/banner.jpg",
+    question: "64. DUMMY FINAL QUESTION 64 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 64 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. proper changing lanes (tamang paglipat ng lane o pwesto)",
-      "b. smooth braking (Maayos na pagpreno)",
-      "c. road rage (Away sa kalsada)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "65. Which of the following actions may result to road rage?",
-    tagalog: "Alin sa mga sumusunod ang maaaring mag resulta sa away kalsada?",
-    image: "images/banner.jpg",
+    question: "65. DUMMY FINAL QUESTION 65 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 65 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. following a vehicle with enough space to maneuver (pagsunod sa isang sasakyan ng may tamang agwat)",
-      "b. cutting off other vehicles or following too close (Pag-cut sa ibang motorista at pagtutok sa mga ito)",
-      "c. allowing other motorists to overtake with ease (Pagbigay daan sa mga motorista para makapag-overtake nang maayos)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "66. What is the ultimate result of a road rage?",
-    tagalog: "Ano ang pinakamasamang mangyayari sa isang away kalsada?",
-    image: "images/banner.jpg",
+    question: "66. DUMMY FINAL QUESTION 66 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 66 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. Death (kamatayan)",
-      "b. more friends (Mas maraming kaibigan)",
-      "c. refreshment"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "67. If you feel drowsy while driving, it is important that you:",
-    tagalog: "Kung nakakaramdam ka ng pagka-antok habang nagmamaneho, mahalaga na ikaw ay:",
-    image: "images/banner.jpg",
+    question: "67. DUMMY FINAL QUESTION 67 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 67 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. park at a safe place, and take a short break before proceeding (magparada sa ligtas na lugar at magpahinga bago magpatuloy)",
-      "b. speed up to reach your destination faster (bilisan ang takbo upang makarating ng mabilis sa destinasyon)",
-      "c. stop driving, switch on the hazard lights and take a nap (huminto sa pagmamaneho, iswitch ang mga hazard lights at magpahinga)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "68. Can a driver allow a cyclist to hitch on his vehicle?",
-    tagalog: "Maaari bang pahintulutan ng drayber ang siklista na sumabit sa kanyang sasakyan?",
-    image: "images/banner.jpg",
+    question: "68. DUMMY FINAL QUESTION 68 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 68 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. No, especially without permission from an enforcer (Hindi, lalo at walang permiso sa traffic enforcer)",
-      "b. No, road crash may happen (Hindi, maaaring magka-aksidente)",
-      "c. No (Hindi)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "69. What is the first thing to do if you experience a tire blowout?",
-    tagalog: "Ano ang una mong dapat gawin kung ikaw ay nakaranas ng tire blowout?",
-    image: "images/banner.jpg",
+    question: "69. DUMMY FINAL QUESTION 69 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 69 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. Don't step on the brakes, focus on the steering wheel (huwag tapakan ang preno, at magpokus sa manibela)",
-      "b. Step on your brakes immediately to avoid hitting the motor vehicle in front of you (agad na tapakan ang brakes upang maiwasan ang pagbangga sa mga sasakyan na nasa iyong Harapan)",
-      "c. Switch off the engine (patayin ang makina)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "70. What is the main purpose of having a vehicle undergo regular vehicle maintenance inspection?",
-    tagalog: "Ano ang pangunahing layunin ng regular na pag inspeksyon ng isang sasakyan?",
-    image: "images/banner.jpg",
+    question: "70. DUMMY FINAL QUESTION 70 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 70 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. to verify the chassis and engine numbers of the vehicle (Para siyasatin ang mga numero ng chassis at motor ng sasakyan)",
-      "b. to check the roadworthiness of the vehicle (Para tingnan ang kaayusan ng sasakyan)",
-      "c. to check the driver's performance (Para tingnan ang pagganap ng drayber sa kanyang pagmamaneho)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "71. When do you need to follow the traffic rules and regulations?",
-    tagalog: "Kailan mo dapat sundin ang mga batas trapiko?",
-    image: "images/banner.jpg",
+    question: "71. DUMMY FINAL QUESTION 71 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 71 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. when avoiding an enforcer (Kung umiiwas sa isang enforcer)",
-      "b. when parked (Habang nagpaparada)",
-      "c. while at the steering wheel (Habang nasa manibela)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "72. Under R.A. 8750, Children must be properly restraint if they are:",
-    tagalog: "Ayon sa R.A. 8750, Ang mga bata ay dapat nakaupo sa aprobadong child restraint kung sila ay:",
-    image: "images/banner.jpg",
+    question: "72. DUMMY FINAL QUESTION 72 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 72 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. 10 years old (10 taóng gulang)",
-      "b. 6 years old and below (6 na taóng gulang at pababa)",
-      "c. 7 years old (7 taóng gulang)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "73. In driving, the most important sense the driver needs is:",
-    tagalog: "Sa pagmamaneho, ang pinakamahalagang pandama na kailangan ng drayber ay:",
-    image: "images/banner.jpg",
+    question: "73. DUMMY FINAL QUESTION 73 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 73 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. hearing (pandinig)",
-      "b. smelling (pang-amoy)",
-      "c. seeing (paningin)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "74. Identify this traffic sign:",
-    tagalog: "Tukuyin kung anong senyas ito:",
-    image: "images/banner.jpg",
+    question: "74. DUMMY FINAL QUESTION 74 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 74 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. driving speed to beat the traffic (bilis ng pagtakbo upang maiwasan ang trapik)",
-      "b. distance of the next intersection is 30 km(distansiya ng susunod na interseksyon ay 30 km)",
-      "c. required speed limit is 30kph (hanggang 30kph lang ang bilis ng pagtakbo)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "75. Identify this traffic sign:",
-    tagalog: "Tukuyin kung anong senyas ito:",
-    image: "images/banner.jpg",
+    question: "75. DUMMY FINAL QUESTION 75 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 75 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. you must give right-of-way (dapat kang magbigay daan)",
-      "b. you have the right-of-way (ikaw ay may karapatan sa daan)",
-      "c. early warning device (early warning device)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "76. What is the meaning of yellow painted curb?",
-    tagalog: "Ano ang ibig sabihin ng nakapintang dilaw?",
-    image: "images/banner.jpg",
+    question: "76. DUMMY FINAL QUESTION 76 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 76 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. No loading/Unloading (Bawal ang magbaba at magsakay)",
-      "b. No Parking (Bawal pumarada)",
-      "c. No waiting (Bawal maghintay)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "77. What do you need to do upon parking and getting out of the vehicle?",
-    tagalog: "Ano ang dapat mong gawin pagkatapos mag-park at bago bumaba ng sasakyan?",
-    image: "images/banner.jpg",
+    question: "77. DUMMY FINAL QUESTION 77 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 77 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. lock all the doors (Isara lahat ng mga pintuan)",
-      "b. engage the parking brake (I-switch ang parking brake)",
-      "c. blow horn (Bumusina)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "78. What do rumble strips on the road indicate?",
-    tagalog: "Ano ang layunin ng rumble strips sa kalsada?",
-    image: "images/banner.jpg",
+    question: "78. DUMMY FINAL QUESTION 78 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 78 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. To stop at once and wait for a go signal upon reaching an intersection (Huminto agad at maghintay ng go signal pagkarating sa interseksyon)",
-      "b. To be aware of the speed approaching obstructions or intersections (Para malaman ang speed parating sa obstruction o intersection)",
-      "c. To be more aggressive (Para mas agresibo)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "79. What is the required color of headlights?",
-    tagalog: "Ano ang dapat na kulay ng headlight?",
-    image: "images/banner.jpg",
+    question: "79. DUMMY FINAL QUESTION 79 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 79 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. any color may do (kahit anong kulay ay maaari)",
-      "b. red (Pula)",
-      "c. white or yellowish white (Puti o Dilawang puti)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "80. What is the required color of brake lights?",
-    tagalog: "Ano ang dapat na kulay ng ilaw ng preno?",
-    image: "images/banner.jpg",
+    question: "80. DUMMY FINAL QUESTION 80 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 80 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. White (puti)",
-      "b. bright red (kumikinang na pula)",
-      "c. yellow (Dilaw)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "81. What are the requirements for motor vehicle registration?",
-    tagalog: "Ano ang mga kailangan para sa pagpaparehistro ng sasakyan?",
-    image: "images/banner.jpg",
+    question: "81. DUMMY FINAL QUESTION 81 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 81 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. Anti-carnapping clearance (Anti-carnapping clearance)",
-      "b. LTO inspection of the vehicle and emission test compliance (Inspeksiyon ng sasakyan at emision test sa LTO)",
-      "c. District Traffic Enforcement Clearance (District Traffic Enforcement Clearance)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "82. When do you need to use your seat belt?",
-    tagalog: "Kailan mo kailangan dapat gamitin ang seat belt?",
-    image: "images/banner.jpg",
+    question: "82. DUMMY FINAL QUESTION 82 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 82 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. When driving on a national road (Kung magmamaneho sa malalaking pang publikong daan)",
-      "b. When driving above 10 kph (Kung nagmamaneho ng 10 kph pataas)",
-      "c. While the engine is running and before moving off (Bago umabante)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "83. What is the primary objective of the Seat Belt Act?",
-    tagalog: "Ano ang pangunahing layunin ng batas patungkol sa paggamit ng seat belt?",
-    image: "images/banner.jpg",
+    question: "83. DUMMY FINAL QUESTION 83 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 83 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. To restrict the driver in times of road rage (Upang mapigil ang isang drayber na masangkot sa away kalsada)",
-      "b. To complete the practical driving course (Para kumpletuhin ang practical driving course)",
-      "c. To secure and safeguard the passengers and drivers of a motor vehicles (Para sa seguridad ng mga pasahero at mga drayber)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "84. What is the maximum height that a driver can install his mobile phone from the base of the dashboard?",
-    tagalog: "Ilang pulgada maaaring maglagay ng telephono mula sa dashboard ng sasakyan?",
-    image: "images/banner.jpg",
+    question: "84. DUMMY FINAL QUESTION 84 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 84 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. 2 inches (Dalawang pulgada)",
-      "b. 4 inches (Apat na pulgada)",
-      "c. 6 inches (Anim na pulgada)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "85. Under R.A. No. 11229, What is the allowable age that a child may sit in front passenger seat of a car?",
-    tagalog: "Anong edad maaaring sumakay sa harapan ang isang bata na naaayon sa RA 11229?",
-    image: "images/banner.jpg",
+    question: "85. DUMMY FINAL QUESTION 85 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 85 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. more than 12 years old (12 taong gulang pataas)",
-      "b. 16 years old and above (16 na taon pataas)",
-      "c. 18 years old and above (18 na taon pataas)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "86. What is the height requirement for a child to be exempted to use a child restraint system?",
-    tagalog: "Ano ang taas ng isang bata upang ito ay hindi na kailangang gumamit ng child restraint system?",
-    image: "images/banner.jpg",
+    question: "86. DUMMY FINAL QUESTION 86 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 86 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. 100 cms and above (100 sentimetro pataas)",
-      "b. 150 cms and above (150 sentimetro pataas)",
-      "c. 180 cms and above (180 sentimetro pataas)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "87. Can an expired child restraint system be used when it still looks in good shape?",
-    tagalog: "Maaari bang gamitin ang isang child restraint system kung ito ay expired na kahit maayos pa ang kondisyon?",
-    image: "images/banner.jpg",
+    question: "87. DUMMY FINAL QUESTION 87 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 87 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. Yes (Oo)",
-      "b. No (Hindi)",
-      "c. Yes, provided that it is allowed by traffic enforcers (Oo, basta't ito ay pinapayagan ng traffic enforcer)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "88. When does a driver need to wear a helmet when riding a motorcycle?",
-    tagalog: "Kailan dapat gamitin ng drayber ang kanyang helmet?",
-    image: "images/banner.jpg",
+    question: "88. DUMMY FINAL QUESTION 88 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 88 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. For long and short drives (Sa mahaba o maiksing byahe)",
-      "b. For long or short drives and in any type of road or highway (Para sa mahaba o maigsing biyahe at anumang uri ng kalsada)",
-      "c. For national road only (Para sa pangkalahatang kalsada lamang)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "89. What type of helmet should a rider must use?",
-    tagalog: "Anong klaseng helmet ang dapat gamitin ng rider ng motorsiklo?",
-    image: "images/banner.jpg",
+    question: "89. DUMMY FINAL QUESTION 89 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 89 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. Standard motorcycle helmet compliant to specifications of LTO (Standard motorcycle helmet na sumunod sa regulasyon ng LTO)",
-      "b. Standard motorcycle helmet compliant to specifications of DENR (Standard motorcycle helmet na sumunod sa panuntunan ng DENR)",
-      "c. Standard motorcycle helmet compliant to specifications of DTI (Standard motorcycle helmet na naaayon sa panuntunan ng DTI)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "90. Who are responsible if a motorcycle was used in the commission of a crime?",
-    tagalog: "Sino ang may pananagutan kung ang isang motorsiklo ay ginamit sa krimen?",
-    image: "images/banner.jpg",
+    question: "90. DUMMY FINAL QUESTION 90 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 90 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. owner, driver and backrider (may ari, drayber, backrider)",
-      "b. driver only (Drayber lamang)",
-      "c. backrider and driver (Drayber at sakay nito)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "91. Under the Children's Safety on Motorcycles Act, a child below 18 years old can't ride in a two wheeled motorcycle on public roads unless:",
-    tagalog: "Ayon sa Children's Safety on Motorcycles Act, ang isang batang wala pang 18 taong gulang ay hindi maaaring sumakay ng motorsiklo sa mga pampublikong kalsada maliban kung",
-    image: "images/banner.jpg",
+    question: "91. DUMMY FINAL QUESTION 91 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 91 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. The child can comfortably reach his/her feet on the standard foot peg of the motor cycle, his/her arms can reach around and grasp the waist of the motorcycle driver, and he/she is wearing the standard protective helmet. (Ang bata ay komportable na maabot nang kanyang mga paa ang foot peg ng motorsiklo, ang kanyang mga kamay ay maaring masalikop ang katawan ng drayber, at siya ay may suot na karaniwang proteksiyon na helmet.)",
-      "b. There is a high density of fast moving vehicles or where a speed limit of more than 60 kph is imposed. (Nasa maraming mga sasakyang mabibilis o ang pinataw na pinakamabilis na takbo ay lagpas sa 60 kph.)",
-      "c. The driver can grasp the waist of the child sitting in front of the driver and when the child is wearing the standard protective helmet. (Ang drayber ay pwedeng mayakap ang baywang ng batang nakaupo sa harapan ng drayber at ang bata ay nakasuot ng karaniwang helmet.)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "92. What is the violation of a driver overtaking at an intersection having a one lane direction?",
-    tagalog: "Ano ang maaaring maging traffic violation ng isang drayber na nag overtake sa isang interseksyon na may isang lane lamang papunta sa iisang direksyon?",
-    image: "images/banner.jpg",
+    question: "92. DUMMY FINAL QUESTION 92 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 92 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. Overtaking at an intersection (pag overtake sa isang interseksyon)",
-      "b. Obstruction (Obstruction)",
-      "c. Disregarding traffic signals (Pagbalewala sa senyas trapiko)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "93. When are you allowed to pick up passengers at a pedestrian lane?",
-    tagalog: "Kailan ka maaaring magsakay ng pasahero sa isang pook tawiran?",
-    image: "images/banner.jpg",
+    question: "93. DUMMY FINAL QUESTION 93 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 93 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. When traffic enforcers are not looking (Kung hindi nakalingon ang mga traffic enforcers)",
-      "b. When a passenger is already waiting (Kung naghihintay na ang pasahero)",
-      "c. Loading and unloading passengers at a pedestrian lane is not allowed (Ang pagsakay at pagbaba ng mga pasahero sa pook tawiran ay kailanman hindi pinahihintulutan)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "94. Is a driver allowed to load cargo more than the vehicle's registered load capacity?",
-    tagalog: "Maaari bang magkarga ng kargamento na lampas sa itinakdang timbang ng sasakyan?",
-    image: "images/banner.jpg",
+    question: "94. DUMMY FINAL QUESTION 94 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 94 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. Yes (Oo)",
-      "b. No (Hindi)",
-      "c. Yes, if the cargo is fragile or perishable (Oo, kung ang karga ay madaling mabasag o nabubulok)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "95. Where can you contest an alleged traffic violation?",
-    tagalog: "Saan mo maaaring ireklamo o i-contest ang pagkakahuli sa iyo?",
-    image: "images/banner.jpg",
+    question: "95. DUMMY FINAL QUESTION 95 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 95 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. at the traffic adjudication office concerned (Sa tanggapan ng adyudikasyon)",
-      "b. on the street, before the traffic enforcer leaves (Sa kalsada, bago umalis ang enforcer)",
-      "c. at any adjudication office (Sa alin mang tanggapan ng adyudikasyon)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "96. Who has the authority to confiscate a driver's license during a normal traffic violation?",
-    tagalog: "Sa normal na traffic violation, sino ang maaaring kumumpiska ng lisensya?",
-    image: "images/banner.jpg",
+    question: "96. DUMMY FINAL QUESTION 96 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 96 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. LTO Law Enforcement Officers or LTO Deputized Agents (Ang mga ahente o enforcer lamang na itinalaga ng LTO)",
-      "b. Anybody, for as long as the violation is within the provisions of R.A. No. 4136 (Kahit sino, basta ang paglabag ay nakapaloob sa R.A. No. 4136)",
-      "c. Anybody, for as long as the traffic enforcer is a permanent employee of the government (Kahit sino, basta ang enforcer ay permanenteng empleyado ng gobyerno)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "97. A 30-day suspension of the driver's license shall be imposed if:",
-    tagalog: "Ang 30-araw na suspensyon ng lisensya sa pagmamaneho ay ipapataw kung:",
-    image: "images/banner.jpg",
+    question: "97. DUMMY FINAL QUESTION 97 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 97 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. The traffic violation committed is grave (kung ang paglabag sa trapiko ay mabigat)",
-      "b. The driver fails to pay the corresponding penalty of the apprehension within 15 days (kung nabigo ang drayber na bayaran ang kaukulang multa sa loob ng 15 araw)",
-      "c. The driver fails to pay the fine within 72 hours (kung nabigo ang drayber na bayaran ang kaukulang multa sa loob ng 72 na oras)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "98. What does this hand signal mean when you are coming from the roadside and your signal is malfunctioning?",
-    tagalog: "Ano ang ibig sabihin ng senyas kamay na ito?",
-    image: "images/banner.jpg",
+    question: "98. DUMMY FINAL QUESTION 98 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 98 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. You are turning left. (Kakaliwa)",
-      "b. You are turning right. (Kakanan)",
-      "c. You are going to stop. (Hihinto)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "99. What should be the appropriate action when you see this traffic sign?",
-    tagalog: "Ano ang dapat mong gawin kung makikita ang karatulang ito?",
-    image: "images/banner.jpg",
+    question: "99. DUMMY FINAL QUESTION 99 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 99 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. Slow down and be more alert than usual (Magmabagal at maging handa)",
-      "b. Increase your speed (Bilisan)",
-      "c. Blow your horn and resume your normal speed (Bumusina at ituloy ang bilis)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "100. Where do you usually see this traffic sign?",
-    tagalog: "Saan madalas makita ang mga ganitong senyas trapiko?",
-    image: "images/banner.jpg",
+    question: "100. DUMMY FINAL QUESTION 100 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 100 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. Before the bridge (Bago umabot sa tulay)",
-      "b. Before changing lane (Bago magpalit ng lane)",
-      "c. At the column of a foot bridge (Sa poste na tawiran ng tao)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "101. What should a law enforcer do upon seizing a motorcycle from a traffic offender?",
-    tagalog: "Ano ang dapat gawin ng isang law enforcer kung makumpiska ang isang motorsiklo?",
-    image: "images/banner.jpg",
+    question: "101. DUMMY FINAL QUESTION 101 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 101 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. Use the motorcycle temporarily (Gamitin ang motorsiklo pansamantala)",
-      "b. Surrender the motorcycle to authorities (I-surrender ang motorsiklo sa awtoridad)",
-      "c. Send the motorycle to the impounding area (Dalhin ang motorsiklo sa pinakamalapit na impounding area)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "102. What does the law require you to do upon approaching an intersection with a STOP sign?",
-    tagalog: "Ayon sa batas, ano ang dapat mong gawin sa sandaling makarating sa isang interseksyon na may senyas na huminto?",
-    image: "images/banner.jpg",
+    question: "102. DUMMY FINAL QUESTION 102 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 102 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. Slow down and proceed when it is safe (Bagalan ang takbo at dumiretso kung ligtas na itong gawin)",
-      "b. Yield the right-of-way if necessary, to vehicles approaching from left to right (Magbigay ng daan kung kinakailangan sa mga paparatíng na sasakyang nanggagaling sa kaliwa na kakanan)",
-      "c. Stop and proceed when it is safe (Huminto at dumiretso lamang kung ligtas na itong gawin)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "103. After passing or overtaking another vehicle, you can safely move back into your original lane if:",
-    tagalog: "Kapag nalampasan na o nakapag-overtake ang isang sasakyan, maaari nang bumalik sa orihinal na linya kung:",
-    image: "images/banner.jpg",
+    question: "103. DUMMY FINAL QUESTION 103 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 103 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. the driver you passed honks his horn (bumusina ang drayber na nilampasan mo)",
-      "b. you can see in the rear-view mirror the overtaken car (natatanaw mo sa rear-view mirror ang sasakyang nilampasan)",
-      "c. you can see in the side-view mirror the overtaken car (natatanaw mo sa side-view mirror ang nilampasang sasakyan)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "104. Drivers moving slower than other motorists should use the:",
-    tagalog: "Ang mga motorista na mabagal kaysa iba ay dapat na nasa:",
-    image: "images/banner.jpg",
+    question: "104. DUMMY FINAL QUESTION 104 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 104 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. outer lane (lane sa gawing labas o dulong kanan)",
-      "b. center lane (lane sa gitna)",
-      "c. inner lane (lane sa gawing loob o dulong kaliwa)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "105. Some signs are called “lane-use” signs. They appear to direct you into the correct lane as you reach the actual intersection. They are usually seen:",
-    tagalog: "Ang ilang karatula ng senyas ay tinatawag na lane use sign. Ang mga ito ay naroon upang gabayan ka sa tamang lane habang papalapit ka sa aktuwal na interseksiyon. Ang mga ito ay kadalasang nakikita:",
-    image: "images/banner.jpg",
+    question: "105. DUMMY FINAL QUESTION 105 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 105 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. before an intersection (bago dumating sa interseksiyon)",
-      "b. after an intersection (pagkatapos ng interseksiyon)",
-      "c. on an intersection (sa interseksiyon)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "106. If you encounter an emergency vehicle (ambulance, fire trucks, police) with sirens on, what should you do?",
-    tagalog: "Kapag nakasabay mo ang isang sasakyang pang-emergency na nakabukas ang sirena, ano ang dapat mong gawin?",
-    image: "images/banner.jpg",
+    question: "106. DUMMY FINAL QUESTION 106 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 106 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. Obstruct their passage and never allow them to pass through (Harangan ang kanilang daanan at huwag silang padaanin)",
-      "b. Just ignore (Huwag pansinin)",
-      "c. Pull over to the left or right side of the road and give way (Tumabi sa kaliwa o kanan at magbigy daan)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "107. A driver while on a highway shall yield the right of way to:",
-    tagalog: "Kapag nasa highway, magpapadaan ang drayber sa:",
-    image: "images/banner.jpg",
+    question: "107. DUMMY FINAL QUESTION 107 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 107 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. pedestrians crossing within a crosswalk (mga tumatawid sa tawiran)",
-      "b. pedestrians crossing at intersection where the movement of traffic is being regulated by a traffic enforcer (mga tumatawid sa interseksiyon na may nagtatrapik na traffic enforcer)",
-      "c. vehicles about to enter the highway (mga sasakyang papasok sa highway)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "108. With Anti-lock Braking System (ABS) installed on your vehicle, what should you do while driving with maximum speed and you have to stop suddenly?",
-    tagalog: "Kapag nagpapatakbo ng sasakyan na may ABS, sa pinakamabilis na takbo at kailangan mong biglaang huminto, ano ang dapat mong gawin?",
-    image: "images/banner.jpg",
+    question: "108. DUMMY FINAL QUESTION 108 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 108 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. Slam the brake pedal (Biglang magpreno)",
-      "b. Apply brakes gently with steady pressure (Unti-unting magpreno nang may steady pressure)",
-      "c. Pump the brake pedal (Bombahin ang preno sa pamamagitan ng pagtapak-tapak sa preno)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "109. Your speed while driving at night should depend on:",
-    tagalog: "Ang bilis ng pagmamaneho sa gabi ay nakasalalay sa:",
-    image: "images/banner.jpg",
+    question: "109. DUMMY FINAL QUESTION 109 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 109 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. the physical, mental condition and skill of the driver (pisikal, tamang kaisipan at kakayahan ng drayber)",
-      "b. the roadworthiness of the motor vehicle and weather condition (kaayusan ng sasakyan sa kanyang kabuuan at lagay ng panahon)",
-      "c. all of the answers are correct (lahat ng sagot ay tama)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "110. The most effective way to deal with a tailgater is to:",
-    tagalog: "Ang pinakamabisang gawin sa isang tumututok ay:",
-    image: "images/banner.jpg",
+    question: "110. DUMMY FINAL QUESTION 110 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 110 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. ignore him but do not allow him to get away (huwag siyang pansinin ngunit huwag siyang hayaang makalayo)",
-      "b. slow down and let him pass (bagalan ang takbo at bigyan daan ang nasa likod)",
-      "c. increase your speed and be alert on your brakes (bilisan ang takbo at maging alisto sa pagpreno)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "111. What should you do when an incoming vehicle is forced to cross the centerline to avoid hitting another vehicle which suddenly changed lane?",
-    tagalog: "Ano ang dapat mong gawin kung ang isang paparating na sasakyan ay napilitang tumawid sa gitnang linya upang hindi mabangga ang isa pang sasakyan na biglang lumipat mula sa kaniyang linya",
-    image: "images/banner.jpg",
+    question: "111. DUMMY FINAL QUESTION 111 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 111 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. Ignore it because you have the right-of-way (Huwag itong pansinin sapagkat ikaw ang may karapatan sa daan)",
-      "b. Blow your horn and turn on your headlight (Bumusina at buksan ang headlight)",
-      "c. Be alert, be prepared to slow down, and give way (Maging alisto, maghandang bagalan ang takbo at magbigay ng daan)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "112. What may happen if the driver deliberately disregard a regulatory traffic sign?",
-    tagalog: "Ano ang maaaring mangyari kung ipagwalang bahala ng drayber ang senyas trapiko?",
-    image: "images/banner.jpg",
+    question: "112. DUMMY FINAL QUESTION 112 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 112 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. Road Crash (Aksidente o road crash)",
-      "b. Nothing (Wala)",
-      "c. Passengers will be happy (Sasaya ang mga pasahero)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "113. When you want to change or shift to higher gear to speed up, and a car in the opposite direction crosses quickly to your lane, what will you do?",
-    tagalog: "Kapag nais mong magpalit o lumipat sa mas mataas na gear upang mas bumilis, at ang isang sasakyan sa kasalungat na direksyon ay mabilis na tumatawid sa iyong linya, ano ang iyong gagawin mo?",
-    image: "images/banner.jpg",
+    question: "113. DUMMY FINAL QUESTION 113 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 113 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. be alert, stop and give way to the car crossing (maging alerto, huminto at magbigay daan sa pagtawid ng mga sasakyan)",
-      "b. insist on your right-of-way (igiit ang iyong karapatan sa daan)",
-      "c. turn left immediately (agad na kumaliwa)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "114. Who will win between two parties if they failed to overcome stress?",
-    tagalog: "Sino ang mananalo kung ang bawat partido ay hindi malampasan ang stress o tensyon?",
-    image: "images/banner.jpg",
+    question: "114. DUMMY FINAL QUESTION 114 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 114 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. neither the agressor nor the victim (wala sa agresibo o sa biktima)",
-      "b. adjudication officer (Opisyal ng adyudikasyon)",
-      "c. insurance company (Insurance company)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "115. Driving along an open road, a PWD in a wheel chair abruptly crosses the road. How do you prevent yourself hitting the PWD?",
-    tagalog: "Nagmamaneho ka sa isang kalsada, at ang PWD na naka wheel chair ay biglang tumawid sa kalsada, paano mo maiiwasang tamaan ang PWD?",
-    image: "images/banner.jpg",
+    question: "115. DUMMY FINAL QUESTION 115 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 115 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. move fast (bilisan ang pagmamaneho)",
-      "b. hold on to steering wheel and shift to an open space to avoid the PWD (lumipat sa ligtas na lane o lugar upang maiwasan ang PWD)",
-      "c. Prepare to stop (maghanda sa paghinto)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "116. Can a driver who had the opportunity to avoid a road crash and neglected to avoid such road crash be jointly held liable?",
-    tagalog: "May pananagutan ba ang isang drayber na nagkaroon ng pagkakataon na maiwasan ang isang aksidente sa kalsada ngunit ito ay hindi niya ginawa?",
-    image: "images/banner.jpg",
+    question: "116. DUMMY FINAL QUESTION 116 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 116 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. Yes (Oo)",
-      "b. No (Hindi)",
-      "c. None of the above (wala sa nabanggit)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "117. When parking, how many meters is allowed from the location of a fire hydrant?",
-    tagalog: "Ilang metro ang layo na maaaring pumarada ang isang sasakyan sa fire hydrant?",
-    image: "images/banner.jpg",
+    question: "117. DUMMY FINAL QUESTION 117 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 117 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. more than one meter of the fire hydrant (Higit sa isang metro mula sa boka insenyo o fire hydrant)",
-      "b. more than four meters of the fire hydrant (Lagpas apat na metro mula sa fire hydrant)",
-      "c. there is no regulation as to where to park around the fire hydrant (Walang regulasyon kung saan pumarada sa gilid ng fire hydrant)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "118. Driving a car, which lane should you use in a three (3) lane expressway during normal situation?",
-    tagalog: "Anong linya ang dapat mong gamitin sa three-lane na expressway kung ikaw ay nagmamaneho ng kotse?",
-    image: "images/banner.jpg",
+    question: "118. DUMMY FINAL QUESTION 118 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 118 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. 1st lane (sa unang lane)",
-      "b. 2nd lane (Pangalawang lane)",
-      "c. 3rd lane (Pangatlong lane)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "119. Is a driver allowed to drive on the transition lines?",
-    tagalog: "Maaari bang magmaneho sa mga transition lines sa kalsada?",
-    image: "images/banner.jpg",
+    question: "119. DUMMY FINAL QUESTION 119 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 119 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. Yes (Oo)",
-      "b. No (Hindi)",
-      "c. Yes, if traffic flow is heavy (oo, kung ang trapiko ay mabigat)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   },
   {
-    question: "120. What should you do if a pedestrian is crossing a nonsignalized pedestrian lane?",
-    tagalog: "Ano ang dapat mong gawin kung may tumatawid sa isang tawiran na walang senyas trapiko?",
-    image: "images/banner.jpg",
+    question: "120. DUMMY FINAL QUESTION 120 — Replace with the actual question.",
+    tagalog: "DUMMY FINAL QUESTION 120 — Papalitan ng aktwal na tanong.",
+    image: "",
     correct: 0,
     options: [
-      "a. Stop and let the pedestrian cross (Huminto at hayaang makatawid sa tawiran)",
-      "b. Stop and blow horn (Huminto at bumusina)",
-      "c. Drive faster and do not wait for the pedestrian to cross (Magmaneho ng mabilis at huwag hintaying makatawid ang mga tao)"
+      "a. DUMMY CORRECT ANSWER",
+      "b. DUMMY OPTION",
+      "c. DUMMY OPTION"
     ]
   }
 ];
 
-// Security termination modal styles & deterrence
+// Security termination modal styles.
+
+// Mobile screenshot deterrence and exam watermark.
+// IMPORTANT: Normal mobile browsers do not expose a reliable "screenshot taken"
+// event. Hardware screenshot buttons (Power + Volume, iOS side-button + volume,
+// etc.) cannot be detected by a GitHub Pages website. The watermark makes
+// screenshots traceable and the browser-level screenshot shortcuts below are
+// still blocked/logged when the browser exposes the key event.
 const mobileSecurityStyle = document.createElement("style");
 mobileSecurityStyle.textContent = `
   html, body, #app, .exam-shell, .question-card {
@@ -1679,7 +1748,7 @@ function addExamWatermark() {
   const attempt = esc(attemptId || "ATTEMPT");
 
   wm.innerHTML = `<span>A1C DRIVING ACADEMY<br>${name}<br>${clientId}<br>${attempt}</span>`;
-} // <-- Missing closing brace was added here
+}
 
 const securityModalStyle = document.createElement("style");
 securityModalStyle.textContent = `
@@ -1714,14 +1783,14 @@ securityModalStyle.textContent = `
   }
 `;
 document.head.appendChild(securityModalStyle);
-
 const resultEmailStyle = document.createElement("style");
 resultEmailStyle.textContent = `.result-table small{display:block;margin-top:6px;font-weight:800;}`;
 document.head.appendChild(resultEmailStyle);
 
+
 function esc(value) {
   return String(value ?? "").replace(/[&<>"']/g, c => ({
-    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;"
+    "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#039;"
   }[c]));
 }
 
@@ -1731,10 +1800,11 @@ window.startAuthenticatedExam = function(data) {
   sessionToken = data.sessionToken || "";
   currentSection = 1;
   currentIndex = 0;
+ // In startAuthenticatedExam:
   answers = {
-    session1: new Array(SESSION_1_COUNT).fill(null),
-    final: new Array(FINAL_COUNT).fill(null)
-  };
+  session1: new Array(SESSION_1_COUNT).fill(null),
+  final: new Array(FINAL_COUNT).fill(null)
+};
   timer = TOTAL_TIME_SECONDS;
   securityViolations = 0;
   submitted = false;
@@ -1748,7 +1818,6 @@ window.startAuthenticatedExam = function(data) {
 
   renderExam();
   addExamWatermark();
-  attachSecurityListeners();
 };
 
 function renderExam() {
@@ -1797,12 +1866,10 @@ function renderQuestion() {
   const q = questions[currentIndex];
   const selected = selectedAnswers[currentIndex];
 
-  const titleElem = document.getElementById("sectionTitle");
-  if (titleElem) {
-    titleElem.textContent = currentSection === 1
+  document.getElementById("sectionTitle").textContent =
+    currentSection === 1
       ? "TDC 1st Session Exam — 30 Items"
       : "TDC Final Exam — 120 Items";
-  }
 
   const imageHtml = q.image
     ? `<img class="question-image" src="${esc(q.image)}" alt="Question image">`
@@ -1829,274 +1896,492 @@ function renderQuestion() {
     <div class="question-grid">
       ${questions.map((_, i) => `
         <button
-          class="grid-item ${selectedAnswers[i] !== null ? "answered" : ""} ${currentIndex === i ? "current" : ""}"
-          onclick="goToQuestion(${i})">
-          ${i + 1}
-        </button>
+          class="${selectedAnswers[i] !== undefined ? "answered" : ""} ${i === currentIndex ? "current" : ""}"
+          onclick="goTo(${i})">${i + 1}</button>
       `).join("")}
     </div>
   `;
 
-  renderNavButtons();
-}
-
-function selectAnswer(index) {
-  if (submitted) return;
-  const currentAnswers = getAnswers();
-  currentAnswers[currentIndex] = index;
-  renderQuestion();
-}
-
-function goToQuestion(index) {
-  if (submitted) return;
-  currentIndex = index;
-  renderQuestion();
-}
-
-function renderNavButtons() {
-  const questions = getQuestions();
-  const isFirst = currentIndex === 0;
-  const isLast = currentIndex === questions.length - 1;
-
-  let nextOrSubmitBtn = "";
-  if (isLast) {
-    if (currentSection === 1) {
-      nextOrSubmitBtn = `<button class="btn btn-primary" onclick="proceedToFinalSection()">Proceed to Final Exam &rarr;</button>`;
-    } else {
-      nextOrSubmitBtn = `<button class="btn btn-success" onclick="confirmFinalSubmission()">Submit Final Exam</button>`;
-    }
-  } else {
-    nextOrSubmitBtn = `<button class="btn btn-primary" onclick="nextQuestion()">Next &rarr;</button>`;
-  }
-
   document.getElementById("navArea").innerHTML = `
-    <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="prevQuestion()" ${isFirst ? "disabled" : ""}>&larr; Previous</button>
-      ${nextOrSubmitBtn}
+    <div class="nav-row">
+      <button class="nav-btn" onclick="previousQuestion()" ${currentIndex === 0 ? "disabled" : ""}>
+        Previous
+      </button>
+
+      ${
+        currentIndex < questions.length - 1
+          ? `<button class="nav-btn primary" onclick="nextQuestion()">Next</button>`
+          : `<button class="nav-btn submit" onclick="reviewSection()">Review & Submit</button>`
+      }
     </div>
   `;
 }
 
-function prevQuestion() {
+function selectAnswer(index) {
+  getAnswers()[currentIndex] = parseInt(index, 10);
+  renderQuestion();
+}
+
+function nextQuestion() {
+  if (currentIndex < getQuestions().length - 1) {
+    currentIndex++;
+    renderQuestion();
+  }
+}
+
+function previousQuestion() {
   if (currentIndex > 0) {
     currentIndex--;
     renderQuestion();
   }
 }
 
-function nextQuestion() {
+function goTo(index) {
+  currentIndex = index;
+  renderQuestion();
+}
+
+function reviewSection() {
   const questions = getQuestions();
-  if (currentIndex < questions.length - 1) {
-    currentIndex++;
-    renderQuestion();
+  const selectedAnswers = getAnswers();
+  
+  // FIXED: Check all indices from 0 to questions.length - 1
+  let unanswered = 0;
+  for (let i = 0; i < questions.length; i++) {
+    if (selectedAnswers[i] === undefined || selectedAnswers[i] === null) {
+      unanswered++;
+    }
+  }
+
+  document.getElementById("questionArea").innerHTML = `
+    <section class="review-card">
+      <h2>Review Your Answers</h2>
+      <p>
+        ${currentSection === 1 ? "TDC 1st Session" : "TDC Final Exam"}
+        — ${questions.length} items
+      </p>
+
+      <div class="review-status">
+        <b>${questions.length - unanswered}</b> answered
+        &nbsp; | &nbsp;
+        <b>${unanswered}</b> unanswered
+      </div>
+
+      <div class="review-grid">
+        ${questions.map((_, i) => `
+          <button class="${selectedAnswers[i] !== undefined && selectedAnswers[i] !== null ? "answered" : "unanswered"}"
+                  onclick="goTo(${i})">${i + 1}</button>
+        `).join("")}
+      </div>
+
+      <div class="nav-row">
+        <button class="nav-btn" onclick="renderQuestion()">Return to Questions</button>
+        <button class="nav-btn submit" onclick="confirmSubmitSection()">Submit Section</button>
+      </div>
+    </section>
+  `;
+
+  document.getElementById("navArea").innerHTML = "";
+}
+
+function confirmSubmitSection() {
+  const questions = getQuestions();
+  const selectedAnswers = getAnswers();
+  
+  let unanswered = 0;
+  for (let i = 0; i < questions.length; i++) {
+    if (selectedAnswers[i] === undefined || selectedAnswers[i] === null) {
+      unanswered++;
+    }
+  }
+
+  const message = unanswered
+    ? `You still have ${unanswered} unanswered item(s). Submit anyway?`
+    : "Submit this section? Your answers cannot be changed afterward.";
+
+  if (confirm(message)) {
+    submitSection();
   }
 }
 
-function proceedToFinalSection() {
-  const unanswered = answers.session1.filter(a => a === null).length;
-  if (unanswered > 0) {
-    if (!confirm(`You have ${unanswered} unanswered question(s) in Session 1. Are you sure you want to proceed to the Final Exam?`)) {
-      return;
-    }
+function calculateScore(questions, selectedAnswers) {
+  return questions.reduce(
+    (score, question, index) =>
+      score + (selectedAnswers[index] === question.correct ? 1 : 0),
+    0
+  );
+}
+
+function submitSection() {
+  const questions = getQuestions();
+  const score = calculateScore(questions, getAnswers());
+
+  if (currentSection === 1) {
+    showSession1Result(score);
+  } else {
+    showFinalResult(score);
   }
+}
+
+function showSession1Result(score) {
+  const percent = (score / SESSION_1_COUNT) * 100;
+  const passed = percent >= PASS_PERCENT;
+
+  document.getElementById("questionArea").innerHTML = `
+    <section class="result-card">
+      <h2>TDC 1st Session Result</h2>
+      <div class="big-score">${score} / ${SESSION_1_COUNT}</div>
+      <div class="percent">${percent.toFixed(2)}%</div>
+      <div class="${passed ? "pass" : "fail"}">
+        ${passed ? "PASSED" : "FAILED"}
+      </div>
+      <p>Passing rate: ${PASS_PERCENT}%</p>
+
+      <button class="nav-btn primary" onclick="startFinalExam()">
+        Continue to TDC Final Exam
+      </button>
+    </section>
+  `;
+
+  document.getElementById("navArea").innerHTML = "";
+}
+
+function startFinalExam() {
   currentSection = 2;
   currentIndex = 0;
   renderQuestion();
 }
 
-function confirmFinalSubmission() {
-  const unanswered = answers.final.filter(a => a === null).length;
-  if (unanswered > 0) {
-    if (!confirm(`You have ${unanswered} unanswered question(s) in the Final Exam. Do you want to submit anyway?`)) {
-      return;
-    }
-  }
-  submitExam(false);
-}
+function showFinalResult(finalScore, completionStatus = "COMPLETED") {
+  stopTimer();
 
-function startTimer() {
-  clearInterval(timerInterval);
-  timerInterval = setInterval(() => {
-    if (timer <= 0) {
-      clearInterval(timerInterval);
-      alert("Time has expired! Submitting your exam automatically.");
-      submitExam(true);
-      return;
-    }
-    timer--;
-    updateTimerDisplay();
-  }, 1000);
-}
-
-function updateTimerDisplay() {
-  const elem = document.getElementById("timer");
-  if (!elem) return;
-  const m = Math.floor(timer / 60).toString().padStart(2, "0");
-  const s = (timer % 60).toString().padStart(2, "0");
-  elem.textContent = `${m}:${s}`;
-}
-
-function attachSecurityListeners() {
-  document.addEventListener("visibilitychange", handleSecurityViolation);
-  window.addEventListener("blur", handleSecurityViolation);
-
-  document.addEventListener("fullscreenchange", () => {
-    if (!document.fullscreenElement && !suppressFullscreenViolation && !submitted) {
-      handleSecurityViolation();
-    }
-  });
-
-  document.addEventListener("contextmenu", e => e.preventDefault());
-  document.addEventListener("keydown", e => {
-    if (
-      e.key === "F12" ||
-      (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "J" || e.key === "C")) ||
-      (e.ctrlKey && e.key === "U") ||
-      e.key === "PrintScreen"
-    ) {
-      e.preventDefault();
-      handleSecurityViolation();
-    }
-  });
-}
-
-function handleSecurityViolation() {
-  if (submitted || securityTerminationInProgress) return;
-
-  securityViolations++;
-  const banner = document.getElementById("securityBanner");
-
-  if (securityViolations >= 3) {
-    securityTerminationInProgress = true;
-    clearInterval(timerInterval);
-    showSecurityTerminationModal();
-  } else {
-    if (banner) {
-      banner.style.background = "#fff3cd";
-      banner.style.color = "#856404";
-      banner.textContent = `SECURITY WARNING (${securityViolations}/3): Leaving the exam view or changing window focus is prohibited.`;
-    }
-  }
-}
-
-function showSecurityTerminationModal() {
-  const backdrop = document.createElement("div");
-  backdrop.className = "security-modal-backdrop";
-  backdrop.innerHTML = `
-    <div class="security-modal-card">
-      <div class="security-modal-icon">&boxbox;</div>
-      <h2>Exam Terminated</h2>
-      <p>You have exceeded the maximum allowable security violations (3/3). Your exam session has been invalidated.</p>
-    </div>
-  `;
-  document.body.appendChild(backdrop);
-  submitExam(true, true);
-}
-
-function calculateScores() {
-  let s1Score = 0;
-  session1Questions.forEach((q, i) => {
-    if (answers.session1[i] === q.correct) s1Score++;
-  });
-
-  let finalScore = 0;
-  finalQuestions.forEach((q, i) => {
-    if (answers.final[i] === q.correct) finalScore++;
-  });
-
-  const s1Percent = (s1Score / SESSION_1_COUNT) * 100;
+  const session1Score = calculateScore(session1Questions, answers.session1);
+  const session1Percent = (session1Score / SESSION_1_COUNT) * 100;
   const finalPercent = (finalScore / FINAL_COUNT) * 100;
-
-  const s1Passed = s1Percent >= PASS_PERCENT;
+  const session1Passed = session1Percent >= PASS_PERCENT;
   const finalPassed = finalPercent >= PASS_PERCENT;
-  const overallPassed = s1Passed && finalPassed;
+  const overallPassed = session1Passed && finalPassed;
 
-  return {
-    s1Score,
-    s1Total: SESSION_1_COUNT,
-    s1Percent: s1Percent.toFixed(1),
-    s1Passed,
-    finalScore,
-    finalTotal: FINAL_COUNT,
-    finalPercent: finalPercent.toFixed(1),
-    finalPassed,
-    overallPassed
-  };
+  if (resultSubmissionStarted) return;
+  resultSubmissionStarted = true;
+  submitted = true;
+
+  document.getElementById("questionArea").innerHTML = `
+    <section class="result-card">
+      <h2>SUBMITTING EXAMINATION RESULT...</h2>
+      <div class="big-score">${session1Score} / ${SESSION_1_COUNT}</div>
+      <p>TDC 1st Session score</p>
+      <div class="big-score">${finalScore} / ${FINAL_COUNT}</div>
+      <p>TDC Final Exam score</p>
+      <p>Please wait while the official result is recorded and sent to the office.</p>
+      <div class="notice">Submitting...</div>
+    </section>`;
+  document.getElementById("navArea").innerHTML = "";
+
+  submitExamResult({
+    completionStatus, session1Score, session1Percent,
+    finalScore, finalPercent, overallPassed
+  }).then(result => {
+    renderFinalResultPage({
+      session1Score, session1Percent, finalScore, finalPercent,
+      overallPassed, completionStatus,
+      emailSent: result && result.emailSent !== false,
+      serverRecorded: result && result.recorded !== false
+    });
+  }).catch(error => {
+    renderFinalResultPage({
+      session1Score, session1Percent, finalScore, finalPercent,
+      overallPassed, completionStatus,
+      emailSent: false, serverRecorded: false,
+      errorMessage: error?.message || "Unable to contact the exam server."
+    });
+  });
 }
 
-function submitExam(force = false, terminated = false) {
-  if (submitted || resultSubmissionStarted) return;
-  submitted = true;
-  resultSubmissionStarted = true;
-  clearInterval(timerInterval);
-
-  const scores = calculateScores();
+function submitExamResult(resultData) {
   const payload = {
-    action: "submitExam",
+    action: "submitExamResult",
     attemptId,
     sessionToken,
     student,
-    scores,
     securityViolations,
-    terminated,
-    answers
+    completionStatus: resultData.completionStatus,
+    session1Answers: answers.session1,
+    finalAnswers: answers.final,
+    clientCalculated: {
+      session1Score: resultData.session1Score,
+      session1Percent: resultData.session1Percent,
+      finalScore: resultData.finalScore,
+      finalPercent: resultData.finalPercent,
+      overallPassed: resultData.overallPassed
+    },
+    submittedAt: new Date().toISOString()
   };
 
-  fetch(API_URL, {
+  return fetch(API_URL, {
     method: "POST",
-    mode: "no-cors",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
     body: JSON.stringify(payload)
-  }).catch(() => {});
+  }).then(async response => {
+    const text = await response.text();
+    let data;
+    try { data = JSON.parse(text); }
+    catch (_) { throw new Error("The exam server returned an invalid response."); }
+    if (!response.ok || !data.success) {
+      throw new Error(data.message || "The exam result could not be recorded.");
+    }
+    return data;
+  });
+}
 
-  if (!terminated) {
-    renderResults(scores);
+function renderFinalResultPage({
+  session1Score, session1Percent, finalScore, finalPercent,
+  overallPassed, completionStatus, emailSent, serverRecorded, errorMessage
+}) {
+  const statusText =
+    completionStatus === "SECURITY_TERMINATED"
+      ? "TERMINATED — SECURITY LIMIT REACHED"
+      : completionStatus === "TIME_EXPIRED"
+        ? "TIME EXPIRED"
+        : (overallPassed ? "PASSED" : "FAILED");
+
+  document.getElementById("questionArea").innerHTML = `
+    <section class="result-card">
+      <h2>EXAMINATION COMPLETE</h2>
+      <div class="result-table">
+        <div>
+          <span>TDC 1st Session</span>
+          <b>${session1Score} / ${SESSION_1_COUNT}</b>
+          <strong>${session1Percent.toFixed(2)}%</strong>
+          <small>${session1Percent >= PASS_PERCENT ? "PASSED" : "FAILED"}</small>
+        </div>
+        <div>
+          <span>TDC Final Exam</span>
+          <b>${finalScore} / ${FINAL_COUNT}</b>
+          <strong>${finalPercent.toFixed(2)}%</strong>
+          <small>${finalPercent >= PASS_PERCENT ? "PASSED" : "FAILED"}</small>
+        </div>
+      </div>
+      <div class="${overallPassed ? "pass" : "fail"}">${statusText}</div>
+      <p>Passing rate for each section: ${PASS_PERCENT}%</p>
+      <p>Security warnings recorded: <b>${securityViolations}</b> / 3</p>
+      <div class="notice">
+        ${serverRecorded ? "✓ Examination result recorded successfully." : "⚠ The examination result could not be confirmed by the server."}
+        <br>
+        ${emailSent ? "✓ Official result email sent to the office." : "⚠ Official result email could not be confirmed."}
+        ${errorMessage ? `<br><small>${esc(errorMessage)}</small>` : ""}
+      </div>
+    </section>`;
+  document.getElementById("navArea").innerHTML = "";
+  sendSecurityEvent("EXAM_COMPLETED");
+}
+
+function startTimer() {
+  stopTimer();
+  updateTimer();
+
+  timerInterval = setInterval(() => {
+    timer--;
+    updateTimer();
+
+    if (timer <= 0) {
+      stopTimer();
+
+      alert("The 90-minute examination time has ended. The exam will be submitted.");
+
+      if (currentSection === 1) {
+        showSession1Result(
+          calculateScore(session1Questions, answers.session1)
+        );
+      } else {
+        showFinalResult(
+          calculateScore(finalQuestions, answers.final),
+          "TIME_EXPIRED"
+        );
+      }
+    }
+  }, 1000);
+}
+
+function stopTimer() {
+  if (timerInterval) {
+    clearInterval(timerInterval);
+    timerInterval = null;
   }
 }
 
-function renderResults(scores) {
-  const app = document.getElementById("app");
-  if (!app) return;
+function updateTimer() {
+  const minutes = Math.floor(timer / 60);
+  const seconds = timer % 60;
+  const element = document.getElementById("timer");
 
-  const statusClass = scores.overallPassed ? "pass" : "fail";
-  const statusText = scores.overallPassed ? "PASSED" : "FAILED";
+  if (element) {
+    element.textContent =
+      `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+  }
+}
 
-  app.innerHTML = `
-    <div class="exam-shell">
-      <header class="exam-header">
-        <div class="brand">A1C DRIVING ACADEMY</div>
-        <h1>TDC Examination Results</h1>
-      </header>
+function sendSecurityEvent(event) {
+  if (!attemptId) return;
 
-      <main class="question-card" style="text-align: center; padding: 40px 20px;">
-        <h2 class="${statusClass}" style="font-size: 32px; margin-bottom: 10px;">${statusText}</h2>
-        <p style="font-size: 18px; color: #666; margin-bottom: 30px;">
-          Candidate: <b>${esc(student.fullName)}</b> | Attempt: ${esc(attemptId)}
-        </p>
+  fetch(API_URL, {
+    method: "POST",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify({
+      action: "securityEvent",
+      attemptId,
+      student,
+      event
+    })
+  }).catch(() => {});
+}
 
-        <table class="result-table" style="width: 100%; max-width: 500px; margin: 0 auto 30px; text-align: left; border-collapse: collapse;">
-          <tr style="border-bottom: 1px solid #ddd;">
-            <th style="padding: 12px;">Section</th>
-            <th style="padding: 12px;">Score</th>
-            <th style="padding: 12px;">Percentage</th>
-            <th style="padding: 12px;">Status</th>
-          </tr>
-          <tr style="border-bottom: 1px solid #eee;">
-            <td style="padding: 12px;">Session 1 (30 Items)</td>
-            <td style="padding: 12px;">${scores.s1Score} / ${scores.s1Total}</td>
-            <td style="padding: 12px;">${scores.s1Percent}%</td>
-            <td style="padding: 12px;"><b>${scores.s1Passed ? "PASSED" : "FAILED"}</b></td>
-          </tr>
-          <tr>
-            <td style="padding: 12px;">Final Exam (120 Items)</td>
-            <td style="padding: 12px;">${scores.finalScore} / ${scores.finalTotal}</td>
-            <td style="padding: 12px;">${scores.finalPercent}%</td>
-            <td style="padding: 12px;"><b>${scores.finalPassed ? "PASSED" : "FAILED"}</b></td>
-          </tr>
-        </table>
+function showSecurityTerminationModal() {
+  if (document.getElementById("securityTerminationModal")) return;
 
-        <p><small>An official copy of your result has been sent to your registered email and LTO portal history.</small></p>
-      </main>
+  const modal = document.createElement("div");
+  modal.id = "securityTerminationModal";
+  modal.innerHTML = `
+    <div class="security-modal-backdrop">
+      <div class="security-modal-card" role="dialog" aria-modal="true">
+        <div class="security-modal-icon">⚠</div>
+        <h2>EXAMINATION TERMINATED</h2>
+        <p>Three security violations have been recorded.</p>
+        <p>Your examination has been submitted because the maximum number of security warnings has been reached.</p>
+        <button id="securityResultButton" class="nav-btn primary">View Result</button>
+      </div>
     </div>
   `;
+
+  document.body.appendChild(modal);
+
+  document.getElementById("securityResultButton").addEventListener("click", () => {
+    modal.remove();
+
+    // Security termination ends the ENTIRE examination.
+    // Do not show the Session 1 continuation button after the limit is reached.
+    showFinalResult(
+      calculateScore(finalQuestions, answers.final),
+      "SECURITY_TERMINATED"
+    );
+  });
 }
+
+function recordViolation(type) {
+  if (submitted || securityTerminationInProgress) return;
+
+  securityViolations++;
+
+  sendSecurityEvent(`${type} #${securityViolations}`);
+
+  const banner = document.getElementById("securityBanner");
+
+  if (banner) {
+    banner.textContent =
+      `⚠ Security warning ${securityViolations} of 3: ${type}`;
+  }
+
+  if (securityViolations >= 3) {
+    // Mark the exam as terminating BEFORE displaying anything.
+    // This prevents the fullscreenchange event caused by a dialog/modal
+    // from being counted as a fourth violation.
+    securityTerminationInProgress = true;
+    submitted = true;
+    suppressFullscreenViolation = true;
+    stopTimer();
+
+    sendSecurityEvent("EXAM_TERMINATED_SECURITY_LIMIT");
+    showSecurityTerminationModal();
+  }
+}
+
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) recordViolation("TAB_OR_WINDOW_LEFT");
+});
+
+document.addEventListener("copy", event => {
+  if (document.getElementById("questionArea")) {
+    event.preventDefault();
+    recordViolation("COPY_ATTEMPT");
+  }
+});
+
+document.addEventListener("cut", event => {
+  if (document.getElementById("questionArea")) {
+    event.preventDefault();
+    recordViolation("CUT_ATTEMPT");
+  }
+});
+
+document.addEventListener("paste", event => {
+  if (document.getElementById("questionArea")) {
+    event.preventDefault();
+    recordViolation("PASTE_ATTEMPT");
+  }
+});
+
+document.addEventListener("contextmenu", event => {
+  if (document.getElementById("questionArea")) {
+    event.preventDefault();
+    recordViolation("RIGHT_CLICK");
+  }
+});
+
+document.addEventListener("fullscreenchange", () => {
+  if (suppressFullscreenViolation) return;
+
+  if (document.getElementById("questionArea") && !document.fullscreenElement) {
+    recordViolation("FULLSCREEN_EXIT");
+  }
+});
+
+// Best-effort screenshot protection. Browsers cannot completely prevent
+// OS-level screenshots (Snipping Tool, phone camera, external capture, etc.),
+// but common screenshot shortcuts are blocked and logged as violations.
+document.addEventListener("keydown", event => {
+  if (!document.getElementById("questionArea") || submitted) return;
+
+  const key = String(event.key || "").toLowerCase();
+  const isPrintScreen = key === "printscreen" || event.code === "PrintScreen";
+  const isWindowsSnipShortcut = event.shiftKey && key === "s" && (event.metaKey || event.getModifierState?.("Meta"));
+  const isMacScreenshotShortcut = event.metaKey && event.shiftKey && ["3", "4", "5"].includes(key);
+  const isOtherScreenshotShortcut = event.ctrlKey && event.shiftKey && key === "s";
+
+  if (isPrintScreen || isWindowsSnipShortcut || isMacScreenshotShortcut || isOtherScreenshotShortcut) {
+    event.preventDefault();
+    event.stopPropagation();
+    recordViolation("SCREENSHOT_ATTEMPT");
+  }
+});
+
+document.addEventListener("keyup", event => {
+  if (!document.getElementById("questionArea") || submitted) return;
+
+  if (event.key === "PrintScreen" || event.code === "PrintScreen") {
+    event.preventDefault();
+    recordViolation("SCREENSHOT_ATTEMPT");
+  }
+});
+
+
+// Browser print is another way of extracting the exam. Block it and log it.
+window.addEventListener("beforeprint", () => {
+  if (document.getElementById("questionArea") && !submitted) {
+    recordViolation("PRINT_SCREEN_ATTEMPT");
+  }
+});
+
+// Keep the watermark present if the exam UI is rerendered.
+const originalRenderQuestion = renderQuestion;
+renderQuestion = function() {
+  originalRenderQuestion();
+  addExamWatermark();
+};
+
+// Disable dragging/copying question images. This does not stop OS-level
+// screenshot tools, but it prevents easy image extraction from the page.
+document.addEventListener("dragstart", event => {
+  if (document.getElementById("questionArea")) {
+    event.preventDefault();
+  }
+});
