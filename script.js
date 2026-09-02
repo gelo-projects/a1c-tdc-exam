@@ -1679,7 +1679,7 @@ function addExamWatermark() {
   const attempt = esc(attemptId || "ATTEMPT");
 
   wm.innerHTML = `<span>A1C DRIVING ACADEMY<br>${name}<br>${clientId}<br>${attempt}</span>`;
-}
+} // <-- Missing closing brace was added here
 
 const securityModalStyle = document.createElement("style");
 securityModalStyle.textContent = `
@@ -1693,7 +1693,7 @@ securityModalStyle.textContent = `
     background: rgba(0,0,0,.72);
     padding: 20px;
     box-sizing: border-box;
-  }
+  }`;
   .security-modal-card {
     width: min(520px, 100%);
     background: #fff;
