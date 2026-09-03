@@ -298,7 +298,7 @@ const session1Questions = [
   {
     question: "25. Identify this traffic sign:",
     tagalog: "Tukuyin kung anong senyas ito:",
-    image: "images/1st/25.png",
+    image: "images/s25.png",
     correct: 0,
     options: [
       "a. no u-turn (bawal mag u-turn)",
@@ -309,7 +309,7 @@ const session1Questions = [
   {
     question: "26. Identify this traffic sign:",
     tagalog: "Tukuyin kung anong senyas ito:",
-    image: "images/1st/26.png",
+    image: "images/s26.png",
     correct: 2,
     options: [
       "a. road widens ahead (lalapad ang kalsada sa unahan)",
@@ -320,7 +320,7 @@ const session1Questions = [
   {
     question: "27. Identify this traffic sign:",
     tagalog: "Tukuyin kung anong senyas ito:",
-    image: "images/1st/27.png",
+    image: "images/s27.png",
     correct: 0,
     options: [
       "a. no blowing of horn (bawal bumusina)",
@@ -331,7 +331,7 @@ const session1Questions = [
   {
     question: "28. Identify this traffic sign:",
     tagalog: "Tukuyin kung anong senyas ito:",
-    image: "images/1st/28.png",
+    image: "images/s28.png",
     correct: 1,
     options: [
       "a. Road narrows (papaliit ang daan)",
@@ -342,7 +342,7 @@ const session1Questions = [
   {
     question: "29. Identify this traffic sign:",
     tagalog: "Tukuyin kung anong senyas ito:",
-    image: "images/1st/29.png",
+    image: "images/s29.png",
     correct: 0,
     options: [
       "a. slippery road (madulas na kalsada)",
@@ -353,7 +353,7 @@ const session1Questions = [
   {
     question: "30. What is the meaning of this traffic sign?",
     tagalog: "Ano ang ibig sabihin ng senyas na ito?",
-    image: "images/1st/30.png",
+    image: "images/s30.png",
     correct: 2,
     options: [
       "a. Pedestrian crossing (Tawiran)",
@@ -697,7 +697,7 @@ const finalQuestions = [
   {
     question: "31. Identify this traffic sign:",
     tagalog: "31. Tukuyin kung anong senyas ito:",
-    image: "images/final/31.png",
+    image: "images/f31.png",
     correct: 0,
     options: [
       "a. no u-turn (bawal mag u-turn)",
@@ -708,7 +708,7 @@ const finalQuestions = [
   {
     question: "32. Identify this traffic sign:",
     tagalog: "32. Tukuyin kung anong senyas ito:",
-    image: "images/final/32.png",
+    image: "images/f32.png",
     correct: 2,
     options: [
       "a. road widens ahead (lalapad ang kalsada sa unahan)",
@@ -719,7 +719,7 @@ const finalQuestions = [
   {
     question: "33. Identify this traffic sign:",
     tagalog: "33. Tukuyin kung anong senyas ito:",
-    image: "images/final/33.png",
+    image: "images/f33.png",
     correct: 0,
     options: [
       "a. no blowing of horn (bawal bumusina)",
@@ -730,7 +730,7 @@ const finalQuestions = [
   {
     question: "34. Identify this traffic sign:",
     tagalog: "34. Tukuyin kung anong senyas ito:",
-    image: "images/final/34.png",
+    image: "images/f34.png",
     correct: 1,
     options: [
       "a. Road narrows (papaliit ang daan)",
@@ -741,7 +741,7 @@ const finalQuestions = [
   {
     question: "35. Identify this traffic sign:",
     tagalog: "35. Tukuyin kung anong senyas ito:",
-    image: "images/final/35.png",
+    image: "images/f.png",
     correct: 0,
     options: [
       "a. slippery road (madulas na kalsada)",
@@ -752,7 +752,7 @@ const finalQuestions = [
   {
     question: "36. What is the meaning of this traffic sign?",
     tagalog: "36. Ano ang ibig sabihin ng senyas na ito?",
-    image: "images/final/36.png",
+    image: "images/f36.png",
     correct: 2,
     options: [
       "a. Pedestrian crossing (Tawiran)",
@@ -1170,7 +1170,7 @@ const finalQuestions = [
   {
     question: "74. Identify this traffic sign:",
     tagalog: "74. Tukuyin kung anong senyas ito:",
-    image: "images/speed_limit_30.jpg",
+    image: "images/f74.png",
     correct: 2,
     options: [
       "a. driving speed to beat the traffic (bilis ng pagtakbo upang maiwasan ang trapik)",
@@ -1181,7 +1181,7 @@ const finalQuestions = [
   {
     question: "75. Identify this traffic sign:",
     tagalog: "75. Tukuyin kung anong senyas ito:",
-    image: "images/give_way.jpg",
+    image: "images/f75.png",
     correct: 0,
     options: [
       "a. you must give right-of-way (dapat kang magbigay daan)",
@@ -1192,7 +1192,7 @@ const finalQuestions = [
   {
     question: "76. What is the meaning of yellow painted curb?",
     tagalog: "76. Ano ang ibig sabihin ng nakapintang dilaw?",
-    image: "images/yellow_curb.jpg",
+    image: "images/f76.png",
     correct: 1,
     options: [
       "a. No loading/Unloading (Bawal ang magbaba at magsakay)",
@@ -1445,7 +1445,7 @@ const finalQuestions = [
   {
     question: "99. What should be the appropriate action when you see this traffic sign?",
     tagalog: "99. Ano ang dapat mong gawin kung makikita ang karatulang ito?",
-    image: "images/accident_prone.jpg",
+    image: "images/f99.png",
     correct: 0,
     options: [
       "a. Slow down and be more alert than usual (Magmabagal at maging handa)",
@@ -1456,7 +1456,7 @@ const finalQuestions = [
   {
     question: "100. Where do you usually see this traffic sign?",
     tagalog: "100. Saan madalas makita ang mga ganitong senyas trapiko?",
-    image: "images/chevron.jpg",
+    image: "images/f100.png",
     correct: 2,
     options: [
       "a. Before the bridge (Bago umabot sa tulay)",
