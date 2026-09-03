@@ -158,7 +158,7 @@ const session1Questions = [
     image: "images/banner.jpg",
     correct: 0,
     options: [
-      "a. beyond 4 meters of a fire hydrant (lampas 4 na metro sa boka-insendiyo)",
+      "a. beyond 4 meters of a fire hydrant (lampas 4 na metro sa boka-iniyo)",
       "b. within 3 meters of the intersection of curve lines (nasa loob ng 3 metro ng interseksiyon ng mga linyang kurbada)",
       "c. on the intersection (nasa interseksyon)"
     ]
@@ -497,7 +497,7 @@ const finalQuestions = [
     image: "images/banner.jpg",
     correct: 0,
     options: [
-      "a. beyond 4 meters of a fire hydrant (lampas 4 na metro sa boka-insendiyo)",
+      "a. beyond 4 meters of a fire hydrant (lampas 4 na metro sa boka-iniyo)",
       "b. within 3 meters of the intersection of curve lines (nasa loob ng 3 metro ng interseksiyon ng mga linyang kurbada)",
       "c. on the intersection (nasa interseksyon)"
     ]
@@ -1412,7 +1412,7 @@ const finalQuestions = [
     options: [
       "a. Use the motorcycle temporarily (Gamitin ang motorsiklo pansamantala)",
       "b. Surrender the motorcycle to authorities (I-surrender ang motorsiklo sa awtoridad)",
-      "c. Send the motorycle to the impounding area (Dalhin ang motorsiklo sa pinakamalapit na impounding area)"
+      "c.  the motorycle to the impounding area (Dalhin ang motorsiklo sa pinakamalapit na impounding area)"
     ]
   },
   {
@@ -2126,18 +2126,18 @@ function generatePDFBase64(results) {
 
 async function sendResultWithPdf(payload, results) {
   try {
-    const pdfBase64 = await generatePDFBase64(results);
-    payload.pdfBase64 = pdfBase64;
-    payload.sendEmail = true;
-
-    await fetch(API_URL, {
+    const response = await fetch("https://script.google.com/macros/s/AKfycbzTxrrutvgAlRsBP7QU6F1MSQJwQ6y-jEQEddXaJzWrAJx9qGHhhusRQa26NnK64JGI/exec", {
       method: "POST",
-      mode: "no-cors",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "text/plain;charset=utf-8"
+      },
       body: JSON.stringify(payload)
     });
+    
+    const result = await response.json();
+    console.log("Server PDF/Email Response:", result);
   } catch (err) {
-    console.error("Failed to transmit result email with PDF payload:", err);
+    console.error("Submission failed:", err);
   }
 }
 
