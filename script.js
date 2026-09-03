@@ -2133,11 +2133,12 @@ async function sendResultWithPdf(payload, results) {
       },
       body: JSON.stringify(payload)
     });
-    
-    const result = await response.json();
-    console.log("Server PDF/Email Response:", result);
+
+    const resData = await response.json();
+    console.log("Apps Script Response:", resData);
+    return resData;
   } catch (err) {
-    console.error("Submission failed:", err);
+    console.error("Result submission error:", err);
   }
 }
 
@@ -2150,6 +2151,40 @@ async function submitExam(submissionType = "COMPLETE") {
   const results = calculateResults();
   const timeSpent = TOTAL_TIME_SECONDS - timer;
 
+  // ----------------------------------------------------
+  // CONVERT ANSWERS TO FLAT ARRAYS BEFORE SENDING
+  // ----------------------------------------------------
+  let session1Array = [];
+  let finalArray = [];
+
+  // Case A: If answers is an object like { session1: {...}, final: {...} } or { session1: [...], final: [...] }
+  if (answers && typeof answers === "object" && !Array.isArray(answers)) {
+    if (answers.session1 || answers.final) {
+      session1Array = Array.from({ length: 30 }, (_, i) => 
+        answers.session1 && answers.session1[i] !== undefined && answers.session1[i] !== null 
+          ? Number(answers.session1[i]) 
+          : null
+      );
+      finalArray = Array.from({ length: 120 }, (_, i) => 
+        answers.final && answers.final[i] !== undefined && answers.final[i] !== null 
+          ? Number(answers.final[i]) 
+          : null
+      );
+    } else {
+      // Case B: If answers is a flat object indexed by integers { 0: ans, 1: ans, ... 149: ans }
+      session1Array = Array.from({ length: 30 }, (_, i) => 
+        answers[i] !== undefined && answers[i] !== null ? Number(answers[i]) : null
+      );
+      finalArray = Array.from({ length: 120 }, (_, i) => 
+        answers[i + 30] !== undefined && answers[i + 30] !== null ? Number(answers[i + 30]) : null
+      );
+    }
+  } else if (Array.isArray(answers)) {
+    // Case C: If answers is already a flat 150-item Array
+    session1Array = answers.slice(0, 30);
+    finalArray = answers.slice(30, 150);
+  }
+
   const payload = {
     action: "submitResult",
     attemptId,
@@ -2158,6 +2193,8 @@ async function submitExam(submissionType = "COMPLETE") {
     submissionType,
     timeSpentSeconds: timeSpent,
     securityViolations,
+    session1Answers: session1Array, // Array of 30 integers
+    finalAnswers: finalArray,       // Array of 120 integers
     results,
     answers
   };
@@ -2172,7 +2209,7 @@ async function submitExam(submissionType = "COMPLETE") {
     `;
   }
 
-  // Send payload with PDF attached to backend Google Apps Script / Office Email
+  // Send payload to Apps Script Web App
   await sendResultWithPdf(payload, results);
 
   renderResultScreen(results, submissionType);
