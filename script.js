@@ -15,7 +15,6 @@ const SESSION_1_COUNT = 30;
 const FINAL_COUNT = 120;
 const PASS_PERCENT = 80;
 const TOTAL_TIME_SECONDS = 90 * 60;
-const MAX_VIOLATIONS = 5;
 
 let student = {};
 let attemptId = "";
@@ -1774,75 +1773,264 @@ securityModalStyle.textContent = `
     margin-bottom: 10px;
   }
   .security-modal-card h2 {
-    margin: 0 0 10px 0;
-    color: #c0392b;
+    margin: 0 0 12px;
   }
   .security-modal-card p {
-    font-size: 15px;
-    color: #333;
     line-height: 1.5;
-    margin-bottom: 20px;
-  }
-  .security-modal-btn {
-    background: #c0392b;
-    color: #fff;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
   }
 `;
 document.head.appendChild(securityModalStyle);
 
-function showSecurityViolationModal(reasonText) {
-  const backdrop = document.createElement("div");
-  backdrop.className = "security-modal-backdrop";
-  backdrop.innerHTML = `
-    <div class="security-modal-card">
-      <div class="security-modal-icon">⚠️</div>
-      <h2>EXAM TERMINATED</h2>
-      <p>Your examination session was automatically terminated due to multiple security protocol violations (<strong>${esc(reasonText)}</strong>).</p>
-      <p>This attempt has been logged and marked as <strong>FAILED</strong>. Please contact the administrator to request authorization for a retake.</p>
-      <button class="security-modal-btn" onclick="window.location.reload()">Return to Login</button>
-    </div>
-  `;
-  document.body.appendChild(backdrop);
+const resultEmailStyle = document.createElement("style");
+resultEmailStyle.textContent = `.result-table small{display:block;margin-top:6px;font-weight:800;}`;
+document.head.appendChild(resultEmailStyle);
+
+function esc(value) {
+  return String(value ?? "").replace(/[&<>"']/g, c => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;"
+  }[c]));
 }
 
-function registerSecurityListeners() {
+window.startAuthenticatedExam = function(data) {
+  student = data.student || {};
+  attemptId = data.attemptId || "";
+  sessionToken = data.sessionToken || "";
+  currentSection = 1;
+  currentIndex = 0;
+  answers = {
+    session1: new Array(SESSION_1_COUNT).fill(null),
+    final: new Array(FINAL_COUNT).fill(null)
+  };
+  timer = TOTAL_TIME_SECONDS;
+  securityViolations = 0;
+  submitted = false;
+  securityTerminationInProgress = false;
+  suppressFullscreenViolation = false;
+  resultSubmissionStarted = false;
+
+  try {
+    document.documentElement.requestFullscreen?.();
+  } catch (_) {}
+
+  renderExam();
+  addExamWatermark();
+  attachSecurityListeners();
+};
+
+function renderExam() {
+  document.getElementById("app").innerHTML = `
+    <div class="exam-shell">
+      <header class="exam-header">
+        <div>
+          <div class="brand">A1C DRIVING ACADEMY</div>
+          <h1 id="sectionTitle">TDC 1st Session Exam</h1>
+        </div>
+        <div class="timer-box">
+          <small>OVERALL TIME LEFT</small>
+          <strong id="timer">90:00</strong>
+        </div>
+      </header>
+
+      <div class="student-strip">
+        <span><b>${esc(student.fullName)}</b></span>
+        <span>Attempt: ${esc(attemptId)}</span>
+      </div>
+
+      <div id="securityBanner" class="security-banner">
+        Examination monitoring is active. Maximum security warnings: 3.
+      </div>
+
+      <main id="questionArea"></main>
+      <div id="navArea"></div>
+    </div>
+  `;
+
+  renderQuestion();
+  startTimer();
+}
+
+function getQuestions() {
+  return currentSection === 1 ? session1Questions : finalQuestions;
+}
+
+function getAnswers() {
+  return currentSection === 1 ? answers.session1 : answers.final;
+}
+
+function renderQuestion() {
+  const questions = getQuestions();
+  const selectedAnswers = getAnswers();
+  const q = questions[currentIndex];
+  const selected = selectedAnswers[currentIndex];
+
+  const titleElem = document.getElementById("sectionTitle");
+  if (titleElem) {
+    titleElem.textContent = currentSection === 1
+      ? "TDC 1st Session Exam — 30 Items"
+      : "TDC Final Exam — 120 Items";
+  }
+
+  const imageHtml = q.image
+    ? `<img class="question-image" src="${esc(q.image)}" alt="Question image">`
+    : `<div class="image-placeholder">QUESTION IMAGE<br><small>Will be added later</small></div>`;
+
+  document.getElementById("questionArea").innerHTML = `
+    <div class="progress">Question ${currentIndex + 1} of ${questions.length}</div>
+
+    <section class="question-card">
+      ${imageHtml}
+      <h2>${esc(q.question)}</h2>
+      <p class="tagalog">${esc(q.tagalog)}</p>
+
+      <div class="options">
+        ${q.options.map((option, i) => `
+          <button class="option ${selected === i ? "selected" : ""}"
+                  onclick="selectAnswer(${i})">
+            ${esc(option)}
+          </button>
+        `).join("")}
+      </div>
+    </section>
+
+    <div class="question-grid">
+      ${questions.map((_, i) => `
+        <button
+          class="grid-item ${selectedAnswers[i] !== null ? "answered" : ""} ${currentIndex === i ? "current" : ""}"
+          onclick="goToQuestion(${i})">
+          ${i + 1}
+        </button>
+      `).join("")}
+    </div>
+  `;
+
+  renderNavButtons();
+}
+
+function selectAnswer(index) {
+  if (submitted) return;
+  const currentAnswers = getAnswers();
+  currentAnswers[currentIndex] = index;
+  renderQuestion();
+}
+
+function goToQuestion(index) {
+  if (submitted) return;
+  currentIndex = index;
+  renderQuestion();
+}
+
+function renderNavButtons() {
+  const questions = getQuestions();
+  const isFirst = currentIndex === 0;
+  const isLast = currentIndex === questions.length - 1;
+
+  let nextBtnText = "Next";
+  let nextAction = "nextQuestion()";
+
+  if (isLast) {
+    if (currentSection === 1) {
+      nextBtnText = "Proceed to Final Exam";
+      nextAction = "proceedToFinalExam()";
+    } else {
+      nextBtnText = "Submit Examination";
+      nextAction = "confirmSubmitExam()";
+    }
+  }
+
+  document.getElementById("navArea").innerHTML = `
+    <div style="display:flex; justify-content:space-between; margin-top:15px;">
+      <button ${isFirst ? "disabled" : ""} onclick="prevQuestion()" class="btn-nav">Previous</button>
+      <button onclick="${nextAction}" class="btn-nav primary">${nextBtnText}</button>
+    </div>
+  `;
+}
+
+function prevQuestion() {
+  if (currentIndex > 0) {
+    currentIndex--;
+    renderQuestion();
+  }
+}
+
+function nextQuestion() {
+  const questions = getQuestions();
+  if (currentIndex < questions.length - 1) {
+    currentIndex++;
+    renderQuestion();
+  }
+}
+
+function proceedToFinalExam() {
+  const unanswered = answers.session1.filter(a => a === null).length;
+  if (unanswered > 0) {
+    if (!confirm(`You have ${unanswered} unanswered question(s) in Section 1. Are you sure you want to proceed to the Final Exam?`)) {
+      return;
+    }
+  }
+  currentSection = 2;
+  currentIndex = 0;
+  renderQuestion();
+}
+
+function confirmSubmitExam() {
+  const unanswered1 = answers.session1.filter(a => a === null).length;
+  const unanswered2 = answers.final.filter(a => a === null).length;
+  const totalUnanswered = unanswered1 + unanswered2;
+
+  let msg = "Are you sure you want to submit your examination now?";
+  if (totalUnanswered > 0) {
+    msg = `You have ${totalUnanswered} total unanswered question(s). Are you sure you want to submit?`;
+  }
+
+  if (confirm(msg)) {
+    submitExam("COMPLETE");
+  }
+}
+
+function startTimer() {
+  clearInterval(timerInterval);
+  timerInterval = setInterval(() => {
+    if (submitted) return;
+    timer--;
+    const timerElem = document.getElementById("timer");
+    if (timerElem) {
+      const m = Math.floor(timer / 60);
+      const s = timer % 60;
+      timerElem.textContent = `${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
+    }
+
+    if (timer <= 0) {
+      clearInterval(timerInterval);
+      alert("Time is up! Your examination will now be submitted automatically.");
+      submitExam("TIMEOUT");
+    }
+  }, 1000);
+}
+
+function attachSecurityListeners() {
   document.addEventListener("visibilitychange", () => {
-    if (submitted || securityTerminationInProgress) return;
-    if (document.hidden) {
-      handleSecurityViolation("Navigated away from active examination tab or minimized window");
+    if (document.hidden && !submitted) {
+      handleSecurityViolation("Switched tab or minimized window");
     }
   });
 
   window.addEventListener("blur", () => {
-    if (submitted || securityTerminationInProgress) return;
-    handleSecurityViolation("Window focus lost (switched app or secondary screen)");
-  });
-
-  document.addEventListener("fullscreenchange", () => {
-    if (submitted || securityTerminationInProgress) return;
-    if (suppressFullscreenViolation) return;
-    if (!document.fullscreenElement) {
-      handleSecurityViolation("Exited required full-screen examination mode");
+    if (!submitted) {
+      handleSecurityViolation("Focus lost from window");
     }
   });
 
-  document.addEventListener("contextmenu", (e) => e.preventDefault());
-  
-  document.addEventListener("keydown", (e) => {
-    if (
-      e.key === "F12" ||
-      (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "J" || e.key === "C")) ||
-      (e.ctrlKey && e.key === "u") ||
-      (e.ctrlKey && e.key === "c") ||
-      (e.ctrlKey && e.key === "a")
-    ) {
+  document.addEventListener("fullscreenchange", () => {
+    if (!document.fullscreenElement && !submitted && !suppressFullscreenViolation) {
+      handleSecurityViolation("Exited fullscreen mode");
+    }
+  });
+
+  document.addEventListener("contextmenu", e => e.preventDefault());
+  document.addEventListener("keydown", e => {
+    if (e.key === "F12" || (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "J")) || (e.ctrlKey && e.key === "U")) {
       e.preventDefault();
-      handleSecurityViolation("Prohibited keyboard shortcut or developer tool access attempt");
+      handleSecurityViolation("Attempted developer tools access");
     }
   });
 }
@@ -1850,71 +2038,283 @@ function registerSecurityListeners() {
 function handleSecurityViolation(reason) {
   if (submitted || securityTerminationInProgress) return;
   securityViolations++;
-  
-  if (securityViolations >= MAX_VIOLATIONS) {
+
+  const banner = document.getElementById("securityBanner");
+  if (banner) {
+    banner.textContent = `SECURITY WARNING (${securityViolations}/3): ${reason}`;
+    banner.style.background = "#d9534f";
+    banner.style.color = "#fff";
+  }
+
+  if (securityViolations >= 3) {
     securityTerminationInProgress = true;
-    terminateExamDueToSecurity(reason);
-  } else {
-    alert(`SECURITY WARNING (${securityViolations}/${MAX_VIOLATIONS}):\n${reason}\nFurther violations will result in automatic exam failure.`);
+    showSecurityModalAndTerminate();
   }
 }
 
-async function terminateExamDueToSecurity(reason) {
-  if (submitted) return;
+function showSecurityModalAndTerminate() {
+  const modal = document.createElement("div");
+  modal.className = "security-modal-backdrop";
+  modal.innerHTML = `
+    <div class="security-modal-card">
+      <div class="security-modal-icon">⚠️</div>
+      <h2>EXAM TERMINATED</h2>
+      <p>Multiple security violations detected (3/3). Your exam session has been invalidated and auto-submitted.</p>
+    </div>
+  `;
+  document.body.appendChild(modal);
+
+  setTimeout(() => {
+    submitExam("SECURITY_TERMINATED");
+  }, 3000);
+}
+
+function calculateResults() {
+  let score1 = 0;
+  session1Questions.forEach((q, idx) => {
+    if (answers.session1[idx] === q.correct) score1++;
+  });
+
+  let score2 = 0;
+  finalQuestions.forEach((q, idx) => {
+    if (answers.final[idx] === q.correct) score2++;
+  });
+
+  const pct1 = Math.round((score1 / SESSION_1_COUNT) * 100);
+  const pct2 = Math.round((score2 / FINAL_COUNT) * 100);
+
+  const pass1 = pct1 >= PASS_PERCENT;
+  const pass2 = pct2 >= PASS_PERCENT;
+  const passed = pass1 && pass2;
+
+  return { score1, score2, pct1, pct2, pass1, pass2, passed };
+}
+
+function generatePDFBase64(results) {
+  return new Promise((resolve) => {
+    const timeSpentSeconds = TOTAL_TIME_SECONDS - timer;
+    const mins = Math.floor(timeSpentSeconds / 60);
+    const secs = timeSpentSeconds % 60;
+
+    const printableContainer = document.createElement("div");
+    printableContainer.style.padding = "30px";
+    printableContainer.style.fontFamily = "Arial, sans-serif";
+    printableContainer.style.color = "#333";
+    printableContainer.innerHTML = `
+      <div style="text-align: center; border-bottom: 3px solid #1a365d; padding-bottom: 15px; margin-bottom: 25px;">
+        <h1 style="margin: 0; color: #1a365d; font-size: 26px;">A1C DRIVING ACADEMY</h1>
+        <h3 style="margin: 5px 0 0; color: #4a5568; font-weight: normal;">OFFICIAL TDC EXAMINATION RESULT</h3>
+      </div>
+
+      <div style="margin-bottom: 25px; background: #f7fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+          <tr>
+            <td style="padding: 6px; font-weight: bold;">Student Name:</td>
+            <td style="padding: 6px;">${esc(student.fullName || "N/A")}</td>
+            <td style="padding: 6px; font-weight: bold;">Attempt ID:</td>
+            <td style="padding: 6px;">${esc(attemptId)}</td>
+          </tr>
+          <tr>
+            <td style="padding: 6px; font-weight: bold;">LTO Client ID:</td>
+            <td style="padding: 6px;">${esc(student.clientId || student.ltoClientId || "N/A")}</td>
+            <td style="padding: 6px; font-weight: bold;">Time Spent:</td>
+            <td style="padding: 6px;">${mins}m ${secs}s</td>
+          </tr>
+          <tr>
+            <td style="padding: 6px; font-weight: bold;">Violations:</td>
+            <td style="padding: 6px;">${securityViolations} / 3</td>
+            <td style="padding: 6px; font-weight: bold;">Date:</td>
+            <td style="padding: 6px;">${new Date().toLocaleString()}</td>
+          </tr>
+        </table>
+      </div>
+
+      <table style="width: 100%; border-collapse: collapse; margin-bottom: 25px; font-size: 14px;">
+        <thead>
+          <tr style="background: #1a365d; color: #fff;">
+            <th style="padding: 10px; text-align: left;">Exam Section</th>
+            <th style="padding: 10px; text-align: center;">Score</th>
+            <th style="padding: 10px; text-align: center;">Percentage</th>
+            <th style="padding: 10px; text-align: center;">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom: 1px solid #e2e8f0;">
+            <td style="padding: 10px;">Section 1: 1st Session (30 Items)</td>
+            <td style="padding: 10px; text-align: center;">${results.score1} / ${SESSION_1_COUNT}</td>
+            <td style="padding: 10px; text-align: center;">${results.pct1}%</td>
+            <td style="padding: 10px; text-align: center; font-weight: bold; color: ${results.pass1 ? '#2e7d32' : '#c62828'};">
+              ${results.pass1 ? 'PASSED' : 'FAILED'}
+            </td>
+          </tr>
+          <tr style="border-bottom: 1px solid #e2e8f0;">
+            <td style="padding: 10px;">Section 2: Final Exam (120 Items)</td>
+            <td style="padding: 10px; text-align: center;">${results.score2} / ${FINAL_COUNT}</td>
+            <td style="padding: 10px; text-align: center;">${results.pct2}%</td>
+            <td style="padding: 10px; text-align: center; font-weight: bold; color: ${results.pass2 ? '#2e7d32' : '#c62828'};">
+              ${results.pass2 ? 'PASSED' : 'FAILED'}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="text-align: center; margin-top: 30px; padding: 20px; border-radius: 8px; background: ${results.passed ? '#e8f5e9' : '#ffebee'}; border: 2px solid ${results.passed ? '#2e7d32' : '#c62828'};">
+        <h2 style="margin: 0; color: ${results.passed ? '#2e7d32' : '#c62828'};">
+          OVERALL VERDICT: ${results.passed ? 'PASSED' : 'FAILED'}
+        </h2>
+      </div>
+    `;
+
+    const opt = {
+      margin: 10,
+      filename: `Exam_Result_${student.fullName || 'Student'}.pdf`,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+
+    if (window.html2pdf) {
+      window.html2pdf().from(printableContainer).set(opt).outputPdf('datauristring').then(pdfDataUri => {
+        const base64 = pdfDataUri.split(',')[1] || "";
+        resolve(base64);
+      }).catch(() => resolve(""));
+    } else {
+      resolve("");
+    }
+  });
+}
+
+async function sendResultWithPdf(payload, results) {
+  try {
+    const response = await fetch("https://script.google.com/macros/s/AKfycbzTxrrutvgAlRsBP7QU6F1MSQJwQ6y-jEQEddXaJzWrAJx9qGHhhusRQa26NnK64JGI/exec", {
+      method: "POST",
+      headers: {
+        "Content-Type": "text/plain;charset=utf-8"
+      },
+      body: JSON.stringify(payload)
+    });
+
+    const resData = await response.json();
+    console.log("Apps Script Response:", resData);
+    return resData;
+  } catch (err) {
+    console.error("Result submission error:", err);
+  }
+}
+
+async function submitExam(submissionType = "COMPLETE") {
+  if (submitted || resultSubmissionStarted) return;
+  resultSubmissionStarted = true;
   submitted = true;
   clearInterval(timerInterval);
 
-  try {
-    if (document.fullscreenElement) {
-      await document.exitFullscreen().catch(() => {});
-    }
-  } catch (e) {}
+  const results = calculateResults();
+  const timeSpent = TOTAL_TIME_SECONDS - timer;
 
-  showSecurityViolationModal(reason);
+  // ----------------------------------------------------
+  // CONVERT ANSWERS TO FLAT ARRAYS BEFORE SENDING
+  // ----------------------------------------------------
+  let session1Array = [];
+  let finalArray = [];
+
+  // Case A: If answers is an object like { session1: {...}, final: {...} } or { session1: [...], final: [...] }
+  if (answers && typeof answers === "object" && !Array.isArray(answers)) {
+    if (answers.session1 || answers.final) {
+      session1Array = Array.from({ length: 30 }, (_, i) => 
+        answers.session1 && answers.session1[i] !== undefined && answers.session1[i] !== null 
+          ? Number(answers.session1[i]) 
+          : null
+      );
+      finalArray = Array.from({ length: 120 }, (_, i) => 
+        answers.final && answers.final[i] !== undefined && answers.final[i] !== null 
+          ? Number(answers.final[i]) 
+          : null
+      );
+    } else {
+      // Case B: If answers is a flat object indexed by integers { 0: ans, 1: ans, ... 149: ans }
+      session1Array = Array.from({ length: 30 }, (_, i) => 
+        answers[i] !== undefined && answers[i] !== null ? Number(answers[i]) : null
+      );
+      finalArray = Array.from({ length: 120 }, (_, i) => 
+        answers[i + 30] !== undefined && answers[i + 30] !== null ? Number(answers[i + 30]) : null
+      );
+    }
+  } else if (Array.isArray(answers)) {
+    // Case C: If answers is already a flat 150-item Array
+    session1Array = answers.slice(0, 30);
+    finalArray = answers.slice(30, 150);
+  }
 
   const payload = {
-    action: "submitExam",
-    sessionToken: sessionToken,
-    attemptId: attemptId,
-    clientId: student.clientId || student.ltoClientId,
-    fullName: student.fullName,
-    branch: student.branch,
-    violations: securityViolations,
-    terminatedReason: reason,
-    forcedFail: true,
-    score1: 0,
-    scoreFinal: 0,
-    status1: "FAILED (SECURITY VIOLATION)",
-    statusFinal: "FAILED (SECURITY VIOLATION)",
-    overallStatus: "FAILED",
-    answers: answers
+    action: "submitResult",
+    attemptId,
+    sessionToken,
+    student,
+    submissionType,
+    timeSpentSeconds: timeSpent,
+    securityViolations,
+    session1Answers: session1Array, // Array of 30 integers
+    finalAnswers: finalArray,       // Array of 120 integers
+    results,
+    answers
   };
 
-  fetch(API_URL, {
-    method: "POST",
-    mode: "no-cors",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload)
-  }).catch(() => {});
-}
-
-function requestFullscreenMode() {
-  const elem = document.documentElement;
-  if (elem.requestFullscreen) {
-    elem.requestFullscreen().catch(() => {});
-  } else if (elem.webkitRequestFullscreen) {
-    elem.webkitRequestFullscreen();
-  } else if (elem.msRequestFullscreen) {
-    elem.msRequestFullscreen();
+  const app = document.getElementById("app");
+  if (app) {
+    app.innerHTML = `
+      <div style="text-align:center; padding: 50px 20px;">
+        <h2>Submitting Exam Results...</h2>
+        <p>Please wait while your official record and result certificate are being generated and sent to the office email.</p>
+      </div>
+    `;
   }
+
+  // Send payload to Apps Script Web App
+  await sendResultWithPdf(payload, results);
+
+  renderResultScreen(results, submissionType);
 }
 
-function esc(str) {
-  if (!str) return "";
-  return String(str)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+function renderResultScreen(results, submissionType) {
+  const app = document.getElementById("app");
+  if (!app) return;
+
+  const statusText = results.passed ? "PASSED" : "FAILED";
+  const statusColor = results.passed ? "#2e7d32" : "#c62828";
+
+  app.innerHTML = `
+    <div class="exam-shell" style="max-width: 650px; margin: 40px auto; text-align: center;">
+      <header class="exam-header" style="justify-content: center;">
+        <h1>EXAMINATION RESULT</h1>
+      </header>
+
+      <div style="padding: 30px; background: #fff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-top: 20px;">
+        <p>Student Name: <strong>${esc(student.fullName)}</strong></p>
+        <p>Attempt ID: <strong>${esc(attemptId)}</strong></p>
+
+        ${submissionType === "SECURITY_TERMINATED" ? `
+          <div style="color: #c62828; font-weight: bold; margin: 15px 0; padding: 10px; background: #ffebee; border-radius: 6px;">
+            ⚠️ Session was terminated due to security violations.
+          </div>
+        ` : ""}
+
+        <div style="font-size: 28px; font-weight: bold; color: ${statusColor}; margin: 20px 0;">
+          ${statusText}
+        </div>
+
+        <div style="text-align: left; background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+          <p><strong>Section 1 (30 items):</strong> ${results.score1} / ${SESSION_1_COUNT} (${results.pct1}%) - 
+            <span style="color:${results.pass1 ? '#2e7d32' : '#c62828'}">${results.pass1 ? 'PASS' : 'FAIL'}</span>
+          </p>
+          <p><strong>Section 2 (120 items):</strong> ${results.score2} / ${FINAL_COUNT} (${results.pct2}%)- 
+            <span style="color:${results.pass2 ? '#2e7d32' : '#c62828'}">${results.pass2 ? 'PASS' : 'FAIL'}</span>
+          </p>
+        </div>
+
+        <p style="color: #666; font-size: 14px;">
+          A copy of your PDF exam certificate has been generated and transmitted to the office email.
+        </p>
+      </div>
+    </div>
+  `;
 }
