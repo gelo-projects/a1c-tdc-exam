@@ -741,7 +741,7 @@ const finalQuestions = [
   {
     question: "35. Identify this traffic sign:",
     tagalog: "35. Tukuyin kung anong senyas ito:",
-    image: "images/f.png",
+    image: "images/f35.png",
     correct: 0,
     options: [
       "a. slippery road (madulas na kalsada)",
@@ -2041,12 +2041,12 @@ function handleSecurityViolation(reason) {
 
   const banner = document.getElementById("securityBanner");
   if (banner) {
-    banner.textContent = `SECURITY WARNING (${securityViolations}/3): ${reason}`;
+    banner.textContent = `SECURITY WARNING (${securityViolations}/5): ${reason}`;
     banner.style.background = "#d9534f";
     banner.style.color = "#fff";
   }
 
-  if (securityViolations >= 3) {
+  if (securityViolations >= 5) {
     securityTerminationInProgress = true;
     showSecurityModalAndTerminate();
   }
@@ -2122,7 +2122,7 @@ function generatePDFBase64(results) {
           </tr>
           <tr>
             <td style="padding: 6px; font-weight: bold;">Violations:</td>
-            <td style="padding: 6px;">${securityViolations} / 3</td>
+            <td style="padding: 6px;">${securityViolations} / 5</td>
             <td style="padding: 6px; font-weight: bold;">Date:</td>
             <td style="padding: 6px;">${new Date().toLocaleString()}</td>
           </tr>
