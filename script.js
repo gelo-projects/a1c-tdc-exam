@@ -1870,102 +1870,48 @@ function renderQuestion() {
 
   const imageHtml = q.image
     ? `<img class="question-image" src="${esc(q.image)}" alt="Question image">`
-    : `<div class="image-placeholder">
-         QUESTION IMAGE
-         <small>Will be added later</small>
-       </div>`;
+    : `<div class="image-placeholder">QUESTION IMAGE<br><small>Will be added later</small></div>`;
 
   document.getElementById("questionArea").innerHTML = `
-    <div class="progress">
-      Question ${currentIndex + 1} of ${questions.length}
-    </div>
+    <div class="progress">Question ${currentIndex + 1} of ${questions.length}</div>
 
     <section class="question-card">
-
       ${imageHtml}
-
       <h2>${esc(q.question)}</h2>
-
-      <p class="tagalog">
-        ${esc(q.tagalog)}
-      </p>
+      <p class="tagalog">${esc(q.tagalog)}</p>
 
       <div class="options">
         ${q.options.map((option, i) => `
-          <button
-            class="option ${selected === i ? "selected" : ""}"
-            onclick="selectAnswer(${i})">
+          <button class="option ${selected === i ? "selected" : ""}"
+                  onclick="selectAnswer(${i})">
             ${esc(option)}
           </button>
         `).join("")}
       </div>
-
-      <!-- NAVIGATION MOVED HERE -->
-      <div class="nav-row question-navigation">
-
-        <button
-          class="nav-btn"
-          onclick="previousQuestion()"
-          ${currentIndex === 0 ? "disabled" : ""}>
-          ← Previous
-        </button>
-
-        ${
-          currentIndex < questions.length - 1
-            ? `
-              <button
-                class="nav-btn primary"
-                onclick="nextQuestion()">
-                Next →
-              </button>
-            `
-            : `
-              <button
-                class="nav-btn submit"
-                onclick="reviewSection()">
-                Review & Submit
-              </button>
-            `
-        }
-
-      </div>
-
     </section>
 
-    <!-- QUESTION BANK NOW BELOW NAVIGATION -->
-    <div class="question-bank-container">
-
-      <div class="question-bank-title">
-        <strong>Question Number</strong>
-        <span>
-          ${selectedAnswers.filter(
-            answer => answer !== undefined && answer !== null
-          ).length}
-          / ${questions.length} answered
-        </span>
-      </div>
-
-      <div class="question-grid">
-        ${questions.map((_, i) => `
-          <button
-            class="${
-              selectedAnswers[i] !== undefined &&
-              selectedAnswers[i] !== null
-                ? "answered"
-                : ""
-            } ${i === currentIndex ? "current" : ""}"
-            onclick="goTo(${i})">
-            ${i + 1}
-          </button>
-        `).join("")}
-      </div>
-
+    <div class="question-grid">
+      ${questions.map((_, i) => `
+        <button
+          class="${selectedAnswers[i] !== undefined ? "answered" : ""} ${i === currentIndex ? "current" : ""}"
+          onclick="goTo(${i})">${i + 1}</button>
+      `).join("")}
     </div>
   `;
 
-  // navArea is no longer needed because navigation
-  // is now directly below the answer choices.
-  document.getElementById("navArea").innerHTML = "";
+  document.getElementById("navArea").innerHTML = `
+    <div class="nav-row">
+      <button class="nav-btn" onclick="previousQuestion()" ${currentIndex === 0 ? "disabled" : ""}>
+        Previous
+      </button>
+
+      ${
+        currentIndex < questions.length - 1
+          ? `<button class="nav-btn primary" onclick="nextQuestion()">Next</button>`
+          : `<button class="nav-btn submit" onclick="reviewSection()">Review & Submit</button>`
+      }
+    </div>
+  `;
 }
 
 function selectAnswer(index) {
