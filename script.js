@@ -1772,14 +1772,19 @@ securityModalStyle.textContent = `
     font-size: 48px;
     margin-bottom: 10px;
   }
-  .security-modal-card h2 {
-    margin: 0 0 12px;
-  }
-  .security-modal-card p {
-    line-height: 1.5;
-  }
 `;
 document.head.appendChild(securityModalStyle);
+
+// Example helper when populating question images:
+function getQuestionImage(src) {
+  const img = document.createElement("img");
+  img.src = src;
+  img.onerror = function() {
+    // Fallback image if local path fails
+    this.src = "https://via.placeholder.com/600x300?text=Image+Not+Available";
+  };
+  return img;
+}
 
 const resultEmailStyle = document.createElement("style");
 resultEmailStyle.textContent = `.result-table small{display:block;margin-top:6px;font-weight:800;}`;
