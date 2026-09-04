@@ -7,9 +7,81 @@
 <link rel="stylesheet" href="style.css">
 <!-- Load script.js with defer or directly inside head -->
 <script src="script.js" defer></script>
+<style>
+  /* Footer Styling */
+  .site-footer {
+    margin-top: 40px;
+    padding: 24px 16px;
+    background-color: #1a1f2c;
+    color: #a0aec0;
+    font-size: 13px;
+    text-align: center;
+    border-top: 2px solid #e2e8f0;
+  }
+  .site-footer .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  .site-footer .footer-brand {
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+  }
+  .site-footer .footer-links {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .site-footer .footer-links a {
+    color: #cbd5e0;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  .site-footer .footer-links a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+  }
+  .site-footer .footer-copy {
+    font-size: 12px;
+    color: #718096;
+  }
+  .site-footer .footer-developer {
+    font-size: 12px;
+    color: #cbd5e0;
+  }
+  .site-footer .footer-developer span {
+    color: #63b3ed;
+    font-weight: 600;
+  }
+</style>
 </head>
 <body>
 <div class="container"><div id="app"></div></div>
+
+<!-- Professional Footer -->
+<footer class="site-footer">
+  <div class="footer-content">
+    <div class="footer-brand">A1C DRIVING ACADEMY</div>
+    <div class="footer-links">
+      <a href="#privacy" onclick="alert('LTO Compliance & Student Data Privacy Policy: All exam responses and personal data are encrypted and transmitted securely for official evaluation.')">Privacy Policy</a>
+      <span>&bull;</span>
+      <a href="#terms" onclick="alert('Terms of Examination: Misrepresentation or improper assistance during the exam may result in disqualification.')">Terms of Examination</a>
+      <span>&bull;</span>
+      <a href="#support" onclick="alert('For technical support or inquiries, please approach your designated room proctor.')">Proctor Support</a>
+    </div>
+    <div class="footer-copy">
+      &copy; <script>document.write(new Date().getFullYear())</script> A1C Driving Academy. All rights reserved. | LTO Accredited Driving School
+    </div>
+    <div class="footer-developer">
+      Developed by <span>Gelo Aves</span>
+    </div>
+  </div>
+</footer>
 
 <script>
 const AUTH_API_URL = "https://script.google.com/macros/s/AKfycbyoMQPvuxffrZMhTZ4Az4BOPojFRb_A9yBqnbUs_xZh2sl8XAbksObCDlsd-RbeM9qx/exec";
