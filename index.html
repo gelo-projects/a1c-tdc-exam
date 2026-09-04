@@ -8,15 +8,15 @@
 <!-- Load script.js with defer or directly inside head -->
 <script src="script.js" defer></script>
 <style>
-  /* Footer Styling */
+  /* Minimalist Transparent Footer */
   .site-footer {
     margin-top: 40px;
     padding: 24px 16px;
-    background-color: #1a1f2c;
-    color: #a0aec0;
+    background: transparent;
+    color: inherit;
     font-size: 13px;
     text-align: center;
-    border-top: 2px solid #e2e8f0;
+    opacity: 0.85;
   }
   .site-footer .footer-content {
     max-width: 1200px;
@@ -24,11 +24,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
   }
   .site-footer .footer-brand {
     font-weight: 700;
-    color: #ffffff;
     letter-spacing: 0.5px;
   }
   .site-footer .footer-links {
@@ -38,32 +37,29 @@
     justify-content: center;
   }
   .site-footer .footer-links a {
-    color: #cbd5e0;
+    color: inherit;
     text-decoration: none;
-    transition: color 0.2s ease;
+    transition: opacity 0.2s ease;
   }
   .site-footer .footer-links a:hover {
-    color: #ffffff;
     text-decoration: underline;
+    opacity: 1;
   }
-  .site-footer .footer-copy {
-    font-size: 12px;
-    color: #718096;
-  }
+  .site-footer .footer-copy,
   .site-footer .footer-developer {
     font-size: 12px;
-    color: #cbd5e0;
+    opacity: 0.75;
   }
   .site-footer .footer-developer span {
-    color: #63b3ed;
     font-weight: 600;
+    opacity: 1;
   }
 </style>
 </head>
 <body>
 <div class="container"><div id="app"></div></div>
 
-<!-- Professional Footer -->
+<!-- Minimalist Footer -->
 <footer class="site-footer">
   <div class="footer-content">
     <div class="footer-brand">A1C DRIVING ACADEMY</div>
