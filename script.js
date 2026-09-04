@@ -1434,7 +1434,7 @@ const finalQuestions = [
   {
     question: "98. What does this hand signal mean when you are coming from the roadside and your signal is malfunctioning?",
     tagalog: "98. Ano ang ibig sabihin ng senyas kamay na ito?",
-    image: "images/left_hand_signal.jpg",
+    image: "images/f98.png",
     correct: 0,
     options: [
       "a. You are turning left. (Kakaliwa)",
@@ -1940,8 +1940,8 @@ function renderNavButtons() {
 
   document.getElementById("navArea").innerHTML = `
     <div style="display:flex; justify-content:space-between; margin-top:15px;">
-      <button ${isFirst ? "disabled" : ""} onclick="prevQuestion()" class="btn-nav">Previous</button>
-      <button onclick="${nextAction}" class="btn-nav primary">${nextBtnText}</button>
+      <button ${isFirst ? "disabled" : ""} onclick="prevQuestion()" class="btn-nav">← Previous</button>
+      <button onclick="${nextAction}" class="btn-nav primary">${nextBtnText} →</button>
     </div>
   `;
 }
@@ -2060,7 +2060,7 @@ function showSecurityModalAndTerminate() {
     <div class="security-modal-card">
       <div class="security-modal-icon">⚠️</div>
       <h2>EXAM TERMINATED</h2>
-      <p>Multiple security violations detected (3/3). Your exam session has been invalidated and auto-submitted.</p>
+      <p>Multiple security violations detected (5/5). Your exam session has been invalidated and auto-submitted.</p>
     </div>
   `;
   document.body.appendChild(modal);
