@@ -1841,7 +1841,6 @@ function renderExam() {
       </div>
 
       <main id="questionArea"></main>
-      <div id="navArea"></div>
     </div>
   `;
 
@@ -1891,6 +1890,8 @@ function renderQuestion() {
         `).join("")}
       </div>
     </section>
+
+    <div id="navArea"></div>
 
     <div class="question-grid">
       ${questions.map((_, i) => `
