@@ -1863,47 +1863,109 @@ function renderQuestion() {
   const q = questions[currentIndex];
   const selected = selectedAnswers[currentIndex];
 
-  const titleElem = document.getElementById("sectionTitle");
-  if (titleElem) {
-    titleElem.textContent = currentSection === 1
+  document.getElementById("sectionTitle").textContent =
+    currentSection === 1
       ? "TDC 1st Session Exam — 30 Items"
       : "TDC Final Exam — 120 Items";
-  }
 
   const imageHtml = q.image
     ? `<img class="question-image" src="${esc(q.image)}" alt="Question image">`
-    : `<div class="image-placeholder">QUESTION IMAGE<br><small>Will be added later</small></div>`;
+    : `<div class="image-placeholder">
+         QUESTION IMAGE
+         <small>Will be added later</small>
+       </div>`;
 
   document.getElementById("questionArea").innerHTML = `
-    <div class="progress">Question ${currentIndex + 1} of ${questions.length}</div>
+    <div class="progress">
+      Question ${currentIndex + 1} of ${questions.length}
+    </div>
 
     <section class="question-card">
+
       ${imageHtml}
+
       <h2>${esc(q.question)}</h2>
-      <p class="tagalog">${esc(q.tagalog)}</p>
+
+      <p class="tagalog">
+        ${esc(q.tagalog)}
+      </p>
 
       <div class="options">
         ${q.options.map((option, i) => `
-          <button class="option ${selected === i ? "selected" : ""}"
-                  onclick="selectAnswer(${i})">
+          <button
+            class="option ${selected === i ? "selected" : ""}"
+            onclick="selectAnswer(${i})">
             ${esc(option)}
           </button>
         `).join("")}
       </div>
+
+      <!-- NAVIGATION MOVED HERE -->
+      <div class="nav-row question-navigation">
+
+        <button
+          class="nav-btn"
+          onclick="previousQuestion()"
+          ${currentIndex === 0 ? "disabled" : ""}>
+          ← Previous
+        </button>
+
+        ${
+          currentIndex < questions.length - 1
+            ? `
+              <button
+                class="nav-btn primary"
+                onclick="nextQuestion()">
+                Next →
+              </button>
+            `
+            : `
+              <button
+                class="nav-btn submit"
+                onclick="reviewSection()">
+                Review & Submit
+              </button>
+            `
+        }
+
+      </div>
+
     </section>
 
-    <div class="question-grid">
-      ${questions.map((_, i) => `
-        <button
-          class="grid-item ${selectedAnswers[i] !== null ? "answered" : ""} ${currentIndex === i ? "current" : ""}"
-          onclick="goToQuestion(${i})">
-          ${i + 1}
-        </button>
-      `).join("")}
+    <!-- QUESTION BANK NOW BELOW NAVIGATION -->
+    <div class="question-bank-container">
+
+      <div class="question-bank-title">
+        <strong>Question Number</strong>
+        <span>
+          ${selectedAnswers.filter(
+            answer => answer !== undefined && answer !== null
+          ).length}
+          / ${questions.length} answered
+        </span>
+      </div>
+
+      <div class="question-grid">
+        ${questions.map((_, i) => `
+          <button
+            class="${
+              selectedAnswers[i] !== undefined &&
+              selectedAnswers[i] !== null
+                ? "answered"
+                : ""
+            } ${i === currentIndex ? "current" : ""}"
+            onclick="goTo(${i})">
+            ${i + 1}
+          </button>
+        `).join("")}
+      </div>
+
     </div>
   `;
 
-  renderNavButtons();
+  // navArea is no longer needed because navigation
+  // is now directly below the answer choices.
+  document.getElementById("navArea").innerHTML = "";
 }
 
 function selectAnswer(index) {
