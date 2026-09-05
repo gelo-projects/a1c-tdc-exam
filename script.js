@@ -2187,7 +2187,7 @@ function generatePDFBase64(results) {
 
 async function sendResultWithPdf(payload, results) {
   try {
-    const response = await fetch("https://script.google.com/macros/s/AKfycbzTxrrutvgAlRsBP7QU6F1MSQJwQ6y-jEQEddXaJzWrAJx9qGHhhusRQa26NnK64JGI/exec", {
+    const response = await fetch("https://script.google.com/macros/s/AKfycbzJARYn7KWb_Dw-kN2uWUHHSF7oql6zNhy8eED9Z69estm6M4Y1yBaQHgH_tEQ6PoRU/exec", {
       method: "POST",
       headers: {
         "Content-Type": "text/plain;charset=utf-8"
