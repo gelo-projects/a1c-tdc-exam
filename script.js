@@ -1732,7 +1732,7 @@ mobileSecurityStyle.textContent = `
 `;
 document.head.appendChild(mobileSecurityStyle);
 
-function addExamWatermark() {
+/*function addExamWatermark() {
   let wm = document.getElementById("examWatermark");
   if (!wm) {
     wm = document.createElement("div");
@@ -1746,7 +1746,7 @@ function addExamWatermark() {
   const attempt = esc(attemptId || "ATTEMPT");
 
   wm.innerHTML = `<span>A1C DRIVING ACADEMY<br>${name}<br>${clientId}<br>${attempt}</span>`;
-}
+}*/
 
 const securityModalStyle = document.createElement("style");
 securityModalStyle.textContent = `
