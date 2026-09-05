@@ -2,8 +2,8 @@
    30-item TDC 1st Session + 120-item TDC Final Exam
    80% passing rate per section; 90-minute overall timer.
 */
-//const API_URL = "https://script.google.com/macros/s/AKfycbzJARYn7KWb_Dw-kN2uWUHHSF7oql6zNhy8eED9Z69estm6M4Y1yBaQHgH_tEQ6PoRU/exec";
-const API_URL = "https://script.google.com/macros/s/AKfycbxnvyjxQ2xD3Vr6GQY4-e0wWY-lWs0s3zu8dPtAXCY2bTfsFtCAqFnbc_H0ffNniVSv5g/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbzJARYn7KWb_Dw-kN2uWUHHSF7oql6zNhy8eED9Z69estm6M4Y1yBaQHgH_tEQ6PoRU/exec";
+//const API_URL = "https://script.google.com/macros/s/AKfycbxnvyjxQ2xD3Vr6GQY4-e0wWY-lWs0s3zu8dPtAXCY2bTfsFtCAqFnbc_H0ffNniVSv5g/exec";
 
 // Automatically include html2pdf library if not present
 if (!window.html2pdf) {
