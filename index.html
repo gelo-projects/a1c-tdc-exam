@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>A1C Driving Academy TDC Examination</title>
 <link rel="stylesheet" href="style.css">
-<!-- Load script.js with defer or directly inside head -->
 <script src="script.js" defer></script>
 <style>
   /* Minimalist Transparent Footer */
@@ -83,6 +82,7 @@
 const AUTH_API_URL = "https://script.google.com/macros/s/AKfycbyoMQPvuxffrZMhTZ4Az4BOPojFRb_A9yBqnbUs_xZh2sl8XAbksObCDlsd-RbeM9qx/exec";
 let authStudent = {};
 let authAttemptId = "";
+let resendTimerInterval = null;
 
 function esc(value) {
   return String(value ?? "").replace(/[&<>"']/g, c => ({
@@ -205,17 +205,77 @@ function showOtp() {
           VERIFY OTP
         </button>
 
-        <div style="margin-top: 10px; display: flex; align-items: center; gap: 10px;">
-        <button type="button" id="resendOtpBtn" class="btn btn-secondary" style="padding: 6px 14px; font-size: 0.9rem;">
-          Resend OTP
-        </button>
-        <span id="resendOtpTimer" style="font-size: 0.85rem; color: #666;"></span>
-</div>
+        <div style="margin-top: 15px; display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+          <button type="button" id="resendOtpBtn" onclick="resendOtp()" class="nav-btn secondary" style="padding: 8px 14px; font-size: 0.85rem;">
+            Resend OTP
+          </button>
+          <span id="resendOtpTimer" style="font-size: 0.85rem; color: #666;"></span>
+        </div>
       </form>
 
       <p id="otpMsg" class="message"></p>
     </div>
   `;
+}
+
+async function resendOtp() {
+  const resendBtn = document.getElementById("resendOtpBtn");
+  const timerSpan = document.getElementById("resendOtpTimer");
+  const message = document.getElementById("otpMsg");
+
+  if (!resendBtn || resendBtn.disabled) return;
+
+  resendBtn.disabled = true;
+  message.textContent = "Sending new OTP...";
+
+  try {
+    const response = await fetch(AUTH_API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({
+        action: "resendOTP",
+        attemptId: authAttemptId,
+        student: authStudent
+      })
+    });
+
+    const data = await response.json();
+
+    if (!data.success) {
+      throw new Error(data.message || "Failed to resend OTP.");
+    }
+
+    message.style.color = "#27ae60";
+    message.textContent = "New OTP sent to office email successfully.";
+    startResendCooldown(30);
+
+  } catch (err) {
+    message.style.color = "#e74c3c";
+    message.textContent = err.message;
+    resendBtn.disabled = false;
+  }
+}
+
+function startResendCooldown(seconds) {
+  const resendBtn = document.getElementById("resendOtpBtn");
+  const timerSpan = document.getElementById("resendOtpTimer");
+  let left = seconds;
+
+  if (resendTimerInterval) clearInterval(resendTimerInterval);
+
+  resendBtn.disabled = true;
+  timerSpan.textContent = `Resend in ${left}s`;
+
+  resendTimerInterval = setInterval(() => {
+    left--;
+    if (left <= 0) {
+      clearInterval(resendTimerInterval);
+      resendBtn.disabled = false;
+      timerSpan.textContent = "";
+    } else {
+      timerSpan.textContent = `Resend in ${left}s`;
+    }
+  }, 1000);
 }
 
 async function verifyOtp(event) {
@@ -244,7 +304,6 @@ async function verifyOtp(event) {
       throw new Error(data.message || "Invalid OTP.");
     }
 
-    // Guard check to ensure script.js finished loading
     if (typeof window.startAuthenticatedExam !== "function") {
       throw new Error("Exam engine is still loading. Please try again in a moment.");
     }
@@ -255,6 +314,7 @@ async function verifyOtp(event) {
       sessionToken: data.sessionToken
     });
   } catch (error) {
+    message.style.color = "#e74c3c";
     message.textContent = error.message;
     button.disabled = false;
     button.textContent = "VERIFY OTP";
