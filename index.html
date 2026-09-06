@@ -204,6 +204,13 @@ function showOtp() {
         <button class="nav-btn primary" type="submit" id="verifyBtn">
           VERIFY OTP
         </button>
+
+        <div style="margin-top: 10px; display: flex; align-items: center; gap: 10px;">
+        <button type="button" id="resendOtpBtn" class="btn btn-secondary" style="padding: 6px 14px; font-size: 0.9rem;">
+          Resend OTP
+        </button>
+        <span id="resendOtpTimer" style="font-size: 0.85rem; color: #666;"></span>
+</div>
       </form>
 
       <p id="otpMsg" class="message"></p>
