@@ -2264,41 +2264,97 @@ function renderStageResultScreen(stage, result) {
 }
 
 async function retakeStage(stage) {
-  if (stage === "SESSION_1") {
-    session1AttemptNumber++;
-    answers.session1 = new Array(SESSION_1_COUNT).fill(null);
-    currentSection = 1;
-  } else {
-    finalAttemptNumber++;
-    answers.final = new Array(FINAL_COUNT).fill(null);
-    currentSection = 2;
+  // Prevent accidental/double retake clicks
+  if (window.retakeInProgress) {
+    return;
   }
 
-  currentIndex = 0;
-  timer = TOTAL_TIME_SECONDS;
-  submitted = false;
-  resultSubmissionStarted = false;
-  stageSubmissionStarted = false;
-  securityTerminationInProgress = false;
-  securityViolations = 0;
-  lastSecurityEventAt = 0;
-  lastSecurityEventReason = "";
+  window.retakeInProgress = true;
+
+  const isSession1 = stage === "SESSION_1";
+  const nextAttemptNumber = isSession1
+    ? session1AttemptNumber + 1
+    : finalAttemptNumber + 1;
 
   try {
-    const next = await createStageAttempt_(stage, stage === "SESSION_1" ? session1AttemptNumber : finalAttemptNumber);
+    // --------------------------------------------------
+    // CREATE THE NEW SERVER-SIDE ATTEMPT FIRST
+    // --------------------------------------------------
+    const next = await createStageAttempt_(stage, nextAttemptNumber);
+
     if (!next || !next.success) {
-      alert((next && next.message) || "Unable to create the retake attempt.");
+      console.error("Retake attempt creation failed:", next);
+
+      alert(
+        (next && next.message) ||
+        "Unable to create the retake attempt. Please try again."
+      );
+
       return;
     }
 
+    // --------------------------------------------------
+    // ONLY UPDATE LOCAL STATE AFTER SERVER SUCCESS
+    // --------------------------------------------------
+    if (isSession1) {
+      session1AttemptNumber = nextAttemptNumber;
+      answers.session1 = new Array(SESSION_1_COUNT).fill(null);
+      currentSection = 1;
+    } else {
+      finalAttemptNumber = nextAttemptNumber;
+      answers.final = new Array(FINAL_COUNT).fill(null);
+      currentSection = 2;
+    }
+
+    currentIndex = 0;
+    timer = TOTAL_TIME_SECONDS;
+
+    submitted = false;
+    resultSubmissionStarted = false;
+    stageSubmissionStarted = false;
+
+    securityTerminationInProgress = false;
+    securityViolations = 0;
+    lastSecurityEventAt = 0;
+    lastSecurityEventReason = "";
+
+    // --------------------------------------------------
+    // USE THE NEW SERVER-GENERATED SESSION
+    // --------------------------------------------------
     attemptId = next.attemptId;
     sessionToken = next.sessionToken;
+
+    console.log(
+      "Retake started successfully:",
+      {
+        stage: stage,
+        attemptNumber: nextAttemptNumber,
+        attemptId: attemptId
+      }
+    );
+
+    // --------------------------------------------------
+    // REBUILD THE EXISTING EXAM UI
+    // --------------------------------------------------
     renderExam();
+
     initializeSecurityMonitoring();
-    try { document.documentElement.requestFullscreen?.(); } catch (_) {}
+
+    try {
+      document.documentElement.requestFullscreen?.();
+    } catch (_) {}
+
   } catch (err) {
-    console.error(err);
-    alert("Unable to start the retake. Please try again.");
+    console.error("Retake error:", err);
+
+    alert(
+      "Unable to start the retake.\n\n" +
+      "Please try again. If the problem continues, check the browser console for details."
+    );
+
+  } finally {
+    // Always release the lock, even if the request fails
+    window.retakeInProgress = false;
   }
 }
 
