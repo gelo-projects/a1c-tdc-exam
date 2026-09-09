@@ -19,6 +19,7 @@ if (!window.html2pdf) {
 const SESSION_1_COUNT = 30;
 const FINAL_COUNT = 120;
 const PASS_PERCENT = 80;
+const MAX_SECURITY_WARNINGS = 5;
 const TOTAL_TIME_SECONDS = 90 * 60;
 
 let student = {};
@@ -2004,14 +2005,28 @@ async function proceedToFinalExam() {
     }
 
     session1Passed = true;
+    renderStageResultScreen("SESSION_1", result);
+  } catch (err) {
+    console.error(err);
+    alert("Unable to verify Session 1 result. Please try again.");
+  } finally {
+    stageSubmissionStarted = false;
+  }
+}
 
+async function startFinalExamAfterSession1() {
+  if (submitted || stageSubmissionStarted || !session1Passed) return;
+
+  stageSubmissionStarted = true;
+  try {
     // A new attempt ID is used for the Final Exam so Session 1 history is never overwritten.
-    const next = await createStageAttempt_("FINAL", ++finalAttemptNumber);
+    const next = await createStageAttempt_("FINAL", finalAttemptNumber + 1);
     if (!next || !next.success) {
       alert((next && next.message) || "Unable to start the Final Exam. Please try again.");
       return;
     }
 
+    finalAttemptNumber++;
     attemptId = next.attemptId;
     sessionToken = next.sessionToken;
     currentSection = 2;
@@ -2237,15 +2252,15 @@ function renderStageResultScreen(stage, result) {
   if (!app) return;
 
   const isSession1 = stage === "SESSION_1";
+  const passed = result && result.passed === true;
   const title = isSession1 ? "SESSION 1 RESULT" : "FINAL EXAM RESULT";
   const buttonText = isSession1 ? "RETAKE SESSION 1" : "RETAKE FINAL EXAM";
-  const message = isSession1
-    ? "You need at least 80% to proceed to the Final Exam."
-    : "You need at least 80% (96/120) to pass the course.";
-
-  const retakeButtonId = isSession1
-    ? "retakeSession1Button"
-    : "retakeFinalButton";
+  const message = passed
+    ? "Session 1 passed. Continue to the Final Exam when you are ready."
+    : isSession1
+      ? "You need at least 80% to proceed to the Final Exam."
+      : "You need at least 80% (96/120) to pass the course.";
+  const action = passed ? "continue" : "retake";
 
   app.innerHTML = `
     <div class="exam-shell" style="max-width:650px;margin:40px auto;text-align:center;">
@@ -2265,8 +2280,8 @@ function renderStageResultScreen(stage, result) {
           <strong>${esc(attemptId)}</strong>
         </p>
 
-        <div style="font-size:28px;font-weight:bold;color:#c62828;margin:20px 0;">
-          FAILED
+        <div class="${passed ? "pass" : "fail"}">
+          ${passed ? "PASSED" : "FAILED"}
         </div>
 
         <p style="font-size:22px;font-weight:bold;">
@@ -2282,22 +2297,31 @@ function renderStageResultScreen(stage, result) {
         </p>
 
         <button
-          id="${retakeButtonId}"
-          class="btn-nav primary"
+          id="retakeButton"
+          data-stage="${isSession1 ? "SESSION_1" : "FINAL"}"
+          data-action="${action}"
+          class="nav-btn primary retake-button"
           type="button">
-          ${buttonText}
+          ${passed ? "PROCEED TO FINAL EXAM" : buttonText}
         </button>
 
       </div>
     </div>
   `;
 
-  // Attach the retake handler without using an inline onclick.
-  const retakeButton = document.getElementById(retakeButtonId);
+  // Keep the stage in the DOM rather than interpolating a function call into HTML.
+  const retakeButton = document.getElementById("retakeButton");
 
   if (retakeButton) {
-    retakeButton.addEventListener("click", function () {
-      retakeStage(stage);
+    retakeButton.addEventListener("click", function (event) {
+      const button = event.currentTarget;
+      const requestedStage = button.dataset.stage;
+      if (button.dataset.action === "continue" && requestedStage === "SESSION_1") {
+        startFinalExamAfterSession1();
+      } else if (button.dataset.action === "retake" &&
+                 (requestedStage === "SESSION_1" || requestedStage === "FINAL")) {
+        retakeStage(requestedStage);
+      }
     });
   }
 }
