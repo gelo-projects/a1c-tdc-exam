@@ -2238,29 +2238,68 @@ function renderStageResultScreen(stage, result) {
 
   const isSession1 = stage === "SESSION_1";
   const title = isSession1 ? "SESSION 1 RESULT" : "FINAL EXAM RESULT";
-  const required = result.requiredScore || (isSession1 ? 24 : 96);
-  const action = isSession1
-    ? `retakeStage("SESSION_1")`
-    : `retakeStage("FINAL")`;
   const buttonText = isSession1 ? "RETAKE SESSION 1" : "RETAKE FINAL EXAM";
   const message = isSession1
     ? "You need at least 80% to proceed to the Final Exam."
     : "You need at least 80% (96/120) to pass the course.";
 
+  const retakeButtonId = isSession1
+    ? "retakeSession1Button"
+    : "retakeFinalButton";
+
   app.innerHTML = `
     <div class="exam-shell" style="max-width:650px;margin:40px auto;text-align:center;">
-      <header class="exam-header" style="justify-content:center;"><h1>${title}</h1></header>
+      <header class="exam-header" style="justify-content:center;">
+        <h1>${title}</h1>
+      </header>
+
       <div style="padding:30px;background:#fff;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,.1);margin-top:20px;">
-        <p>Student Name: <strong>${esc(student.fullName)}</strong></p>
-        <p>Attempt ID: <strong>${esc(attemptId)}</strong></p>
-        <div style="font-size:28px;font-weight:bold;color:#c62828;margin:20px 0;">FAILED</div>
-        <p style="font-size:22px;font-weight:bold;">${result.score} / ${result.total}</p>
-        <p style="font-size:18px;">${Number(result.percent).toFixed(2)}%</p>
-        <p style="color:#666;">${message}</p>
-        <button class="btn-nav primary" onclick="${action}">${buttonText}</button>
+
+        <p>
+          Student Name:
+          <strong>${esc(student.fullName)}</strong>
+        </p>
+
+        <p>
+          Attempt ID:
+          <strong>${esc(attemptId)}</strong>
+        </p>
+
+        <div style="font-size:28px;font-weight:bold;color:#c62828;margin:20px 0;">
+          FAILED
+        </div>
+
+        <p style="font-size:22px;font-weight:bold;">
+          ${result.score} / ${result.total}
+        </p>
+
+        <p style="font-size:18px;">
+          ${Number(result.percent).toFixed(2)}%
+        </p>
+
+        <p style="color:#666;">
+          ${message}
+        </p>
+
+        <button
+          id="${retakeButtonId}"
+          class="btn-nav primary"
+          type="button">
+          ${buttonText}
+        </button>
+
       </div>
     </div>
   `;
+
+  // Attach the retake handler without using an inline onclick.
+  const retakeButton = document.getElementById(retakeButtonId);
+
+  if (retakeButton) {
+    retakeButton.addEventListener("click", function () {
+      retakeStage(stage);
+    });
+  }
 }
 
 async function retakeStage(stage) {
