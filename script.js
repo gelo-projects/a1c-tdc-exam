@@ -1846,7 +1846,7 @@ function renderExam() {
         </div>
         <div class="timer-box">
           <small>OVERALL TIME LEFT</small>
-          <strong id="timer">90:00</strong>
+          <strong id="timer">${formatTimer(timer)}</strong>
         </div>
       </header>
 
@@ -2033,7 +2033,6 @@ async function startFinalExamAfterSession1() {
     currentSection = 2;
     currentIndex = 0;
     answers.final = new Array(FINAL_COUNT).fill(null);
-    timer = TOTAL_TIME_SECONDS;
     submitted = false;
     resultSubmissionStarted = false;
     stageSubmissionStarted = false;
@@ -2098,9 +2097,7 @@ function startTimer() {
     timer--;
     const timerElem = document.getElementById("timer");
     if (timerElem) {
-      const m = Math.floor(timer / 60);
-      const s = timer % 60;
-      timerElem.textContent = `${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
+      timerElem.textContent = formatTimer(timer);
     }
 
     if (timer <= 0) {
@@ -2109,6 +2106,13 @@ function startTimer() {
       submitExam("TIMEOUT");
     }
   }, 1000);
+}
+
+function formatTimer(seconds) {
+  const safeSeconds = Math.max(0, Number(seconds) || 0);
+  const m = Math.floor(safeSeconds / 60);
+  const s = safeSeconds % 60;
+  return `${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
 }
 
 function initializeSecurityMonitoring() {
