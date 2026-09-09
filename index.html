@@ -5,10 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>A1C Driving Academy TDC Examination</title>
 <link rel="stylesheet" href="style.css">
-<!-- Load script.js with defer or directly inside head -->
 <script src="script.js" defer></script>
 <style>
-  /* Minimalist Transparent Footer */
   .site-footer {
     margin-top: 40px;
     padding: 24px 16px;
@@ -59,7 +57,6 @@
 <body>
 <div class="container"><div id="app"></div></div>
 
-<!-- Minimalist Footer -->
 <footer class="site-footer">
   <div class="footer-content">
     <div class="footer-brand">A1C DRIVING ACADEMY</div>
@@ -83,6 +80,8 @@
 const AUTH_API_URL = "https://script.google.com/macros/s/AKfycbyoMQPvuxffrZMhTZ4Az4BOPojFRb_A9yBqnbUs_xZh2sl8XAbksObCDlsd-RbeM9qx/exec";
 let authStudent = {};
 let authAttemptId = "";
+let otpResendCooldownTimer = null;
+let otpResendCooldownSeconds = 0;
 
 function esc(value) {
   return String(value ?? "").replace(/[&<>"']/g, c => ({
@@ -176,6 +175,8 @@ async function requestOtp(event) {
 }
 
 function showOtp() {
+  clearOtpResendCooldown();
+
   document.getElementById("app").innerHTML = `
     <div class="auth-card">
       <div class="brand">A1C DRIVING ACADEMY</div>
@@ -206,9 +207,93 @@ function showOtp() {
         </button>
       </form>
 
+      <button class="nav-btn" type="button" id="resendOtpBtn" onclick="resendOtpFromLogin()">
+        RESEND OTP
+      </button>
+
+      <p id="resendOtpMsg" class="message"></p>
       <p id="otpMsg" class="message"></p>
     </div>
   `;
+
+  startOtpResendCooldown(30);
+}
+
+function clearOtpResendCooldown() {
+  if (otpResendCooldownTimer) {
+    clearInterval(otpResendCooldownTimer);
+    otpResendCooldownTimer = null;
+  }
+  otpResendCooldownSeconds = 0;
+}
+
+function startOtpResendCooldown(seconds) {
+  clearOtpResendCooldown();
+
+  const button = document.getElementById("resendOtpBtn");
+  if (!button) return;
+
+  otpResendCooldownSeconds = Math.max(0, Number(seconds) || 0);
+
+  const update = () => {
+    const btn = document.getElementById("resendOtpBtn");
+    if (!btn) {
+      clearOtpResendCooldown();
+      return;
+    }
+
+    if (otpResendCooldownSeconds > 0) {
+      btn.disabled = true;
+      btn.textContent = `RESEND OTP (${otpResendCooldownSeconds}s)`;
+      otpResendCooldownSeconds--;
+    } else {
+      btn.disabled = false;
+      btn.textContent = "RESEND OTP";
+      clearOtpResendCooldown();
+    }
+  };
+
+  update();
+  otpResendCooldownTimer = setInterval(update, 1000);
+}
+
+async function resendOtpFromLogin() {
+  const button = document.getElementById("resendOtpBtn");
+  const message = document.getElementById("resendOtpMsg");
+
+  if (!button || button.disabled) return;
+
+  if (!authAttemptId) {
+    message.textContent = "No OTP attempt is available. Please request an OTP first.";
+    return;
+  }
+
+  if (typeof window.resendOTP !== "function") {
+    message.textContent = "OTP resend service is still loading. Please try again in a moment.";
+    return;
+  }
+
+  button.disabled = true;
+  button.textContent = "RESENDING...";
+  message.textContent = "";
+
+  try {
+    await window.resendOTP(authAttemptId);
+
+    // The backend enforces the real cooldown and resend limit.
+    // The client cooldown only prevents accidental rapid clicks.
+    message.textContent = "A new OTP request has been sent. Please ask the authorized proctor for the latest OTP.";
+    const otpInput = document.getElementById("otp");
+    if (otpInput) {
+      otpInput.value = "";
+      otpInput.focus();
+    }
+    startOtpResendCooldown(30);
+  } catch (error) {
+    message.textContent = error.message || "Unable to resend OTP.";
+    button.disabled = false;
+    button.textContent = "RESEND OTP";
+  }
 }
 
 async function verifyOtp(event) {
@@ -237,10 +322,11 @@ async function verifyOtp(event) {
       throw new Error(data.message || "Invalid OTP.");
     }
 
-    // Guard check to ensure script.js finished loading
     if (typeof window.startAuthenticatedExam !== "function") {
       throw new Error("Exam engine is still loading. Please try again in a moment.");
     }
+
+    clearOtpResendCooldown();
 
     window.startAuthenticatedExam({
       student: authStudent,
