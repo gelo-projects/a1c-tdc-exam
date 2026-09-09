@@ -2136,15 +2136,28 @@ function onSecurityVisibilityChange() {
 }
 
 function onSecurityWindowBlur() {
-  if (!submitted && !document.hidden) {
-    handleSecurityViolation("Focus lost from window");
-  }
+  // Button focus changes can briefly emit blur while the document remains active.
+  // Check after the browser finishes dispatching the click before treating it as a violation.
+  setTimeout(() => {
+    if (!submitted && !document.hidden && !document.hasFocus()) {
+      handleSecurityViolation("Focus lost from window");
+    }
+  }, 0);
 }
 
 function onSecurityFullscreenChange() {
-  if (!document.fullscreenElement && !submitted && !suppressFullscreenViolation) {
-    handleSecurityViolation("Exited fullscreen mode");
-  }
+  if (document.fullscreenElement || submitted || suppressFullscreenViolation) return;
+
+  // Allow focus/click transitions to settle so ordinary answer and navigation clicks
+  // cannot be mistaken for an exit from the exam window.
+  setTimeout(() => {
+    if (!document.fullscreenElement &&
+        !submitted &&
+        !suppressFullscreenViolation &&
+        document.hasFocus()) {
+      handleSecurityViolation("Exited fullscreen mode");
+    }
+  }, 0);
 }
 
 function onSecurityContextMenu(e) {
