@@ -39,6 +39,8 @@ let session1Passed = false;
 let finalStagePassed = false;
 let session1AttemptNumber = 1;
 let finalAttemptNumber = 1;
+let examSession = "SESSION_1";
+let eligibilityStatus = "";
 
 const session1Questions = [
   {
@@ -1805,7 +1807,9 @@ window.startAuthenticatedExam = function(data) {
   student = data.student || {};
   attemptId = data.attemptId || "";
   sessionToken = data.sessionToken || "";
-  currentSection = 1;
+  examSession = data.examSession === "FINAL" ? "FINAL" : "SESSION_1";
+  eligibilityStatus = data.eligibilityStatus || "";
+  currentSection = examSession === "FINAL" ? 2 : 1;
   currentIndex = 0;
   answers = {
     session1: new Array(SESSION_1_COUNT).fill(null),
@@ -1821,6 +1825,9 @@ window.startAuthenticatedExam = function(data) {
   finalAttemptNumber = 1;
   session1Passed = false;
   finalStagePassed = false;
+  if (examSession === "FINAL") {
+    session1Passed = true;
+  }
 
   try {
     document.documentElement.requestFullscreen?.();
@@ -1837,7 +1844,7 @@ function renderExam() {
       <header class="exam-header">
         <div>
           <div class="brand">A1C DRIVING ACADEMY</div>
-          <h1 id="sectionTitle">TDC 1st Session Exam</h1>
+          <h1 id="sectionTitle">${examSession === "FINAL" ? "TDC Final Exam" : "TDC 1st Session Exam"}</h1>
         </div>
         <div class="timer-box">
           <small>OVERALL TIME LEFT</small>
@@ -2025,6 +2032,7 @@ async function startFinalExamAfterSession1() {
     attemptId = next.attemptId;
     sessionToken = next.sessionToken;
     currentSection = 2;
+    examSession = "FINAL";
     currentIndex = 0;
     answers.final = new Array(FINAL_COUNT).fill(null);
     submitted = false;
@@ -2270,7 +2278,9 @@ function renderStageResultScreen(stage, result) {
   const title = isSession1 ? "SESSION 1 RESULT" : "FINAL EXAM RESULT";
   const buttonText = isSession1 ? "RETAKE SESSION 1" : "RETAKE FINAL EXAM";
   const message = passed
-    ? "Session 1 passed. Continue to the Final Exam when you are ready."
+    ? isSession1
+      ? "Session 1 passed. Your eligibility was saved for the next day and the result was submitted to the office. You may continue to the Final Exam if this is a same-day session."
+      : "Final Exam result accepted. Your result was submitted to the office for linked reporting."
     : isSession1
       ? "You need at least 80% to proceed to the Final Exam."
       : "You need at least 80% (96/120) to pass the course.";
@@ -2316,7 +2326,9 @@ function renderStageResultScreen(stage, result) {
           data-action="${action}"
           class="nav-btn primary retake-button"
           type="button">
-          ${passed ? "PROCEED TO FINAL EXAM" : buttonText}
+          ${passed
+            ? (isSession1 ? "PROCEED TO FINAL EXAM" : "VIEW SUBMITTED RESULT")
+            : buttonText}
         </button>
 
       </div>
@@ -2332,6 +2344,8 @@ function renderStageResultScreen(stage, result) {
       const requestedStage = button.dataset.stage;
       if (button.dataset.action === "continue" && requestedStage === "SESSION_1") {
         startFinalExamAfterSession1();
+      } else if (button.dataset.action === "continue" && requestedStage === "FINAL") {
+        submitExam("FINAL_DAY_2_COMPLETE");
       } else if (button.dataset.action === "retake" &&
                  (requestedStage === "SESSION_1" || requestedStage === "FINAL")) {
         retakeStage(requestedStage);
@@ -2638,6 +2652,7 @@ async function submitExam(submissionType = "COMPLETE") {
     attemptId,
     sessionToken,
     student,
+    examSession,
     submissionType,
     timeSpentSeconds: timeSpent,
     securityViolations,

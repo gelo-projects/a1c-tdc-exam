@@ -58,5 +58,23 @@ Cloudflare Pages can deploy static HTML sites and automatically redeploy from co
 
 Students can continue using individual OTP. For classroom access, a proctor creates an
 open session, gives the displayed code to students, and closes the session when the room
-is finished. Classroom validation is performed before OTP and is tied to the server-created
-attempt and session token.
+is finished. The proctor must select `Day 1 — Session 1` or `Day 2 — Final Exam`; Day 2
+always uses a new classroom code. Classroom validation is performed before OTP and is tied
+to the server-created attempt and session token.
+
+## Two-day operation
+
+1. On Day 1, create a `SESSION_1` classroom session. A passing, server-scored Session 1
+   submission writes `SESSION_1_PASSED` / `FINAL_ELIGIBLE` to the durable `Exam Stages` sheet
+   and displays that the result was submitted to the office.
+2. On Day 2, create a new `FINAL` classroom session. The student selects `Day 2 — Final
+   Exam`, enters the new code and the same identifying details, and the backend verifies
+   the durable eligibility record before issuing a fresh server-generated attempt ID and
+   session token.
+3. A final attempt transitions to `FINAL_ATTEMPT_CREATED` and then `FINAL_COMPLETED`.
+   Duplicate joins, completed finals, mismatched identity, expired codes, and ineligible
+   students are rejected server-side.
+
+Apply the paste-ready Apps Script changes in `BACKEND_INTEGRATION.md` to the user's separate
+`code.gs`. This repository does not contain or deploy that file, and no secrets should be
+added here.
