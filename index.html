@@ -170,32 +170,12 @@ async function requestOtp(event) {
   authStudent = formValues;
 
   button.disabled = true;
-  button.textContent = accessMode === "classroom" ? "CHECKING CLASSROOM..." : "SENDING OTP...";
+  button.textContent = "SENDING OTP...";
 
   try {
-    let classroomSessionId = "";
     if (accessMode === "classroom") {
       if (!classroomCode) {
         throw new Error("Enter the classroom code provided by your proctor.");
-      }
-
-      const access = await fetch(AUTH_API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify({
-          action: "validateClassroomAccess",
-          classroomCode,
-          clientId: authStudent.clientId,
-          fullName: authStudent.fullName
-        })
-      }).then(response => response.json());
-
-      if (!access.success) {
-        throw new Error(access.message || "This classroom code is invalid or expired.");
-      }
-      classroomSessionId = access.classroomSessionId || "";
-      if (!classroomSessionId) {
-        throw new Error("The classroom service did not return a session reference.");
       }
     }
 
@@ -206,8 +186,7 @@ async function requestOtp(event) {
         action: "requestOTP",
         ...authStudent,
         accessMode,
-        classroomCode: accessMode === "classroom" ? classroomCode : "",
-        classroomSessionId
+        classroomCode: accessMode === "classroom" ? classroomCode : ""
       })
     });
 
