@@ -38,6 +38,7 @@ let resultSubmissionStarted = false;
 let securityMonitoringInitialized = false;
 let lastSecurityEventAt = 0;
 let lastSecurityEventReason = "";
+let lastSecurityLeaveEventAt = 0;
 let stageSubmissionStarted = false;
 let session1Passed = false;
 let finalStagePassed = false;
@@ -2115,8 +2116,8 @@ function initializeSecurityMonitoring() {
   securityMonitoringInitialized = true;
 
   document.addEventListener("visibilitychange", onSecurityVisibilityChange, true);
-  window.addEventListener("blur", onSecurityWindowBlur, true);
-  document.addEventListener("fullscreenchange", onSecurityFullscreenChange, true);
+  window.addEventListener("pagehide", onSecurityPageHide, true);
+  window.addEventListener("pageshow", onSecurityPageShow, true);
   document.addEventListener("contextmenu", onSecurityContextMenu, true);
   document.addEventListener("keydown", onSecurityKeydown, true);
   document.addEventListener("copy", onSecurityClipboard, true);
@@ -2130,34 +2131,36 @@ function attachSecurityListeners() {
 }
 
 function onSecurityVisibilityChange() {
-  if (document.hidden && !submitted) {
-    handleSecurityViolation("Switched tab or minimized window");
-  }
-}
+  if (!document.hidden || submitted) return;
 
-function onSecurityWindowBlur() {
-  // Button focus changes can briefly emit blur while the document remains active.
-  // Check after the browser finishes dispatching the click before treating it as a violation.
+  // Let mobile browsers finish updating visibility before recording the leave.
   setTimeout(() => {
-    if (!submitted && !document.hidden && !document.hasFocus()) {
-      handleSecurityViolation("Focus lost from window");
+    if (document.visibilityState !== "visible" && !submitted) {
+      recordSecurityLeave_("Switched tab or minimized window");
     }
   }, 0);
 }
 
-function onSecurityFullscreenChange() {
-  if (document.fullscreenElement || submitted || suppressFullscreenViolation) return;
+function onSecurityPageHide(event) {
+  if (submitted || event.persisted) return;
 
-  // Allow focus/click transitions to settle so ordinary answer and navigation clicks
-  // cannot be mistaken for an exit from the exam window.
+  // pagehide is the reliable signal when a mobile browser backgrounds or navigates away.
   setTimeout(() => {
-    if (!document.fullscreenElement &&
-        !submitted &&
-        !suppressFullscreenViolation &&
-        document.hasFocus()) {
-      handleSecurityViolation("Exited fullscreen mode");
+    if (!submitted) {
+      recordSecurityLeave_("Left exam page or switched app");
     }
   }, 0);
+}
+
+function onSecurityPageShow() {
+  // A pageshow after bfcache restore is normal lifecycle activity, not a violation.
+}
+
+function recordSecurityLeave_(reason) {
+  const now = Date.now();
+  if (now - lastSecurityLeaveEventAt < 1200) return;
+  lastSecurityLeaveEventAt = now;
+  handleSecurityViolation(reason);
 }
 
 function onSecurityContextMenu(e) {
