@@ -105,6 +105,15 @@ function showStudentInformation() {
           </select>
         </label>
 
+        <label id="examSessionField">
+          Exam Session
+          <select name="examSession" id="examSession">
+            <option value="SESSION_1">Day 1 — Session 1</option>
+            <option value="FINAL">Day 2 — Final Exam</option>
+          </select>
+          <span class="small">For Day 2, use the new Final Exam classroom code provided by your proctor.</span>
+        </label>
+
         <label id="classroomCodeField" hidden>
           Classroom Code
           <input name="classroomCode" id="classroomCode" autocomplete="off" maxlength="32"
@@ -165,8 +174,10 @@ async function requestOtp(event) {
   const formValues = Object.fromEntries(form.entries());
   const accessMode = formValues.accessMode || "otp";
   const classroomCode = String(formValues.classroomCode || "").trim();
+  const examSession = formValues.examSession || "SESSION_1";
   delete formValues.accessMode;
   delete formValues.classroomCode;
+  delete formValues.examSession;
   authStudent = formValues;
 
   button.disabled = true;
@@ -184,9 +195,12 @@ async function requestOtp(event) {
         method: "POST",
         headers: { "Content-Type": "text/plain;charset=utf-8" },
         body: JSON.stringify({
-          action: "validateClassroomAccess",
+          action: examSession === "FINAL"
+            ? "validateFinalClassroomAccess"
+            : "validateClassroomAccess",
           ...authStudent,
-          classroomCode
+          classroomCode,
+          sessionType: examSession
         })
       });
 
@@ -207,7 +221,9 @@ async function requestOtp(event) {
       window.startAuthenticatedExam({
         student: authStudent,
         attemptId: data.attemptId,
-        sessionToken: data.sessionToken
+        sessionToken: data.sessionToken,
+        examSession: data.examSession || examSession,
+        eligibilityStatus: data.eligibilityStatus || ""
       });
       return;
     }
@@ -218,6 +234,7 @@ async function requestOtp(event) {
       body: JSON.stringify({
         action: "requestOTP",
         ...authStudent,
+        examSession,
         accessMode,
         classroomCode: accessMode === "classroom" ? classroomCode : ""
       })
@@ -247,6 +264,8 @@ function toggleClassroomCode() {
   field.hidden = !enabled;
   input.required = enabled;
   if (!enabled) input.value = "";
+  const sessionField = document.getElementById("examSessionField");
+  if (sessionField) sessionField.hidden = false;
 }
 
 function showOtp() {
@@ -406,7 +425,9 @@ async function verifyOtp(event) {
     window.startAuthenticatedExam({
       student: authStudent,
       attemptId: data.attemptId,
-      sessionToken: data.sessionToken
+      sessionToken: data.sessionToken,
+      examSession: data.examSession || "SESSION_1",
+      eligibilityStatus: data.eligibilityStatus || ""
     });
   } catch (error) {
     message.textContent = error.message;

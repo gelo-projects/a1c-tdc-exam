@@ -31,6 +31,14 @@
             <input name="sessionName" required maxlength="80" placeholder="Morning TDC batch">
           </label>
           <label>
+            Exam session
+            <select name="sessionType" required>
+              <option value="SESSION_1">Day 1 — Session 1</option>
+              <option value="FINAL">Day 2 — Final Exam</option>
+            </select>
+            <span class="small">Create a new classroom code for each exam day.</span>
+          </label>
+          <label>
             Max students
             <input name="maxStudents" type="number" min="1" max="200" value="30" required>
           </label>
@@ -97,6 +105,7 @@
         action: "createClassroomSession",
         proctorToken,
         sessionName: data.sessionName,
+        sessionType: data.sessionType,
         maxStudents: Number(data.maxStudents),
         expiresMinutes: Number(data.expiresMinutes)
       }).then(result => {
@@ -115,6 +124,7 @@
         document.getElementById("sessionList").innerHTML = (result.sessions || []).map(session => `
           <article class="session-row">
             <strong>${esc(session.sessionName)}</strong>
+            <span>Exam: <b>${esc(session.sessionType || "SESSION_1")}</b></span>
             <span>Code: <b>${esc(session.classroomCode)}</b></span>
             <span>${esc(session.activeStudents)} / ${esc(session.maxStudents)} students</span>
             <span>${esc(session.status)} · expires ${esc(session.expiresAt)}</span>
