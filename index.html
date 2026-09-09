@@ -170,13 +170,46 @@ async function requestOtp(event) {
   authStudent = formValues;
 
   button.disabled = true;
-  button.textContent = "SENDING OTP...";
+  button.textContent = accessMode === "classroom"
+    ? "VALIDATING CLASSROOM..."
+    : "SENDING OTP...";
 
   try {
     if (accessMode === "classroom") {
       if (!classroomCode) {
         throw new Error("Enter the classroom code provided by your proctor.");
       }
+
+      const response = await fetch(AUTH_API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({
+          action: "validateClassroomAccess",
+          ...authStudent,
+          classroomCode
+        })
+      });
+
+      const data = await response.json();
+
+      if (!data.success) {
+        throw new Error(data.message || "Unable to validate classroom access.");
+      }
+      if (!data.attemptId || !data.sessionToken) {
+        throw new Error("Classroom validation did not return a valid exam session.");
+      }
+      if (typeof window.startAuthenticatedExam !== "function") {
+        throw new Error("Exam engine is still loading. Please try again in a moment.");
+      }
+
+      // These credentials must come from the server response; never derive or accept them from form data.
+      authAttemptId = data.attemptId;
+      window.startAuthenticatedExam({
+        student: authStudent,
+        attemptId: data.attemptId,
+        sessionToken: data.sessionToken
+      });
+      return;
     }
 
     const response = await fetch(AUTH_API_URL, {
