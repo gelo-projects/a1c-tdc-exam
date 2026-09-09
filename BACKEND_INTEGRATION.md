@@ -97,12 +97,55 @@ sheet or a Script Properties index. CacheService cannot enumerate keys, so the c
 index must be stored persistently. The store must persist session state, use a script lock for
 read-modify-write, and never rely on a client-provided session object.
 
-In `requestOTP`, after validating the normal student fields, call
-`validateClassroomAccess_` when `data.accessMode === "classroom"` and reject unless it succeeds.
-Persist `classroomSessionId` in the OTP record. In `verifyOTP`, copy that value into the
-authenticated session record. This preserves the existing server-generated `attemptId` and
-`sessionToken` for every student while allowing later stage submissions to be associated with
-the classroom. Keep the existing OTP-only branch unchanged.
+## Classroom direct-auth contract
+
+The classroom form must not call `requestOTP`. Its one request is:
+
+```javascript
+{
+  action: "validateClassroomAccess",
+  fullName, packageEnrolled, address, clientId, contactNumber, email,
+  classroomCode
+}
+```
+
+The successful response must be the same server-generated credentials used by the
+authenticated exam flow:
+
+```javascript
+{
+  success: true,
+  classroomSessionId: "...",
+  attemptId: "...",
+  sessionToken: "..."
+}
+```
+
+Update `validateClassroomAccess_` so it performs the existing classroom lookup, expiry,
+capacity, and normalized-client-ID duplicate checks under the script lock, records the client
+in the classroom session, and then creates the authenticated exam session using the existing
+server-side session/attempt creation logic. Return only the generated `attemptId` and
+`sessionToken` (plus the classroom session ID); never accept either credential from `data`.
+Persist the classroom session ID on the authenticated session record so stage submissions
+remain associated with the classroom.
+
+Do not call `validateClassroomAccess_` from `requestOTP`; doing so would make a classroom
+client consume the duplicate-client check twice. Keep the existing individual flow unchanged:
+`requestOTP` creates an OTP attempt, `verifyOTP` exchanges it for the server-generated
+`attemptId` and `sessionToken`, and resend remains available only for that OTP flow.
+
+If the current Apps Script implementation has separate helpers for OTP attempts and
+authenticated sessions, extract the common server-side session creation into one helper and
+call it from both `verifyOTP` and `validateClassroomAccess_`. The required route remains:
+
+```javascript
+if (action === "validateClassroomAccess") {
+  return jsonResponse(validateClassroomAccess_(data));
+}
+```
+
+The frontend rejects a successful classroom response that does not contain both credentials,
+so the Apps Script deployment must be updated before enabling classroom access.
 
 After applying the helpers, test: expired sessions, max-student rejection, duplicate client
 ID rejection, close-session rejection, an unauthorized Google account, and a normal OTP-only
