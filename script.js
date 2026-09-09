@@ -2,7 +2,9 @@
    30-item TDC 1st Session + 120-item TDC Final Exam
    80% passing rate per section; 90-minute overall timer.
 */
-const API_URL = "https://script.google.com/macros/s/AKfycbzJARYn7KWb_Dw-kN2uWUHHSF7oql6zNhy8eED9Z69estm6M4Y1yBaQHgH_tEQ6PoRU/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbyoMQPvuxffrZMhTZ4Az4BOPojFRb_A9yBqnbUs_xZh2sl8XAbksObCDlsd-RbeM9qx";
+
+
 //const API_URL = "https://script.google.com/macros/s/AKfycbxnvyjxQ2xD3Vr6GQY4-e0wWY-lWs0s3zu8dPtAXCY2bTfsFtCAqFnbc_H0ffNniVSv5g/exec";
 
 // Automatically include html2pdf library if not present
@@ -30,6 +32,14 @@ let submitted = false;
 let securityTerminationInProgress = false;
 let suppressFullscreenViolation = false;
 let resultSubmissionStarted = false;
+let securityMonitoringInitialized = false;
+let lastSecurityEventAt = 0;
+let lastSecurityEventReason = "";
+let stageSubmissionStarted = false;
+let session1Passed = false;
+let finalStagePassed = false;
+let session1AttemptNumber = 1;
+let finalAttemptNumber = 1;
 
 const session1Questions = [
   {
@@ -1808,6 +1818,10 @@ window.startAuthenticatedExam = function(data) {
   securityTerminationInProgress = false;
   suppressFullscreenViolation = false;
   resultSubmissionStarted = false;
+  session1AttemptNumber = 1;
+  finalAttemptNumber = 1;
+  session1Passed = false;
+  finalStagePassed = false;
 
   try {
     document.documentElement.requestFullscreen?.();
@@ -1815,7 +1829,7 @@ window.startAuthenticatedExam = function(data) {
 
   renderExam();
   addExamWatermark();
-  attachSecurityListeners();
+  initializeSecurityMonitoring();
 };
 
 function renderExam() {
@@ -1838,7 +1852,7 @@ function renderExam() {
       </div>
 
       <div id="securityBanner" class="security-banner">
-        Examination monitoring is active. Maximum security warnings: 3.
+        Examination monitoring is active. Maximum security warnings: 5.
       </div>
 
       <main id="questionArea"></main>
@@ -1931,7 +1945,7 @@ function renderNavButtons() {
 
   if (isLast) {
     if (currentSection === 1) {
-      nextBtnText = "Proceed to Final Exam";
+      nextBtnText = "Review & Submit";
       nextAction = "proceedToFinalExam()";
     } else {
       nextBtnText = "Submit Examination";
@@ -1962,19 +1976,64 @@ function nextQuestion() {
   }
 }
 
-function proceedToFinalExam() {
+async function proceedToFinalExam() {
+  if (submitted || stageSubmissionStarted) return;
+
   const unanswered = answers.session1.filter(a => a === null).length;
   if (unanswered > 0) {
     if (!confirm(`You have ${unanswered} unanswered question(s) in Section 1. Are you sure you want to proceed to the Final Exam?`)) {
       return;
     }
   }
-  currentSection = 2;
-  currentIndex = 0;
-  renderQuestion();
+
+  // Record/verify Session 1 on the server before unlocking the Final Exam.
+  stageSubmissionStarted = true;
+  try {
+    const result = await submitStageToServer_("SESSION_1", answers.session1);
+    if (!result || !result.success) {
+      alert((result && result.message) || "Unable to verify Session 1 result. Please try again.");
+      return;
+    }
+
+    if (!result.passed) {
+      session1Passed = false;
+      renderStageResultScreen("SESSION_1", result);
+      return;
+    }
+
+    session1Passed = true;
+
+    // A new attempt ID is used for the Final Exam so Session 1 history is never overwritten.
+    const next = await createStageAttempt_("FINAL", ++finalAttemptNumber);
+    if (!next || !next.success) {
+      alert((next && next.message) || "Unable to start the Final Exam. Please try again.");
+      return;
+    }
+
+    attemptId = next.attemptId;
+    sessionToken = next.sessionToken;
+    currentSection = 2;
+    currentIndex = 0;
+    answers.final = new Array(FINAL_COUNT).fill(null);
+    timer = TOTAL_TIME_SECONDS;
+    submitted = false;
+    resultSubmissionStarted = false;
+    stageSubmissionStarted = false;
+    securityTerminationInProgress = false;
+    securityViolations = 0;
+
+    renderExam();
+    initializeSecurityMonitoring();
+    try { document.documentElement.requestFullscreen?.(); } catch (_) {}
+  } catch (err) {
+    console.error(err);
+    alert("Unable to proceed to the Final Exam. Please try again.");
+  } finally {
+    stageSubmissionStarted = false;
+  }
 }
 
-function confirmSubmitExam() {
+async function confirmSubmitExam() {
   const unanswered1 = answers.session1.filter(a => a === null).length;
   const unanswered2 = answers.final.filter(a => a === null).length;
   const totalUnanswered = unanswered1 + unanswered2;
@@ -1984,8 +2043,33 @@ function confirmSubmitExam() {
     msg = `You have ${totalUnanswered} total unanswered question(s). Are you sure you want to submit?`;
   }
 
-  if (confirm(msg)) {
+  if (!confirm(msg)) return;
+
+  if (stageSubmissionStarted || submitted) return;
+  stageSubmissionStarted = true;
+
+  try {
+    const result = await submitStageToServer_("FINAL", answers.final);
+    if (!result || !result.success) {
+      alert((result && result.message) || "Unable to submit the Final Exam stage. Please try again.");
+      return;
+    }
+
+    if (!result.passed) {
+      finalStagePassed = false;
+      renderStageResultScreen("FINAL", result);
+      return;
+    }
+
+    finalStagePassed = true;
+    stageSubmissionStarted = false;
+    // Successful Final Exam continues into the existing completion/PDF/email workflow.
     submitExam("COMPLETE");
+  } catch (err) {
+    console.error(err);
+    alert("Unable to submit the Final Exam stage. Please try again.");
+  } finally {
+    if (!finalStagePassed) stageSubmissionStarted = false;
   }
 }
 
@@ -2009,48 +2093,210 @@ function startTimer() {
   }, 1000);
 }
 
+function initializeSecurityMonitoring() {
+  if (securityMonitoringInitialized) return;
+  securityMonitoringInitialized = true;
+
+  document.addEventListener("visibilitychange", onSecurityVisibilityChange, true);
+  window.addEventListener("blur", onSecurityWindowBlur, true);
+  document.addEventListener("fullscreenchange", onSecurityFullscreenChange, true);
+  document.addEventListener("contextmenu", onSecurityContextMenu, true);
+  document.addEventListener("keydown", onSecurityKeydown, true);
+  document.addEventListener("copy", onSecurityClipboard, true);
+  document.addEventListener("cut", onSecurityClipboard, true);
+  document.addEventListener("paste", onSecurityClipboard, true);
+}
+
 function attachSecurityListeners() {
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden && !submitted) {
-      handleSecurityViolation("Switched tab or minimized window");
-    }
-  });
+  // Backward-compatible alias. Listeners are initialized once and survive DOM rerenders.
+  initializeSecurityMonitoring();
+}
 
-  window.addEventListener("blur", () => {
-    if (!submitted) {
-      handleSecurityViolation("Focus lost from window");
-    }
-  });
+function onSecurityVisibilityChange() {
+  if (document.hidden && !submitted) {
+    handleSecurityViolation("Switched tab or minimized window");
+  }
+}
 
-  document.addEventListener("fullscreenchange", () => {
-    if (!document.fullscreenElement && !submitted && !suppressFullscreenViolation) {
-      handleSecurityViolation("Exited fullscreen mode");
-    }
-  });
+function onSecurityWindowBlur() {
+  if (!submitted && !document.hidden) {
+    handleSecurityViolation("Focus lost from window");
+  }
+}
 
-  document.addEventListener("contextmenu", e => e.preventDefault());
-  document.addEventListener("keydown", e => {
-    if (e.key === "F12" || (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "J")) || (e.ctrlKey && e.key === "U")) {
-      e.preventDefault();
-      handleSecurityViolation("Attempted developer tools access");
-    }
-  });
+function onSecurityFullscreenChange() {
+  if (!document.fullscreenElement && !submitted && !suppressFullscreenViolation) {
+    handleSecurityViolation("Exited fullscreen mode");
+  }
+}
+
+function onSecurityContextMenu(e) {
+  if (!submitted) e.preventDefault();
+}
+
+function onSecurityKeydown(e) {
+  if (submitted) return;
+  if (
+    e.key === "F12" ||
+    (e.ctrlKey && e.shiftKey && ["I", "J", "C"].includes(e.key.toUpperCase())) ||
+    (e.ctrlKey && ["U", "S", "P"].includes(e.key.toUpperCase()))
+  ) {
+    e.preventDefault();
+    e.stopPropagation();
+    handleSecurityViolation("Attempted restricted browser action");
+  }
+}
+
+function onSecurityClipboard(e) {
+  if (!submitted) {
+    e.preventDefault();
+    handleSecurityViolation("Attempted copy/cut/paste");
+  }
 }
 
 function handleSecurityViolation(reason) {
   if (submitted || securityTerminationInProgress) return;
+
+  // Visibility + blur can fire together for one tab switch. Treat them as one event.
+  const now = Date.now();
+  if (reason === lastSecurityEventReason && (now - lastSecurityEventAt) < 1200) return;
+  lastSecurityEventReason = reason;
+  lastSecurityEventAt = now;
+
   securityViolations++;
 
   const banner = document.getElementById("securityBanner");
   if (banner) {
-    banner.textContent = `SECURITY WARNING (${securityViolations}/5): ${reason}`;
+    banner.textContent = `SECURITY WARNING (${securityViolations}/${MAX_SECURITY_WARNINGS}): ${reason}`;
     banner.style.background = "#d9534f";
     banner.style.color = "#fff";
   }
 
-  if (securityViolations >= 5) {
+  // Fire-and-forget backend logging. It does not block navigation or scoring.
+  logSecurityEventToServer_(reason, securityViolations);
+
+  if (securityViolations >= MAX_SECURITY_WARNINGS) {
     securityTerminationInProgress = true;
     showSecurityModalAndTerminate();
+  }
+}
+
+function logSecurityEventToServer_(reason, count) {
+  const payload = {
+    action: "securityEvent",
+    attemptId,
+    sessionToken,
+    student,
+    event: `${reason} | violation ${count}/${MAX_SECURITY_WARNINGS}`
+  };
+
+  fetch(API_URL, {
+    method: "POST",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify(payload),
+    keepalive: true
+  }).catch(() => {});
+}
+
+function handleStageRequest_(payload) {
+  return fetch(API_URL, {
+    method: "POST",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify(payload)
+  }).then(r => r.json());
+}
+
+async function submitStageToServer_(stage, stageAnswers) {
+  const result = await handleStageRequest_({
+    action: "submitStageResult",
+    stage,
+    attemptId,
+    sessionToken,
+    student,
+    attemptNumber: stage === "SESSION_1" ? session1AttemptNumber : finalAttemptNumber,
+    securityViolations,
+    answers: Array.from(stageAnswers || [], v => v == null ? null : Number(v))
+  });
+  return result;
+}
+
+async function createStageAttempt_(stage, attemptNumber) {
+  return handleStageRequest_({
+    action: "createRetakeAttempt",
+    stage,
+    attemptNumber,
+    attemptId,
+    sessionToken
+  });
+}
+
+function renderStageResultScreen(stage, result) {
+  const app = document.getElementById("app");
+  if (!app) return;
+
+  const isSession1 = stage === "SESSION_1";
+  const title = isSession1 ? "SESSION 1 RESULT" : "FINAL EXAM RESULT";
+  const required = result.requiredScore || (isSession1 ? 24 : 96);
+  const action = isSession1
+    ? `retakeStage("SESSION_1")`
+    : `retakeStage("FINAL")`;
+  const buttonText = isSession1 ? "RETAKE SESSION 1" : "RETAKE FINAL EXAM";
+  const message = isSession1
+    ? "You need at least 80% to proceed to the Final Exam."
+    : "You need at least 80% (96/120) to pass the course.";
+
+  app.innerHTML = `
+    <div class="exam-shell" style="max-width:650px;margin:40px auto;text-align:center;">
+      <header class="exam-header" style="justify-content:center;"><h1>${title}</h1></header>
+      <div style="padding:30px;background:#fff;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,.1);margin-top:20px;">
+        <p>Student Name: <strong>${esc(student.fullName)}</strong></p>
+        <p>Attempt ID: <strong>${esc(attemptId)}</strong></p>
+        <div style="font-size:28px;font-weight:bold;color:#c62828;margin:20px 0;">FAILED</div>
+        <p style="font-size:22px;font-weight:bold;">${result.score} / ${result.total}</p>
+        <p style="font-size:18px;">${Number(result.percent).toFixed(2)}%</p>
+        <p style="color:#666;">${message}</p>
+        <button class="btn-nav primary" onclick="${action}">${buttonText}</button>
+      </div>
+    </div>
+  `;
+}
+
+async function retakeStage(stage) {
+  if (stage === "SESSION_1") {
+    session1AttemptNumber++;
+    answers.session1 = new Array(SESSION_1_COUNT).fill(null);
+    currentSection = 1;
+  } else {
+    finalAttemptNumber++;
+    answers.final = new Array(FINAL_COUNT).fill(null);
+    currentSection = 2;
+  }
+
+  currentIndex = 0;
+  timer = TOTAL_TIME_SECONDS;
+  submitted = false;
+  resultSubmissionStarted = false;
+  stageSubmissionStarted = false;
+  securityTerminationInProgress = false;
+  securityViolations = 0;
+  lastSecurityEventAt = 0;
+  lastSecurityEventReason = "";
+
+  try {
+    const next = await createStageAttempt_(stage, stage === "SESSION_1" ? session1AttemptNumber : finalAttemptNumber);
+    if (!next || !next.success) {
+      alert((next && next.message) || "Unable to create the retake attempt.");
+      return;
+    }
+
+    attemptId = next.attemptId;
+    sessionToken = next.sessionToken;
+    renderExam();
+    initializeSecurityMonitoring();
+    try { document.documentElement.requestFullscreen?.(); } catch (_) {}
+  } catch (err) {
+    console.error(err);
+    alert("Unable to start the retake. Please try again.");
   }
 }
 
@@ -2320,3 +2566,33 @@ function renderResultScreen(results, submissionType) {
     </div>
   `;
 }
+
+// =====================================================
+// OTP RESEND BRIDGE
+// =====================================================
+// This intentionally reuses the existing request/verify backend contract.
+// No OTP value is ever returned to or stored in this client code.
+window.resendOTP = async function(currentAttemptId) {
+  const id = currentAttemptId || attemptId || "";
+  if (!id) {
+    alert("No OTP attempt is available. Please request an OTP first.");
+    return;
+  }
+
+  try {
+    const result = await handleStageRequest_({
+      action: "resendOTP",
+      attemptId: id
+    });
+
+    if (!result || !result.success) {
+      alert((result && result.message) || "Unable to resend OTP.");
+      return;
+    }
+
+    alert("A new OTP has been sent. Please check your email.");
+  } catch (err) {
+    console.error(err);
+    alert("Unable to resend OTP. Please try again.");
+  }
+};
