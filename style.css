@@ -12,10 +12,11 @@ textarea{min-height:80px}
 .message{color:#c0392b;min-height:20px}
 .attempt{background:#f3f6fb;padding:10px;border-radius:8px;font-size:13px}
 .exam-shell{padding-bottom:30px}
-.exam-header{display:flex;justify-content:space-between;align-items:center;background:#fff;padding:15px 18px;border-radius:12px;margin-bottom:10px}
+.exam-header{position:sticky;top:env(safe-area-inset-top,0px);z-index:100;display:flex;justify-content:space-between;align-items:center;background:#fff;padding:15px 18px;border-radius:12px;margin-bottom:10px;box-shadow:0 4px 14px rgba(23,32,51,.12)}
 .exam-header h1{font-size:22px;margin:5px 0}
-.timer-box{text-align:center;font-weight:700;color:#d9534f}
-.timer-box strong{display:block;font-size:24px}
+.timer-box{flex:0 0 auto;text-align:center;font-weight:700;color:#b42318;background:#fff5f3;border:1px solid #f4c7c2;border-radius:9px;padding:6px 10px;white-space:nowrap}
+.timer-box small{display:block;font-size:11px;letter-spacing:.3px}
+.timer-box strong{display:block;font-size:24px;line-height:1.1}
 .student-strip{display:flex;justify-content:space-between;background:#fff;padding:10px 14px;border-radius:10px;margin-bottom:8px;font-size:13px}
 .security-banner{background:#eaf5ff;border-radius:8px;padding:8px;margin-bottom:10px;font-size:13px}
 .progress{font-weight:700;margin:12px 0}
