@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A1C Proctor Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+  <main class="container">
+    <section class="auth-card proctor-card">
+      <div class="brand">A1C DRIVING ACADEMY</div>
+      <h1>Proctor Dashboard</h1>
+      <p class="small">Only authorized Google accounts can create or close classroom sessions.</p>
+
+      <div id="loginPanel">
+        <p id="proctorMsg" class="message"></p>
+        <div id="googleSignIn"></div>
+        <p class="small">
+          This page never contains an Apps Script admin key. Google Identity Services issues a
+          short-lived identity credential which the backend must verify against its allowlist.
+        </p>
+      </div>
+
+      <div id="dashboardPanel" hidden>
+        <p id="signedInAs" class="small"></p>
+        <form onsubmit="createSession(event)">
+          <label>
+            Session name
+            <input name="sessionName" required maxlength="80" placeholder="Morning TDC batch">
+          </label>
+          <label>
+            Max students
+            <input name="maxStudents" type="number" min="1" max="200" value="30" required>
+          </label>
+          <label>
+            Expires in (minutes)
+            <input name="expiresMinutes" type="number" min="5" max="720" value="180" required>
+          </label>
+          <button class="nav-btn primary" type="submit" id="createSessionBtn">CREATE CLASSROOM SESSION</button>
+        </form>
+        <p id="sessionMsg" class="message"></p>
+        <div id="sessionList"></div>
+        <button class="nav-btn" type="button" onclick="signOutProctor()">SIGN OUT</button>
+      </div>
+    </section>
+  </main>
+  <script>
+    const PROCTOR_API_URL = "https://script.google.com/macros/s/AKfycbzJARYn7KWb_Dw-kN2uWUHHSF7oql6zNhy8eED9Z69estm6M4Y1yBaQHgH_tEQ6PoRU/exec";
+    const GOOGLE_CLIENT_ID = "REPLACE_WITH_GOOGLE_WEB_CLIENT_ID.apps.googleusercontent.com";
+    let proctorToken = sessionStorage.getItem("a1cProctorToken") || "";
+
+    function esc(value) {
+      return String(value ?? "").replace(/[&<>"']/g, c => ({
+        "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#039;"
+      }[c]));
+    }
+
+    function api(payload) {
+      return fetch(PROCTOR_API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(payload)
+      }).then(response => response.json());
+    }
+
+    function showMessage(text, error = true) {
+      const target = document.getElementById("proctorMsg");
+      target.textContent = text || "";
+      target.style.color = error ? "#c0392b" : "#168a4b";
+    }
+
+    function handleGoogleCredential(response) {
+      showMessage("Authorizing...", false);
+      api({ action: "proctorLogin", credential: response.credential })
+        .then(data => {
+          if (!data.success || !data.proctorToken) {
+            throw new Error(data.message || "This Google account is not authorized.");
+          }
+          proctorToken = data.proctorToken;
+          sessionStorage.setItem("a1cProctorToken", proctorToken);
+          document.getElementById("signedInAs").textContent = `Signed in as ${data.email}`;
+          document.getElementById("loginPanel").hidden = true;
+          document.getElementById("dashboardPanel").hidden = false;
+          refreshSessions();
+        })
+        .catch(error => showMessage(error.message || "Unable to authorize proctor account."));
+    }
+
+    function createSession(event) {
+      event.preventDefault();
+      const data = Object.fromEntries(new FormData(event.target).entries());
+      const button = document.getElementById("createSessionBtn");
+      button.disabled = true;
+      api({
+        action: "createClassroomSession",
+        proctorToken,
+        sessionName: data.sessionName,
+        maxStudents: Number(data.maxStudents),
+        expiresMinutes: Number(data.expiresMinutes)
+      }).then(result => {
+        if (!result.success) throw new Error(result.message || "Unable to create session.");
+        document.getElementById("sessionMsg").textContent =
+          `Session created. Classroom code: ${result.classroomCode}`;
+        refreshSessions();
+      }).catch(error => {
+        document.getElementById("sessionMsg").textContent = error.message;
+      }).finally(() => { button.disabled = false; });
+    }
+
+    function refreshSessions() {
+      api({ action: "listClassroomSessions", proctorToken }).then(result => {
+        if (!result.success) throw new Error(result.message || "Unable to load sessions.");
+        document.getElementById("sessionList").innerHTML = (result.sessions || []).map(session => `
+          <article class="session-row">
+            <strong>${esc(session.sessionName)}</strong>
+            <span>Code: <b>${esc(session.classroomCode)}</b></span>
+            <span>${esc(session.activeStudents)} / ${esc(session.maxStudents)} students</span>
+            <span>${esc(session.status)} · expires ${esc(session.expiresAt)}</span>
+            ${session.status === "OPEN" ? `<button class="nav-btn" onclick="closeSession('${esc(session.classroomSessionId)}')">CLOSE</button>` : ""}
+          </article>
+        `).join("") || "<p class='small'>No classroom sessions yet.</p>";
+      }).catch(error => {
+        document.getElementById("sessionMsg").textContent = error.message;
+      });
+    }
+
+    function closeSession(classroomSessionId) {
+      api({ action: "closeClassroomSession", proctorToken, classroomSessionId })
+        .then(result => {
+          if (!result.success) throw new Error(result.message || "Unable to close session.");
+          refreshSessions();
+        }).catch(error => {
+          document.getElementById("sessionMsg").textContent = error.message;
+        });
+    }
+
+    function signOutProctor() {
+      sessionStorage.removeItem("a1cProctorToken");
+      proctorToken = "";
+      document.getElementById("dashboardPanel").hidden = true;
+      document.getElementById("loginPanel").hidden = false;
+    }
+
+    window.onload = () => {
+      if (GOOGLE_CLIENT_ID.startsWith("REPLACE_")) {
+        showMessage("Configure GOOGLE_CLIENT_ID in proctor.html before deploying this page.");
+        return;
+      }
+      google.accounts.id.initialize({ client_id: GOOGLE_CLIENT_ID, callback: handleGoogleCredential });
+      google.accounts.id.renderButton(document.getElementById("googleSignIn"), {
+        theme: "outline", size: "large", text: "signin_with"
+      });
+    };
+  </script>
+</body>
+</html>
