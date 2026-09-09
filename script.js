@@ -2,12 +2,7 @@
    30-item TDC 1st Session + 120-item TDC Final Exam
    80% passing rate per section; 90-minute overall timer.
 */
-//const API_URL = "https://script.google.com/macros/s/AKfycbyoMQPvuxffrZMhTZ4Az4BOPojFRb_A9yBqnbUs_xZh2sl8XAbksObCDlsd-RbeM9qx";
 const API_URL = "https://script.google.com/macros/s/AKfycbzJARYn7KWb_Dw-kN2uWUHHSF7oql6zNhy8eED9Z69estm6M4Y1yBaQHgH_tEQ6PoRU/exec";
-
-
-
-//const API_URL = "https://script.google.com/macros/s/AKfycbxnvyjxQ2xD3Vr6GQY4-e0wWY-lWs0s3zu8dPtAXCY2bTfsFtCAqFnbc_H0ffNniVSv5g/exec";
 
 // Automatically include html2pdf library if not present
 if (!window.html2pdf) {
@@ -2021,13 +2016,12 @@ async function startFinalExamAfterSession1() {
   stageSubmissionStarted = true;
   try {
     // A new attempt ID is used for the Final Exam so Session 1 history is never overwritten.
-    const next = await createStageAttempt_("FINAL", finalAttemptNumber + 1);
+    const next = await createStageAttempt_("FINAL", finalAttemptNumber);
     if (!next || !next.success) {
       alert((next && next.message) || "Unable to start the Final Exam. Please try again.");
       return;
     }
 
-    finalAttemptNumber++;
     attemptId = next.attemptId;
     sessionToken = next.sessionToken;
     currentSection = 2;
@@ -2573,22 +2567,27 @@ function generatePDFBase64(results) {
   });
 }
 
-async function sendResultWithPdf(payload, results) {
-  try {
-    const response = await fetch("https://script.google.com/macros/s/AKfycbzJARYn7KWb_Dw-kN2uWUHHSF7oql6zNhy8eED9Z69estm6M4Y1yBaQHgH_tEQ6PoRU/exec", {
-      method: "POST",
-      headers: {
-        "Content-Type": "text/plain;charset=utf-8"
-      },
-      body: JSON.stringify(payload)
-    });
+async function sendResultWithPdf(payload) {
+  const response = await fetch(API_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "text/plain;charset=utf-8"
+    },
+    body: JSON.stringify(payload)
+  });
 
-    const resData = await response.json();
-    console.log("Apps Script Response:", resData);
-    return resData;
-  } catch (err) {
-    console.error("Result submission error:", err);
+  if (!response.ok) {
+    throw new Error(`Backend request failed (${response.status}).`);
   }
+
+  const resData = await response.json();
+  console.log("Apps Script Response:", resData);
+
+  if (!resData || !resData.success) {
+    throw new Error((resData && resData.message) || "The backend rejected the examination result.");
+  }
+
+  return resData;
 }
 
 async function submitExam(submissionType = "COMPLETE") {
@@ -2659,9 +2658,35 @@ async function submitExam(submissionType = "COMPLETE") {
   }
 
   // Send payload to Apps Script Web App
-  await sendResultWithPdf(payload, results);
-
-  renderResultScreen(results, submissionType);
+  try {
+    const serverResult = await sendResultWithPdf(payload);
+    renderResultScreen({
+      score1: serverResult.session1Score,
+      pct1: serverResult.session1Percent,
+      pass1: serverResult.session1Percent >= PASS_PERCENT,
+      score2: serverResult.finalScore,
+      pct2: serverResult.finalPercent,
+      pass2: serverResult.finalPercent >= PASS_PERCENT,
+      passed: serverResult.overallPassed === true
+    }, submissionType);
+  } catch (error) {
+    submitted = false;
+    resultSubmissionStarted = false;
+    const message = error && error.message
+      ? error.message
+      : "Unable to submit the examination result.";
+    if (app) {
+      app.innerHTML = `
+        <div style="text-align:center; padding: 50px 20px;">
+          <h2>Submission could not be completed</h2>
+          <p>${esc(message)}</p>
+          <button class="nav-btn primary" type="button" onclick="submitExam(${JSON.stringify(submissionType)})">
+            TRY AGAIN
+          </button>
+        </div>
+      `;
+    }
+  }
 }
 
 function renderResultScreen(results, submissionType) {
