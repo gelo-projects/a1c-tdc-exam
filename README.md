@@ -40,3 +40,23 @@ For a Git-connected Cloudflare Pages project:
 - Build output directory: repository root (`/`)
 
 Cloudflare Pages can deploy static HTML sites and automatically redeploy from connected GitHub repositories.
+
+## Proctor dashboard and classroom access
+
+`proctor.html` is a static dashboard for authorized proctors. Before deployment:
+
+1. Create a Google OAuth Web client ID with the GitHub Pages origin as an authorized
+   JavaScript origin, then replace `GOOGLE_CLIENT_ID` in `proctor.html`.
+2. Apply the server-side routes and storage changes in
+   `BACKEND_INTEGRATION.md` to the separate Apps Script `code.gs`. Put the Google client ID
+   in Apps Script Script Properties, not in a secret committed to this repository.
+3. Redeploy the Apps Script web app and update `PROCTOR_API_URL` / `AUTH_API_URL` only if
+   the deployment URL changes.
+4. Deploy the static files to GitHub Pages. The dashboard authenticates with a Google
+   identity credential; the Apps Script backend must verify the token and enforce the
+   authorized-email allowlist. Do not use a browser-supplied email or admin key.
+
+Students can continue using individual OTP. For classroom access, a proctor creates an
+open session, gives the displayed code to students, and closes the session when the room
+is finished. Classroom validation is performed before OTP and is tied to the server-created
+attempt and session token.

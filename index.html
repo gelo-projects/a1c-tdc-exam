@@ -98,6 +98,21 @@ function showStudentInformation() {
 
       <form onsubmit="requestOtp(event)">
         <label>
+          Access Method
+          <select name="accessMode" id="accessMode" onchange="toggleClassroomCode()">
+            <option value="otp">Individual OTP</option>
+            <option value="classroom">Classroom code</option>
+          </select>
+        </label>
+
+        <label id="classroomCodeField" hidden>
+          Classroom Code
+          <input name="classroomCode" id="classroomCode" autocomplete="off" maxlength="32"
+                 placeholder="Code provided by your proctor">
+          <span class="small">Your proctor must open a live classroom session first.</span>
+        </label>
+
+        <label>
           Full Name
           <input name="fullName" required>
         </label>
@@ -128,11 +143,14 @@ function showStudentInformation() {
         </label>
 
         <button class="nav-btn primary" type="submit" id="otpBtn">
-          VERIFY & REQUEST OTP
+          CONTINUE
         </button>
       </form>
 
       <p id="authMsg" class="message"></p>
+      <p class="small" style="margin-top:18px">
+        Proctors: <a href="proctor.html">open the secure proctor dashboard</a>.
+      </p>
     </div>
   `;
 }
@@ -144,18 +162,52 @@ async function requestOtp(event) {
   const message = document.getElementById("authMsg");
   const form = new FormData(event.target);
 
-  authStudent = Object.fromEntries(form.entries());
+  const formValues = Object.fromEntries(form.entries());
+  const accessMode = formValues.accessMode || "otp";
+  const classroomCode = String(formValues.classroomCode || "").trim();
+  delete formValues.accessMode;
+  delete formValues.classroomCode;
+  authStudent = formValues;
 
   button.disabled = true;
-  button.textContent = "SENDING OTP...";
+  button.textContent = accessMode === "classroom" ? "CHECKING CLASSROOM..." : "SENDING OTP...";
 
   try {
+    let classroomSessionId = "";
+    if (accessMode === "classroom") {
+      if (!classroomCode) {
+        throw new Error("Enter the classroom code provided by your proctor.");
+      }
+
+      const access = await fetch(AUTH_API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({
+          action: "validateClassroomAccess",
+          classroomCode,
+          clientId: authStudent.clientId,
+          fullName: authStudent.fullName
+        })
+      }).then(response => response.json());
+
+      if (!access.success) {
+        throw new Error(access.message || "This classroom code is invalid or expired.");
+      }
+      classroomSessionId = access.classroomSessionId || "";
+      if (!classroomSessionId) {
+        throw new Error("The classroom service did not return a session reference.");
+      }
+    }
+
     const response = await fetch(AUTH_API_URL, {
       method: "POST",
       headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify({
         action: "requestOTP",
-        ...authStudent
+        ...authStudent,
+        accessMode,
+        classroomCode: accessMode === "classroom" ? classroomCode : "",
+        classroomSessionId
       })
     });
 
@@ -170,8 +222,19 @@ async function requestOtp(event) {
   } catch (error) {
     message.textContent = error.message;
     button.disabled = false;
-    button.textContent = "VERIFY & REQUEST OTP";
+    button.textContent = "CONTINUE";
   }
+}
+
+function toggleClassroomCode() {
+  const mode = document.getElementById("accessMode")?.value;
+  const field = document.getElementById("classroomCodeField");
+  const input = document.getElementById("classroomCode");
+  if (!field || !input) return;
+  const enabled = mode === "classroom";
+  field.hidden = !enabled;
+  input.required = enabled;
+  if (!enabled) input.value = "";
 }
 
 function showOtp() {
