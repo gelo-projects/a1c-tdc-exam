@@ -35,6 +35,11 @@ textarea{min-height:80px}
 .nav-btn.primary{background:#0B7DFF;color:#fff}
 .nav-btn.submit{background:#178a4b;color:#fff}
 .nav-btn:disabled{opacity:.5;cursor:not-allowed}
+.retake-button{min-width:220px;box-shadow:0 3px 8px rgba(11,125,255,.2);transition:background .15s ease,box-shadow .15s ease,transform .15s ease}
+.retake-button:hover:not(:disabled){background:#0866d6;box-shadow:0 6px 14px rgba(11,125,255,.3);transform:translateY(-1px)}
+.retake-button:focus-visible{outline:3px solid rgba(11,125,255,.35);outline-offset:3px}
+.retake-button:active:not(:disabled){transform:translateY(0);box-shadow:0 2px 5px rgba(11,125,255,.2)}
+.retake-button:disabled{opacity:.55;cursor:not-allowed;box-shadow:none}
 .big-score{font-size:48px;font-weight:800;margin:15px 0}
 .percent{font-size:25px}
 .pass{color:#168a4b;font-size:28px;font-weight:900;margin:12px 0}
