@@ -40,6 +40,7 @@ let finalStagePassed = false;
 let session1AttemptNumber = 1;
 let finalAttemptNumber = 1;
 let examSession = "SESSION_1";
+let examType = "TDC_SESSION_1";
 let eligibilityStatus = "";
 
 const session1Questions = [
@@ -1808,6 +1809,7 @@ window.startAuthenticatedExam = function(data) {
   attemptId = data.attemptId || "";
   sessionToken = data.sessionToken || "";
   examSession = data.examSession === "FINAL" ? "FINAL" : "SESSION_1";
+  examType = data.examType || (examSession === "FINAL" ? "TDC_FINAL" : "TDC_SESSION_1");
   eligibilityStatus = data.eligibilityStatus || "";
   currentSection = examSession === "FINAL" ? 2 : 1;
   currentIndex = 0;
@@ -2033,6 +2035,7 @@ async function startFinalExamAfterSession1() {
     sessionToken = next.sessionToken;
     currentSection = 2;
     examSession = "FINAL";
+    examType = "TDC_FINAL";
     currentIndex = 0;
     answers.final = new Array(FINAL_COUNT).fill(null);
     submitted = false;
@@ -2053,9 +2056,7 @@ async function startFinalExamAfterSession1() {
 }
 
 async function confirmSubmitExam() {
-  const unanswered1 = answers.session1.filter(a => a === null).length;
-  const unanswered2 = answers.final.filter(a => a === null).length;
-  const totalUnanswered = unanswered1 + unanswered2;
+  const totalUnanswered = answers.final.filter(a => a === null).length;
 
   let msg = "Are you sure you want to submit your examination now?";
   if (totalUnanswered > 0) {
@@ -2082,8 +2083,7 @@ async function confirmSubmitExam() {
 
     finalStagePassed = true;
     stageSubmissionStarted = false;
-    // Successful Final Exam continues into the existing completion/PDF/email workflow.
-    submitExam("COMPLETE");
+    renderStageResultScreen("FINAL", result);
   } catch (err) {
     console.error(err);
     alert("Unable to submit the Final Exam stage. Please try again.");
@@ -2105,7 +2105,7 @@ function startTimer() {
     if (timer <= 0) {
       clearInterval(timerInterval);
       alert("Time is up! Your examination will now be submitted automatically.");
-      submitExam("TIMEOUT");
+      submitCurrentStageAutomatically_("TIMEOUT");
     }
   }, 1000);
 }
@@ -2206,7 +2206,7 @@ function handleSecurityViolation(reason) {
 
   const banner = document.getElementById("securityBanner");
   if (banner) {
-    banner.textContent = `SECURITY WARNING (${securityViolations}/${MAX_SECURITY_WARNINGS}): ${reason}`;
+    banner.textContent = `SECURITY WARNING (${securityViolations}/${MAX_SECURITY_WARNINGS} allowed): ${reason}`;
     banner.style.background = "#d9534f";
     banner.style.color = "#fff";
   }
@@ -2214,7 +2214,7 @@ function handleSecurityViolation(reason) {
   // Fire-and-forget backend logging. It does not block navigation or scoring.
   logSecurityEventToServer_(reason, securityViolations);
 
-  if (securityViolations >= MAX_SECURITY_WARNINGS) {
+  if (securityViolations > MAX_SECURITY_WARNINGS) {
     securityTerminationInProgress = true;
     showSecurityModalAndTerminate();
   }
@@ -2245,10 +2245,42 @@ function handleStageRequest_(payload) {
   }).then(r => r.json());
 }
 
+async function submitCurrentStageAutomatically_(submissionType) {
+  if (submitted || stageSubmissionStarted) return;
+  submitted = true;
+  stageSubmissionStarted = true;
+  clearInterval(timerInterval);
+  const stage = currentSection === 1 ? "SESSION_1" : "FINAL";
+  try {
+    const result = await submitStageToServer_(stage, getAnswers());
+    if (!result || !result.success) {
+      throw new Error((result && result.message) || "Unable to submit the timed examination stage.");
+    }
+    renderStageResultScreen(stage, result, submissionType);
+  } catch (error) {
+    submitted = false;
+    stageSubmissionStarted = false;
+    const app = document.getElementById("app");
+    if (app) {
+      app.innerHTML = `
+        <div class="auth-card" style="text-align:center;">
+          <h2>Stage submission needs attention</h2>
+          <p>${esc(error.message || "Unable to submit the stage result.")}</p>
+          <button class="nav-btn primary" type="button"
+            onclick="submitCurrentStageAutomatically_(${JSON.stringify(submissionType)})">
+            TRY AGAIN
+          </button>
+        </div>
+      `;
+    }
+  }
+}
+
 async function submitStageToServer_(stage, stageAnswers) {
   const result = await handleStageRequest_({
     action: "submitStageResult",
     stage,
+    examType,
     attemptId,
     sessionToken,
     student,
@@ -2256,6 +2288,13 @@ async function submitStageToServer_(stage, stageAnswers) {
     securityViolations,
     answers: Array.from(stageAnswers || [], v => v == null ? null : Number(v))
   });
+  if (!result || !result.success) return result;
+  if (!result.emailDelivery || result.emailDelivery.success !== true) {
+    const deliveryMessage = result.emailDelivery && result.emailDelivery.message
+      ? result.emailDelivery.message
+      : "The result was saved, but email delivery was not confirmed.";
+    throw new Error(deliveryMessage);
+  }
   return result;
 }
 
@@ -2269,7 +2308,7 @@ async function createStageAttempt_(stage, attemptNumber) {
   });
 }
 
-function renderStageResultScreen(stage, result) {
+function renderStageResultScreen(stage, result, submissionType) {
   const app = document.getElementById("app");
   if (!app) return;
 
@@ -2279,12 +2318,11 @@ function renderStageResultScreen(stage, result) {
   const buttonText = isSession1 ? "RETAKE SESSION 1" : "RETAKE FINAL EXAM";
   const message = passed
     ? isSession1
-      ? "Session 1 passed. Your eligibility was saved for the next day and the result was submitted to the office. You may continue to the Final Exam if this is a same-day session."
-      : "Final Exam result accepted. Your result was submitted to the office for linked reporting."
+      ? "Your score was saved and the completed Session 1 result was emailed to you and the office."
+      : "Your score was saved and the completed Final Exam result was emailed to you and the office."
     : isSession1
-      ? "You need at least 80% to proceed to the Final Exam."
-      : "You need at least 80% (96/120) to pass the course.";
-  const action = passed ? "continue" : "retake";
+      ? "The failed result was saved and emailed to you and the office. You may retake Session 1."
+      : "The failed result was saved and emailed to you and the office. You may retake the Final Exam.";
 
   app.innerHTML = `
     <div class="exam-shell" style="max-width:650px;margin:40px auto;text-align:center;">
@@ -2320,16 +2358,23 @@ function renderStageResultScreen(stage, result) {
           ${message}
         </p>
 
-        <button
-          id="retakeButton"
-          data-stage="${isSession1 ? "SESSION_1" : "FINAL"}"
-          data-action="${action}"
-          class="nav-btn primary retake-button"
-          type="button">
-          ${passed
-            ? (isSession1 ? "PROCEED TO FINAL EXAM" : "VIEW SUBMITTED RESULT")
-            : buttonText}
-        </button>
+        <div class="nav-row" style="justify-content:center;flex-wrap:wrap;">
+          <button id="retakeButton"
+            data-stage="${isSession1 ? "SESSION_1" : "FINAL"}"
+            data-action="${passed ? "retake" : "retake"}"
+            class="nav-btn ${passed ? "" : "primary"} retake-button"
+            type="button">${passed ? buttonText : buttonText}</button>
+          ${passed && isSession1 ? `
+            <button id="continueButton" class="nav-btn primary" type="button">
+              SUBMIT AND CONTINUE
+            </button>
+          ` : ""}
+          ${passed ? `
+            <button id="exitButton" class="nav-btn" type="button">
+              SUBMIT AND EXIT
+            </button>
+          ` : ""}
+        </div>
 
       </div>
     </div>
@@ -2342,15 +2387,32 @@ function renderStageResultScreen(stage, result) {
     retakeButton.addEventListener("click", function (event) {
       const button = event.currentTarget;
       const requestedStage = button.dataset.stage;
-      if (button.dataset.action === "continue" && requestedStage === "SESSION_1") {
-        startFinalExamAfterSession1();
-      } else if (button.dataset.action === "continue" && requestedStage === "FINAL") {
-        submitExam("FINAL_DAY_2_COMPLETE");
-      } else if (button.dataset.action === "retake" &&
-                 (requestedStage === "SESSION_1" || requestedStage === "FINAL")) {
+      if (button.dataset.action === "retake" &&
+          (requestedStage === "SESSION_1" || requestedStage === "FINAL")) {
         retakeStage(requestedStage);
       }
     });
+  }
+
+  const continueButton = document.getElementById("continueButton");
+  if (continueButton) continueButton.addEventListener("click", startFinalExamAfterSession1);
+  const exitButton = document.getElementById("exitButton");
+  if (exitButton) exitButton.addEventListener("click", () => {
+    exitExamAfterSubmission_();
+  });
+}
+
+function exitExamAfterSubmission_() {
+  clearInterval(timerInterval);
+  const app = document.getElementById("app");
+  if (app) {
+    app.innerHTML = `
+      <div class="auth-card" style="text-align:center;">
+        <h1>Submission complete</h1>
+        <p>Your stage result was saved and emailed to you and the office.</p>
+        <p class="small">You may close this window.</p>
+      </div>
+    `;
   }
 }
 
@@ -2456,13 +2518,13 @@ function showSecurityModalAndTerminate() {
     <div class="security-modal-card">
       <div class="security-modal-icon">⚠️</div>
       <h2>EXAM TERMINATED</h2>
-      <p>Multiple security violations detected (5/5). Your exam session has been invalidated and auto-submitted.</p>
+      <p>More than 5 security violations were detected. Your exam session has been invalidated and auto-submitted.</p>
     </div>
   `;
   document.body.appendChild(modal);
 
   setTimeout(() => {
-    submitExam("SECURITY_TERMINATED");
+    submitCurrentStageAutomatically_("SECURITY_TERMINATED");
   }, 3000);
 }
 
@@ -2605,6 +2667,10 @@ async function sendResultWithPdf(payload) {
 }
 
 async function submitExam(submissionType = "COMPLETE") {
+  // Legacy entry point retained for compatibility with older integrations. Stage
+  // submission is now authoritative and generates only the current stage report.
+  return submitCurrentStageAutomatically_(submissionType);
+  /*
   if (submitted || resultSubmissionStarted) return;
   resultSubmissionStarted = true;
   submitted = true;
@@ -2703,6 +2769,7 @@ async function submitExam(submissionType = "COMPLETE") {
     }
   }
 }
+  */
 
 function renderResultScreen(results, submissionType) {
   const app = document.getElementById("app");
