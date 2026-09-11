@@ -51,7 +51,15 @@
           <button class="nav-btn primary" type="submit" id="createSessionBtn">CREATE CLASSROOM SESSION</button>
         </form>
         <p id="sessionMsg" class="message"></p>
+        <section class="proctor-section" aria-labelledby="violationsHeading">
+          <h2 id="violationsHeading">Live security violations</h2>
+          <p class="small">Recent events are read from the server and never trusted from browser state.</p>
+          <div id="violationList"><p class="small">Loading live violations...</p></div>
+        </section>
+        <section class="proctor-section" aria-labelledby="sessionsHeading">
+          <h2 id="sessionsHeading">Classroom sessions</h2>
         <div id="sessionList"></div>
+        </section>
         <button class="nav-btn" type="button" onclick="signOutProctor()">SIGN OUT</button>
       </div>
     </section>
@@ -93,7 +101,7 @@
           document.getElementById("signedInAs").textContent = `Signed in as ${data.email}`;
           document.getElementById("loginPanel").hidden = true;
           document.getElementById("dashboardPanel").hidden = false;
-          refreshSessions();
+          refreshDashboard();
         })
         .catch(error => showMessage(error.message || "Unable to authorize proctor account."));
     }
@@ -121,6 +129,11 @@
       }).finally(() => { button.disabled = false; });
     }
 
+    function refreshDashboard() {
+      refreshSessions();
+      refreshViolations();
+    }
+
     function refreshSessions() {
       api({ action: "listClassroomSessions", proctorToken }).then(result => {
         if (!result.success) throw new Error(result.message || "Unable to load sessions.");
@@ -132,6 +145,7 @@
             <span>${esc(session.activeStudents)} / ${esc(session.maxStudents)} students</span>
             <span>${esc(session.status)} · expires ${esc(session.expiresAt)}</span>
             ${session.status === "OPEN" ? `<button class="nav-btn" onclick="closeSession('${esc(session.classroomSessionId)}')">CLOSE</button>` : ""}
+            ${session.status !== "OPEN" ? `<button class="nav-btn danger" onclick="deleteSession('${esc(session.classroomSessionId)}')">DELETE PAST SESSION</button>` : ""}
           </article>
         `).join("") || "<p class='small'>No classroom sessions yet.</p>";
       }).catch(error => {
@@ -139,11 +153,42 @@
       });
     }
 
+    function refreshViolations() {
+      api({ action: "listLiveSecurityViolations", proctorToken, limit: 100 }).then(result => {
+        if (!result.success) throw new Error(result.message || "Unable to load security violations.");
+        document.getElementById("violationList").innerHTML = (result.violations || []).map(violation => `
+          <article class="violation-row">
+            <strong>${esc(violation.studentName || "Unknown student")}</strong>
+            <span>${esc(violation.violationType || "Security event")}</span>
+            <time datetime="${esc(violation.timestamp)}">${esc(violation.timestamp || "Unknown time")}</time>
+          </article>
+        `).join("") || "<p class='small'>No security violations recorded.</p>";
+      }).catch(error => {
+        document.getElementById("violationList").innerHTML =
+          `<p class="message">${esc(error.message || "Unable to load security violations.")}</p>`;
+      });
+    }
+
     function closeSession(classroomSessionId) {
       api({ action: "closeClassroomSession", proctorToken, classroomSessionId })
         .then(result => {
           if (!result.success) throw new Error(result.message || "Unable to close session.");
-          refreshSessions();
+          refreshDashboard();
+        }).catch(error => {
+          document.getElementById("sessionMsg").textContent = error.message;
+        });
+    }
+
+    function deleteSession(classroomSessionId) {
+      const confirmed = window.confirm(
+        "Delete this past session? This permanently removes its classroom record and cannot be undone."
+      );
+      if (!confirmed) return;
+
+      api({ action: "deleteClassroomSession", proctorToken, classroomSessionId, confirm: true })
+        .then(result => {
+          if (!result.success) throw new Error(result.message || "Unable to delete session.");
+          refreshDashboard();
         }).catch(error => {
           document.getElementById("sessionMsg").textContent = error.message;
         });
