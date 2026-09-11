@@ -2670,6 +2670,8 @@ async function submitExam(submissionType = "COMPLETE") {
   // Legacy entry point retained for compatibility with older integrations. Stage
   // submission is now authoritative and generates only the current stage report.
   return submitCurrentStageAutomatically_(submissionType);
+}
+
   /*
   if (submitted || resultSubmissionStarted) return;
   resultSubmissionStarted = true;
