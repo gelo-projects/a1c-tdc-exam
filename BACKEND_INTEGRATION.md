@@ -80,6 +80,20 @@ Classroom creation must persist `examType`, `sessionType`, `classroomCode`, `max
 Google identity-token verification and authorized-email allowlist described in the
 existing proctor implementation. Never use a browser-supplied email as proof of identity.
 
+**Required patch for the external Apps Script:** update `createClassroomSession_()` to
+validate and persist the submitted enabled pair (`TDC_SESSION_1`/`SESSION_1` or
+`TDC_FINAL`/`FINAL`). Update the list route to return both persisted values. In
+`validateClassroomAccess_()`, load the classroom record first, reject when the submitted
+pair differs from the persisted pair, and return the persisted `examType` plus
+`examSession` (or `sessionType`) in the success response. Do not default a missing
+record value to `SESSION_1`; old records without a persisted selection must be migrated
+explicitly or closed.
+
+The answer-key PDF must retain its existing four-column template layout. In
+`fillAnswerGrid_()`, write the selected answer (for example `C`) to the answer column,
+the correct answer (`C`) to the correct-answer column, and only `✓` or `✗` to the result
+column. Do not write combined values such as `C ✓` into the answer cell.
+
 ## Stage submission and result delivery
 
 The exam calls:
