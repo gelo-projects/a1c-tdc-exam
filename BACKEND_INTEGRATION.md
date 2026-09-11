@@ -167,3 +167,144 @@ each office message contains only the relevant stage PDF and answer key.
 
 Keep secrets, OAuth configuration, and Apps Script admin credentials in Script Properties,
 not in this repository. Redeploy the web app after applying these contracts.
+
+## Paste-ready Apps Script additions
+
+The following sections are for the external `code.gs` only. They are intentionally
+separate from the static repository because the deployed Apps Script is not tracked here.
+Paste the route branches into `doPost(e)` before the unknown-action response, and paste
+the helper functions alongside the existing proctor helpers. All routes must continue to
+verify the Google identity credential at the server and must never trust a browser-supplied
+email address.
+
+### Restore the professional office result email
+
+Use the legacy source's existing `sendExamResultEmail_()` call from the stage-submit
+handler, passing the already-scored, persisted result and only the PDF attachment for the
+submitted stage:
+
+```js
+const emailResult = sendExamResultEmail_(result, stageAttachments);
+if (!emailResult || !emailResult.emailSent) {
+  throw new Error("Result saved, but office/student email delivery did not complete.");
+}
+```
+
+Restore these existing helpers from the legacy source without changing the PDF code:
+`sendExamResultEmail_`, `buildExamResultEmailHtml_`, `buildStudentResultEmailHtml_`,
+`buildExamResultPlainText_`, `buildStudentResultPlainText_`, and `answerTableHtml_`.
+`buildExamResultEmailHtml_(result, true)` is the office copy and must render the LTO
+header, student information, examination results table, overall result, passing rate,
+completion status, security-violation count, attempt ID, and the full answer records.
+`answerTableHtml_(answers, key)` must keep the four columns exactly as `No.`, `Answer`,
+`Correct`, and `Result`, with one row per key entry and only `✓` or `✗` in `Result`.
+
+The result object passed to those helpers must be stage-aware and contain real values,
+not empty defaults for the other stage:
+
+```js
+const result = {
+  student: persisted.student,
+  attemptId: persisted.attemptId,
+  submittedAt: persisted.submittedAt || new Date(),
+  examType: persisted.examType,
+  completionStatus: persisted.completionStatus,
+  securityViolations: Number(persisted.securityViolations || 0),
+  overallPassed: Boolean(persisted.passed),
+  session1Score: stage === "SESSION_1" ? score : null,
+  session1Percent: stage === "SESSION_1" ? percent : null,
+  session1Passed: stage === "SESSION_1" ? passed : null,
+  session1Answers: stage === "SESSION_1" ? persisted.answers : [],
+  finalScore: stage === "FINAL" ? score : null,
+  finalPercent: stage === "FINAL" ? percent : null,
+  finalPassed: stage === "FINAL" ? passed : null,
+  finalAnswers: stage === "FINAL" ? persisted.answers : []
+};
+```
+
+Do not alter `fillAnswerGrid_()` or either LTO PDF template while restoring this email
+HTML. The email is an independent HTML representation of the scored answer records.
+
+### Retrieve and display live security violations
+
+Add these branches to `doPost(e)`:
+
+```js
+if (action === "listLiveSecurityViolations") {
+  return jsonResponse(listLiveSecurityViolations_(data));
+}
+if (action === "deleteClassroomSession") {
+  return jsonResponse(deleteClassroomSession_(data));
+}
+```
+
+Store every `securityEvent` with a server timestamp, attempt ID, normalized student name,
+violation type, and classroom session ID in a dedicated `Security Events` sheet (or an
+equivalent server-side store). The route used by `proctor.html` is:
+
+```js
+function listLiveSecurityViolations_(data) {
+  requireAuthorizedProctor_(data.proctorToken);
+  const limit = Math.min(Math.max(Number(data.limit || 100), 1), 200);
+  const sheet = getRequiredSheet_("Security Events",
+    ["Timestamp", "Attempt ID", "Student Name", "Violation Type", "Classroom Session ID"]);
+  const values = sheet.getDataRange().getValues();
+  const rows = values.slice(1).filter(row => row[0]).slice(-limit).reverse();
+  return {
+    success: true,
+    violations: rows.map(row => ({
+      timestamp: new Date(row[0]).toISOString(),
+      attemptId: String(row[1] || ""),
+      studentName: String(row[2] || "Unknown student"),
+      violationType: String(row[3] || "Security event"),
+      classroomSessionId: String(row[4] || "")
+    }))
+  };
+}
+```
+
+Update `logSecurityEvent` (or its shared logger) to append the same five fields
+atomically under a script lock. The frontend displays only the server response:
+student name, violation type, and timestamp. Return `{success:false,message}` for missing
+or inaccessible storage; do not return an empty success-shaped fallback.
+
+### Safely delete past classroom sessions
+
+Deletion is deliberately restricted to closed/expired sessions and requires an explicit
+confirmation field from the dashboard. Add this server helper:
+
+```js
+function deleteClassroomSession_(data) {
+  requireAuthorizedProctor_(data.proctorToken);
+  if (data.confirm !== true) {
+    return { success: false, message: "Explicit deletion confirmation is required." };
+  }
+  if (!data.classroomSessionId) {
+    return { success: false, message: "Classroom session ID is required." };
+  }
+
+  const lock = LockService.getScriptLock();
+  lock.waitLock(10000);
+  try {
+    const sessions = getClassroomSessionStore_();
+    const record = sessions.get(data.classroomSessionId);
+    if (!record) return { success: false, message: "Classroom session was not found." };
+    if (String(record.status || "").toUpperCase() === "OPEN") {
+      return { success: false, message: "Close the classroom session before deleting it." };
+    }
+    sessions.delete(data.classroomSessionId);
+    logProctorAction_("DELETE_CLASSROOM_SESSION", data.classroomSessionId);
+    return { success: true, classroomSessionId: data.classroomSessionId };
+  } finally {
+    lock.releaseLock();
+  }
+}
+```
+
+`getClassroomSessionStore_()` and `logProctorAction_()` above are placeholders for the
+existing persistent store and audit logger in `code.gs`; use those existing functions
+rather than browser storage. If sessions are stored in Sheets, delete only the matching
+record row under the same lock and retain an audit row containing the proctor identity,
+timestamp, session ID, and action. `listClassroomSessions` must return `status`,
+`classroomSessionId`, `sessionName`, `classroomCode`, `activeStudents`, `maxStudents`,
+and `expiresAt`, so the UI offers deletion only for non-`OPEN` sessions.

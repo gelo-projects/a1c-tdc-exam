@@ -52,8 +52,14 @@ textarea{min-height:80px}
 .small{font-size:12px;color:#667085}
 .proctor-card{max-width:720px}
 .proctor-card a{color:#0B7DFF}
+.proctor-section{margin-top:24px;padding-top:8px;border-top:1px solid #e3e7ee}
+.proctor-section h2{font-size:18px;margin:8px 0}
 .session-row{display:grid;gap:6px;margin:18px 0;padding:14px;background:#f5f7fa;border-radius:10px}
+.violation-row{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:10px;padding:10px 12px;border-bottom:1px solid #e3e7ee;font-size:13px}
+.violation-row time{color:#667085}
+.nav-btn.danger{background:#fff0ee;color:#b42318;border:1px solid #f4c7c2}
 @media(max-width:600px){body{padding:10px}.exam-header,.student-strip{flex-direction:column;gap:8px;align-items:flex-start}.question-grid,.review-grid{grid-template-columns:repeat(6,1fr)}.nav-row{flex-wrap:wrap}.nav-btn{flex:1}.question-card h2{font-size:18px}}
+@media(max-width:600px){.violation-row{grid-template-columns:1fr;gap:3px}}
 
 /* Enhanced Previous / Next button styling */
 #navArea {
