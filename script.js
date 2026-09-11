@@ -42,6 +42,9 @@ let finalAttemptNumber = 1;
 let examSession = "SESSION_1";
 let examType = "TDC_SESSION_1";
 let eligibilityStatus = "";
+let lifecycleLeaveTimer = null;
+let lifecycleLastHiddenAt = 0;
+const LIFECYCLE_STATE_KEY = "a1cExamLifecycle";
 
 const session1Questions = [
   {
@@ -1805,11 +1808,19 @@ function esc(value) {
 }
 
 window.startAuthenticatedExam = function(data) {
+  const serverExamType = String(data.examType || "").trim().toUpperCase();
+  const serverExamSession = String(data.examSession || "").trim().toUpperCase();
+  const validSelection =
+    (serverExamType === "TDC_SESSION_1" && serverExamSession === "SESSION_1") ||
+    (serverExamType === "TDC_FINAL" && serverExamSession === "FINAL");
+  if (!validSelection || !data.attemptId || !data.sessionToken) {
+    throw new Error("The authenticated exam session is missing a valid server selection.");
+  }
   student = data.student || {};
   attemptId = data.attemptId || "";
   sessionToken = data.sessionToken || "";
-  examSession = data.examSession === "FINAL" ? "FINAL" : "SESSION_1";
-  examType = data.examType || (examSession === "FINAL" ? "TDC_FINAL" : "TDC_SESSION_1");
+  examSession = serverExamSession;
+  examType = serverExamType;
   eligibilityStatus = data.eligibilityStatus || "";
   currentSection = examSession === "FINAL" ? 2 : 1;
   currentIndex = 0;
@@ -1996,6 +2007,7 @@ async function proceedToFinalExam() {
 
   // Record/verify Session 1 on the server before unlocking the Final Exam.
   stageSubmissionStarted = true;
+  setStageProcessingState_("CHECKING RESULTS...", "proceed");
   try {
     const result = await submitStageToServer_("SESSION_1", answers.session1);
     if (!result || !result.success) {
@@ -2016,6 +2028,7 @@ async function proceedToFinalExam() {
     alert("Unable to verify Session 1 result. Please try again.");
   } finally {
     stageSubmissionStarted = false;
+    restoreStageProcessingState_();
   }
 }
 
@@ -2023,6 +2036,7 @@ async function startFinalExamAfterSession1() {
   if (submitted || stageSubmissionStarted || !session1Passed) return;
 
   stageSubmissionStarted = true;
+  setStageProcessingState_("RESETTING EXAM...", "continue");
   try {
     // A new attempt ID is used for the Final Exam so Session 1 history is never overwritten.
     const next = await createStageAttempt_("FINAL", finalAttemptNumber);
@@ -2052,6 +2066,7 @@ async function startFinalExamAfterSession1() {
     alert("Unable to proceed to the Final Exam. Please try again.");
   } finally {
     stageSubmissionStarted = false;
+    restoreStageProcessingState_();
   }
 }
 
@@ -2067,6 +2082,7 @@ async function confirmSubmitExam() {
 
   if (stageSubmissionStarted || submitted) return;
   stageSubmissionStarted = true;
+  setStageProcessingState_("SUBMITTING RESULT...", "submit");
 
   try {
     const result = await submitStageToServer_("FINAL", answers.final);
@@ -2089,7 +2105,31 @@ async function confirmSubmitExam() {
     alert("Unable to submit the Final Exam stage. Please try again.");
   } finally {
     if (!finalStagePassed) stageSubmissionStarted = false;
+    restoreStageProcessingState_();
   }
+}
+
+function setStageProcessingState_(label, action) {
+  const buttons = {
+    proceed: document.querySelector('#navArea button[onclick*="proceedToFinalExam"]'),
+    submit: document.querySelector('#navArea button[onclick*="confirmSubmitExam"]'),
+    continue: document.getElementById("continueButton")
+  };
+  const button = buttons[action];
+  if (!button) return;
+  button.disabled = true;
+  button.dataset.originalLabel = button.textContent;
+  button.textContent = label;
+}
+
+function restoreStageProcessingState_() {
+  document.querySelectorAll("#navArea button, #continueButton").forEach(button => {
+    if (button.dataset.originalLabel) {
+      button.textContent = button.dataset.originalLabel;
+      delete button.dataset.originalLabel;
+      button.disabled = false;
+    }
+  });
 }
 
 function startTimer() {
@@ -2124,6 +2164,8 @@ function initializeSecurityMonitoring() {
   document.addEventListener("visibilitychange", onSecurityVisibilityChange, true);
   window.addEventListener("pagehide", onSecurityPageHide, true);
   window.addEventListener("pageshow", onSecurityPageShow, true);
+  window.addEventListener("freeze", onSecurityFreeze, true);
+  window.addEventListener("resume", onSecurityResume, true);
   document.addEventListener("contextmenu", onSecurityContextMenu, true);
   document.addEventListener("keydown", onSecurityKeydown, true);
   document.addEventListener("copy", onSecurityClipboard, true);
@@ -2137,29 +2179,54 @@ function attachSecurityListeners() {
 }
 
 function onSecurityVisibilityChange() {
-  if (!document.hidden || submitted) return;
-
-  // Let mobile browsers finish updating visibility before recording the leave.
-  setTimeout(() => {
-    if (document.visibilityState !== "visible" && !submitted) {
-      recordSecurityLeave_("Switched tab or minimized window");
-    }
-  }, 0);
+  if (submitted) return;
+  if (document.hidden) {
+    lifecycleLastHiddenAt = Date.now();
+    persistLifecycleState_("hidden");
+    clearTimeout(lifecycleLeaveTimer);
+    lifecycleLeaveTimer = setTimeout(() => {
+      if (document.visibilityState !== "visible" && !submitted) {
+        recordSecurityLeave_("Switched tab or minimized window");
+      }
+    }, 350);
+  } else {
+    clearTimeout(lifecycleLeaveTimer);
+    persistLifecycleState_("visible");
+  }
 }
 
 function onSecurityPageHide(event) {
   if (submitted || event.persisted) return;
-
-  // pagehide is the reliable signal when a mobile browser backgrounds or navigates away.
-  setTimeout(() => {
-    if (!submitted) {
+  persistLifecycleState_("pagehide");
+  clearTimeout(lifecycleLeaveTimer);
+  lifecycleLeaveTimer = setTimeout(() => {
+    if (!submitted && document.visibilityState !== "visible") {
       recordSecurityLeave_("Left exam page or switched app");
     }
-  }, 0);
+  }, 350);
 }
 
 function onSecurityPageShow() {
-  // A pageshow after bfcache restore is normal lifecycle activity, not a violation.
+  clearTimeout(lifecycleLeaveTimer);
+  if (!submitted) persistLifecycleState_("visible");
+}
+
+function onSecurityFreeze() {
+  if (!submitted) persistLifecycleState_("frozen");
+}
+
+function onSecurityResume() {
+  if (!submitted) persistLifecycleState_("resumed");
+}
+
+function persistLifecycleState_(state) {
+  try {
+    sessionStorage.setItem(LIFECYCLE_STATE_KEY, JSON.stringify({
+      state,
+      timestamp: Date.now(),
+      attemptId
+    }));
+  } catch (_) {}
 }
 
 function recordSecurityLeave_(reason) {
@@ -2423,6 +2490,11 @@ async function retakeStage(stage) {
   }
 
   window.retakeInProgress = true;
+  const retakeButton = document.getElementById("retakeButton");
+  if (retakeButton) {
+    retakeButton.disabled = true;
+    retakeButton.textContent = "CLEANING ANSWERS...";
+  }
 
   const isSession1 = stage === "SESSION_1";
   const nextAttemptNumber = isSession1
@@ -2476,6 +2548,7 @@ async function retakeStage(stage) {
     // --------------------------------------------------
     attemptId = next.attemptId;
     sessionToken = next.sessionToken;
+    if (retakeButton) retakeButton.textContent = "RESETTING EXAM...";
 
     console.log(
       "Retake started successfully:",
@@ -2508,6 +2581,10 @@ async function retakeStage(stage) {
   } finally {
     // Always release the lock, even if the request fails
     window.retakeInProgress = false;
+    if (retakeButton && document.body.contains(retakeButton)) {
+      retakeButton.disabled = false;
+      retakeButton.textContent = isSession1 ? "RETAKE SESSION 1" : "RETAKE FINAL EXAM";
+    }
   }
 }
 

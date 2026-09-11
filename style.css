@@ -7,7 +7,9 @@ body{font-family:Arial,sans-serif;margin:0;padding:20px;background:#ECEFF7;color
 .auth-card h1{margin:8px 0}
 .subtitle{font-size:18px;font-weight:700}
 label{display:block;text-align:left;font-size:14px;font-weight:700;margin:14px 0}
-input,textarea{display:block;width:100%;margin-top:6px;padding:12px;border:1px solid #ccd3df;border-radius:8px;font:inherit}
+input,textarea,select{display:block;width:100%;margin-top:6px;padding:12px;border:1px solid #ccd3df;border-radius:8px;font:inherit;background:#fff;color:inherit}
+input:focus,textarea:focus,select:focus{outline:3px solid rgba(11,125,255,.18);border-color:#0B7DFF}
+label select{cursor:pointer}
 textarea{min-height:80px}
 .message{color:#c0392b;min-height:20px}
 .attempt{background:#f3f6fb;padding:10px;border-radius:8px;font-size:13px}

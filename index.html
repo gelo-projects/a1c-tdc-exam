@@ -84,6 +84,18 @@ let pendingExamAuth = null;
 let otpResendCooldownTimer = null;
 let otpResendCooldownSeconds = 0;
 
+function normalizeExamSelection(examType, examSession) {
+  const type = String(examType || "").trim().toUpperCase();
+  const session = String(examSession || "").trim().toUpperCase();
+  if (type === "TDC_SESSION_1" && session === "SESSION_1") {
+    return { examType: type, examSession: session };
+  }
+  if (type === "TDC_FINAL" && session === "FINAL") {
+    return { examType: type, examSession: session };
+  }
+  return null;
+}
+
 function esc(value) {
   return String(value ?? "").replace(/[&<>"']/g, c => ({
     "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
@@ -221,12 +233,16 @@ async function requestOtp(event) {
 
       // These credentials must come from the server response; never derive or accept them from form data.
       authAttemptId = data.attemptId;
+      const serverSelection = normalizeExamSelection(data.examType, data.examSession || data.sessionType);
+      if (!serverSelection) {
+        throw new Error("Classroom validation returned an invalid exam selection.");
+      }
       showSecurityReminder({
         student: authStudent,
         attemptId: data.attemptId,
         sessionToken: data.sessionToken,
-        examSession: data.examSession || examSession,
-        examType: data.examType || examType,
+        examSession: serverSelection.examSession,
+        examType: serverSelection.examType,
         eligibilityStatus: data.eligibilityStatus || ""
       });
       return;
@@ -424,12 +440,16 @@ async function verifyOtp(event) {
 
     clearOtpResendCooldown();
 
+    const serverSelection = normalizeExamSelection(data.examType, data.examSession);
+    if (!serverSelection) {
+      throw new Error("OTP verification returned an invalid exam selection.");
+    }
     showSecurityReminder({
       student: authStudent,
       attemptId: data.attemptId,
       sessionToken: data.sessionToken,
-      examSession: data.examSession || "SESSION_1",
-      examType: data.examType || (data.examSession === "FINAL" ? "TDC_FINAL" : "TDC_SESSION_1"),
+      examSession: serverSelection.examSession,
+      examType: serverSelection.examType,
       eligibilityStatus: data.eligibilityStatus || ""
     });
   } catch (error) {
