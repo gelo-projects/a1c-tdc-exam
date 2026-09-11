@@ -80,6 +80,7 @@
 const AUTH_API_URL = "https://script.google.com/macros/s/AKfycbxX6uU2wrEG_eHxqIGt1o2oj-W_9ubgO0UU_cQEjMb_Q7w-NUkEFn4Ee7eSsfjijbWg/exec";
 let authStudent = {};
 let authAttemptId = "";
+let pendingExamAuth = null;
 let otpResendCooldownTimer = null;
 let otpResendCooldownSeconds = 0;
 
@@ -105,13 +106,15 @@ function showStudentInformation() {
           </select>
         </label>
 
-        <label id="examSessionField">
-          Exam Session
-          <select name="examSession" id="examSession">
-            <option value="SESSION_1">Day 1 — Session 1</option>
-            <option value="FINAL">Day 2 — Final Exam</option>
+        <label>
+          Exam Type
+          <select name="examType" id="examType" required>
+            <option value="TDC_SESSION_1">TDC 1st Session</option>
+            <option value="TDC_FINAL">TDC Final Exam</option>
+            <option value="PDC_SET_1" disabled>PDC Set 1 — Coming soon</option>
+            <option value="PDC_SET_2" disabled>PDC Set 2 — Coming soon</option>
           </select>
-          <span class="small">For Day 2, use the new Final Exam classroom code provided by your proctor.</span>
+          <span class="small">PDC question banks are not available yet.</span>
         </label>
 
         <label id="classroomCodeField" hidden>
@@ -174,10 +177,11 @@ async function requestOtp(event) {
   const formValues = Object.fromEntries(form.entries());
   const accessMode = formValues.accessMode || "otp";
   const classroomCode = String(formValues.classroomCode || "").trim();
-  const examSession = formValues.examSession || "SESSION_1";
+  const examType = formValues.examType || "TDC_SESSION_1";
+  const examSession = examType === "TDC_FINAL" ? "FINAL" : "SESSION_1";
   delete formValues.accessMode;
   delete formValues.classroomCode;
-  delete formValues.examSession;
+  delete formValues.examType;
   authStudent = formValues;
 
   button.disabled = true;
@@ -195,11 +199,10 @@ async function requestOtp(event) {
         method: "POST",
         headers: { "Content-Type": "text/plain;charset=utf-8" },
         body: JSON.stringify({
-          action: examSession === "FINAL"
-            ? "validateFinalClassroomAccess"
-            : "validateClassroomAccess",
+          action: "validateClassroomAccess",
           ...authStudent,
           classroomCode,
+          examType,
           sessionType: examSession
         })
       });
@@ -218,11 +221,12 @@ async function requestOtp(event) {
 
       // These credentials must come from the server response; never derive or accept them from form data.
       authAttemptId = data.attemptId;
-      window.startAuthenticatedExam({
+      showSecurityReminder({
         student: authStudent,
         attemptId: data.attemptId,
         sessionToken: data.sessionToken,
         examSession: data.examSession || examSession,
+        examType: data.examType || examType,
         eligibilityStatus: data.eligibilityStatus || ""
       });
       return;
@@ -234,9 +238,9 @@ async function requestOtp(event) {
       body: JSON.stringify({
         action: "requestOTP",
         ...authStudent,
+        examType,
         examSession,
-        accessMode,
-        classroomCode: accessMode === "classroom" ? classroomCode : ""
+        accessMode
       })
     });
 
@@ -264,8 +268,6 @@ function toggleClassroomCode() {
   field.hidden = !enabled;
   input.required = enabled;
   if (!enabled) input.value = "";
-  const sessionField = document.getElementById("examSessionField");
-  if (sessionField) sessionField.hidden = false;
 }
 
 function showOtp() {
@@ -422,11 +424,12 @@ async function verifyOtp(event) {
 
     clearOtpResendCooldown();
 
-    window.startAuthenticatedExam({
+    showSecurityReminder({
       student: authStudent,
       attemptId: data.attemptId,
       sessionToken: data.sessionToken,
       examSession: data.examSession || "SESSION_1",
+      examType: data.examType || (data.examSession === "FINAL" ? "TDC_FINAL" : "TDC_SESSION_1"),
       eligibilityStatus: data.eligibilityStatus || ""
     });
   } catch (error) {
@@ -434,6 +437,54 @@ async function verifyOtp(event) {
     button.disabled = false;
     button.textContent = "VERIFY OTP";
   }
+}
+
+function showSecurityReminder(authData) {
+  pendingExamAuth = authData;
+  document.getElementById("app").innerHTML = `
+    <div class="auth-card">
+      <div class="brand">A1C DRIVING ACADEMY</div>
+      <h1>BEFORE YOU START</h1>
+      <p class="subtitle">Examination monitoring reminder</p>
+      <div class="security-banner">
+        <p><strong>This exam is monitored.</strong></p>
+        <p>Minimizing or switching away from this window, attempting to copy or paste,
+          or using browser search/tools can count as a security violation.</p>
+        <p>You may receive a maximum of <strong>5 violations</strong>. A sixth violation
+          terminates the exam and submits the current stage automatically.</p>
+      </div>
+      <label style="display:flex;gap:10px;align-items:flex-start;font-weight:400;">
+        <input id="securityReminderAck" type="checkbox" style="width:auto;margin-top:3px;" required>
+        <span>I understand the monitoring rules and will remain on the exam window.</span>
+      </label>
+      <button class="nav-btn primary" type="button" id="startExamBtn" disabled>
+        ACKNOWLEDGE AND START EXAM
+      </button>
+      <p id="securityReminderMsg" class="message"></p>
+    </div>
+  `;
+
+  const acknowledgement = document.getElementById("securityReminderAck");
+  const startButton = document.getElementById("startExamBtn");
+  acknowledgement.addEventListener("change", () => {
+    startButton.disabled = !acknowledgement.checked;
+  });
+  startButton.addEventListener("click", continueAfterSecurityReminder);
+}
+
+function continueAfterSecurityReminder() {
+  if (!pendingExamAuth) return;
+  const acknowledgement = document.getElementById("securityReminderAck");
+  if (!acknowledgement || !acknowledgement.checked) return;
+  const authData = pendingExamAuth;
+  pendingExamAuth = null;
+  if (typeof window.startAuthenticatedExam !== "function") {
+    const message = document.getElementById("securityReminderMsg");
+    if (message) message.textContent = "Exam engine is still loading. Please try again in a moment.";
+    pendingExamAuth = authData;
+    return;
+  }
+  window.startAuthenticatedExam(authData);
 }
 
 showStudentInformation();

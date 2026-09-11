@@ -31,12 +31,14 @@
             <input name="sessionName" required maxlength="80" placeholder="Morning TDC batch">
           </label>
           <label>
-            Exam session
-            <select name="sessionType" required>
-              <option value="SESSION_1">Day 1 — Session 1</option>
-              <option value="FINAL">Day 2 — Final Exam</option>
+            Exam type
+            <select name="examType" required>
+              <option value="TDC_SESSION_1">TDC 1st Session</option>
+              <option value="TDC_FINAL">TDC Final Exam</option>
+              <option value="PDC_SET_1" disabled>PDC Set 1 — Coming soon</option>
+              <option value="PDC_SET_2" disabled>PDC Set 2 — Coming soon</option>
             </select>
-            <span class="small">Create a new classroom code for each exam day.</span>
+            <span class="small">Create a separate classroom code for each enabled exam type.</span>
           </label>
           <label>
             Max students
@@ -105,7 +107,8 @@
         action: "createClassroomSession",
         proctorToken,
         sessionName: data.sessionName,
-        sessionType: data.sessionType,
+        examType: data.examType,
+        sessionType: data.examType === "TDC_FINAL" ? "FINAL" : "SESSION_1",
         maxStudents: Number(data.maxStudents),
         expiresMinutes: Number(data.expiresMinutes)
       }).then(result => {

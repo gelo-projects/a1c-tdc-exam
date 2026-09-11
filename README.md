@@ -62,19 +62,16 @@ is finished. The proctor must select `Day 1 — Session 1` or `Day 2 — Final E
 always uses a new classroom code. Classroom validation is performed before OTP and is tied
 to the server-created attempt and session token.
 
-## Two-day operation
+## Exam selection and operation
 
-1. On Day 1, create a `SESSION_1` classroom session. A passing, server-scored Session 1
-   submission writes `SESSION_1_PASSED` / `FINAL_ELIGIBLE` to the durable `Exam Stages` sheet
-   and displays that the result was submitted to the office.
-2. On Day 2, create a new `FINAL` classroom session. The student selects `Day 2 — Final
-   Exam`, enters the new code and the same identifying details, and the backend verifies
-   the durable eligibility record before issuing a fresh server-generated attempt ID and
-   session token.
-3. A final attempt transitions to `FINAL_ATTEMPT_CREATED` and then `FINAL_COMPLETED`.
-   Duplicate joins, completed finals, mismatched identity, expired codes, and ineligible
-   students are rejected server-side.
+The entry flow first selects an access method (individual OTP or classroom code), then an
+exam type: TDC 1st Session or TDC Final Exam. PDC Set 1 and Set 2 remain visible as disabled
+“Coming soon” choices until their question banks are available. TDC Final is a standalone
+exam and does not require a previously passed Session 1.
 
-Apply the paste-ready Apps Script changes in `BACKEND_INTEGRATION.md` to the user's separate
-`code.gs`. This repository does not contain or deploy that file, and no secrets should be
-added here.
+After each stage, the server-scored result is shown with the score and pass/fail status.
+Failed stages offer a retake. A passed Session 1 offers **Submit and Exit** or **Submit and
+Continue** to a fresh Final attempt; Final ends after submission. Every completed stage is
+saved and emailed to the student and office. Apply the exact Apps Script contracts in
+`BACKEND_INTEGRATION.md` to the separate `code.gs`; this repository does not contain or
+deploy that file, and no secrets should be added here.
